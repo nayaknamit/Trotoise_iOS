@@ -6,7 +6,7 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "SCFacebook.h"
-
+#
 @import GoogleMaps;
 
 @interface AppDelegate ()
@@ -106,17 +106,20 @@ didSignInForUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
     // Perform any operations on signed in user here.
     NSMutableDictionary * userDict = [[NSMutableDictionary alloc] init];
-    
-    [userDict setObject:user.userID forKey:@"userID"];
-    [userDict setObject:user.authentication.idToken forKey:@"idToken"];
-    [userDict setObject:user.profile.name forKey:@"name"];
-    [userDict setObject:user.profile.email forKey:@"email"];
-    if(user.profile.hasImage){
-        [userDict setObject:[user.profile imageURLWithDimension:110] forKey:@"imageUrl"];
-        
+    if(user!=nil){
+        [userDict setObject:user.userID forKey:@"userID"];
+        [userDict setObject:user.authentication.idToken forKey:@"idToken"];
+        [userDict setObject:user.profile.name forKey:@"name"];
+        [userDict setObject:user.profile.email forKey:@"email"];
+        if(user.profile.hasImage){
+            [userDict setObject:[user.profile imageURLWithDimension:110] forKey:@"imageUrl"];
+            
+            
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"GOOGLE_SIGIN_PROFILE" object:userDict];
         
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GOOGLE_SIGIN_PROFILE" object:userDict];
+    
 }
 
 -(void)signIn:(GIDSignIn *)signIn

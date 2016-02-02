@@ -22,6 +22,7 @@
 		B411FDEC1C5E3DE300BB96C7 /* LanguageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDEB1C5E3DE300BB96C7 /* LanguageTableView.m */; };
 		B411FDF01C5E81E800BB96C7 /* LanguageDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */; };
 		B411FDF31C5E830600BB96C7 /* LanguageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */; };
+		B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
@@ -123,6 +124,8 @@
 		B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageDS.m; sourceTree = "<group>"; };
 		B411FDF11C5E830600BB96C7 /* LanguageDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageDataManager.h; sourceTree = "<group>"; };
 		B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageDataManager.m; sourceTree = "<group>"; };
+		B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInUserDS.h; sourceTree = "<group>"; };
+		B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInUserDS.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 			children = (
 				B411FDF11C5E830600BB96C7 /* LanguageDataManager.h */,
 				B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */,
+				B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */,
+				B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -831,6 +836,7 @@
 				B4E2CA8E1BD00F970050FC3F /* MonumentList.m in Sources */,
 				B4D0D70B1BD0969500B828EF /* UIImageView+AFNetworking.m in Sources */,
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
+				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,
