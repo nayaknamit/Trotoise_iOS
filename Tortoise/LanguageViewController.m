@@ -11,6 +11,7 @@
 #import "KLCPopup.h"
 #import "LanguageTableView.h"
 #import "LanguageDS.h"
+#import "LoggedInUserDS.h"
 @interface LanguageViewController ()<LanguageTableViewDelegate>
 @property (nonatomic,strong) LanguageTableView *languageTableView;
 @property (nonatomic,strong) KLCPopup *klcPopView;
@@ -18,7 +19,8 @@
 @property (nonatomic,weak) IBOutlet UIImageView *speakrImageView;
 @property (nonatomic,weak) IBOutlet UIImageView *textCheckBoxImageView;
 @property (nonatomic,weak) IBOutlet UIImageView *audioCheckBoxImageView;
-
+@property (nonatomic,weak) IBOutlet UILabel *loggedInUserLbl;
+@property (nonatomic,weak) IBOutlet UIImageView *profileImageView;
 
 
 @end
@@ -29,6 +31,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    
+    self.loggedInUserLbl.text = [NSString stringWithFormat:@"Welcome %@",loggedInUser.name];
+    if(loggedInUser.imageUrl!=nil){
+            [self.profileImageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:loggedInUser.imageUrl]]];
+    }
     
 UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
                                        initWithTarget:self action:@selector(onTapGestureEventFired:)] ;

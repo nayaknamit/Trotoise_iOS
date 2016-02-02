@@ -6,11 +6,11 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "SCFacebook.h"
-#
+#import "LoggedInUserDS.h"
 @import GoogleMaps;
 
 @interface AppDelegate ()
-
+@property (nonatomic,strong) LoggedInUserDS *loggedInUserDS;
 @end
 
 @implementation AppDelegate
@@ -105,18 +105,20 @@
 didSignInForUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
     // Perform any operations on signed in user here.
-    NSMutableDictionary * userDict = [[NSMutableDictionary alloc] init];
+    _loggedInUserDS = [[LoggedInUserDS alloc] init];
     if(user!=nil){
-        [userDict setObject:user.userID forKey:@"userID"];
-        [userDict setObject:user.authentication.idToken forKey:@"idToken"];
-        [userDict setObject:user.profile.name forKey:@"name"];
-        [userDict setObject:user.profile.email forKey:@"email"];
+        
+        [_loggedInUserDS setName:user.profile.name];
+        [_loggedInUserDS setUserID:user.userID];
+        [_loggedInUserDS setAuthenticationID:user.authentication.idToken];
+        [_loggedInUserDS setEmail:user.profile.email];
+        [_loggedInUserDS setIsFacebookLoggedIn:NO];
         if(user.profile.hasImage){
-            [userDict setObject:[user.profile imageURLWithDimension:110] forKey:@"imageUrl"];
+            [_loggedInUserDS setImageUrl:[user.profile imageURLWithDimension:110]];
             
             
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GOOGLE_SIGIN_PROFILE" object:userDict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"GOOGLE_SIGIN_PROFILE" object:_loggedInUserDS];
         
     }
     
@@ -128,6 +130,48 @@ withError:(NSError *)error {
     // Perform any operations when the user disconnects from app here.
     // ...
 }
+
+-(LoggedInUserDS *)getLoggedInUserData{
+    return (_loggedInUserDS!=nil)?_loggedInUserDS:nil;
+    
+}
+
+/*
+ {
+ birthday = "02/08/1986";
+ email = "namitnayak@gmail.com";
+ id = 10153882061369557;
+ name = "Namit Nayak";
+ picture =     {
+ data =         {
+ "is_silhouette" = 0;
+ url = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/p50x50/11377271_10153334225094557_1366334402212167737_n.jpg?oh=72348cc6426b827510a80b17282a80ca&oe=573C69DD&__gda__=1463698904_4c472358c19a12012973bfb7e2083f0d";
+ };
+ };
+ }
+ 
+ */
+
+-(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook{
+
+    if(_loggedInUserDS !=nil){
+        _loggedInUserDS = nil;
+    }
+    _loggedInUserDS = [[LoggedInUserDS alloc] init];
+    _loggedInUserDS.name = [userDict objectForKey:@"name"];
+    _loggedInUserDS.userID = [userDict objectForKey:@"id"];
+    _loggedInUserDS.authenticationID = [userDict objectForKey:@"id"];
+    _loggedInUserDS.isFacebookLoggedIn = isFacebook;
+    _loggedInUserDS.email = [userDict objectForKey:@"email"];
+    if ([userDict objectForKey:@"picture"]!=nil) {
+        
+        NSURL *url = [NSURL URLWithString:[[[userDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
+        _loggedInUserDS.imageUrl = url;
+        
+    }
+    
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;

@@ -126,6 +126,7 @@
 		B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageDataManager.m; sourceTree = "<group>"; };
 		B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInUserDS.h; sourceTree = "<group>"; };
 		B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInUserDS.m; sourceTree = "<group>"; };
+		B43818E31C60FA6E00B0CCA7 /* TortoisePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TortoisePrefixHeader.pch; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -321,6 +322,7 @@
 		B46582A61BC4B3A800C57679 = {
 			isa = PBXGroup;
 			children = (
+				B43818E31C60FA6E00B0CCA7 /* TortoisePrefixHeader.pch */,
 				B46582E81BC4B3CC00C57679 /* Podfile */,
 				B46582B11BC4B3A800C57679 /* Tortoise */,
 				B46582CE1BC4B3A800C57679 /* TortoiseTests */,
@@ -1007,6 +1009,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/TortoisePrefixHeader.pch";
 				INFOPLIST_FILE = Tortoise/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1026,6 +1029,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/TortoisePrefixHeader.pch";
 				INFOPLIST_FILE = Tortoise/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

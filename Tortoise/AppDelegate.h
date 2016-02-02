@@ -7,6 +7,7 @@
 #import <CoreData/CoreData.h>
 #import <Google/SignIn.h>
 
+@class LoggedInUserDS;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -15,7 +16,8 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
--(NSDictionary *)getLoggedInUserData;
+-(LoggedInUserDS *)getLoggedInUserData;
+-(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

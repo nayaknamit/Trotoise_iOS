@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "476112650.718875"
+            timestampString = "476119660.429062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "-languageTableView:didSelectLanguageData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,12 +250,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/AppDelegate.m"
-            timestampString = "476112754.181632"
+            timestampString = "476119796.129234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "-signIn:didSignInForUser:withError:"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "-setLoggedInUserData:isFacebookData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tortoise/AppDelegate.m"
+            timestampString = "476119799.93488"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "-setLoggedInUserData:isFacebookData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

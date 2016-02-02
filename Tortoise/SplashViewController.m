@@ -9,6 +9,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SCFacebook.h"
 #import "SplashViewController.h"
+#import "LanguageViewController.h"
 @interface SplashViewController()
 {
     
@@ -30,6 +31,8 @@
     self.splashImageArra = [NSArray arrayWithObjects:@"walkthrough_01",@"walkthrough_02",@"walkthrough_03",@"walkthrough_04",@"walkthrough_05", nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loggedInViaGmailSignIn:) name:@"GOOGLE_SIGIN_PROFILE" object:nil];
+    
     
     [self setSplashScreen];
     
@@ -39,6 +42,14 @@
 
 #pragma mark - 
 #pragma mark GOOGLE SIGNIN METHODS
+
+-(void)loggedInViaGmailSignIn :(NSNotification *)notification{
+    
+    LanguageViewController *languageVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LanguageViewController"];
+    [self.navigationController pushViewController:languageVC animated:YES];
+    
+
+}
 /*
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
 
@@ -75,12 +86,18 @@ dismissViewController:(UIViewController *)viewController {
 
 }
 
-
 - (void)getUserInfo
 {
     
     [SCFacebook getUserFields:@"id, name, email, birthday, about, picture" callBack:^(BOOL success, id result) {
         if (success) {
+            
+            [APP_DELEGATE setLoggedInUserData:(NSDictionary *)result isFacebookData:YES];
+            
+            LanguageViewController *languageVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LanguageViewController"];
+            [self.navigationController pushViewController:languageVC animated:YES];
+            
+            
             NSLog(@"%@", result);
             }else{
             
