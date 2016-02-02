@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface LanguageViewController : UIViewController
 
+@property (nonatomic,weak) IBOutlet UIView *languageDisplayView;
 @end

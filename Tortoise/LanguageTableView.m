@@ -7,7 +7,7 @@
 //
 
 #import "LanguageTableView.h"
-
+#import "LanguageDS.h"
 @interface LanguageTableView ()
 
 @property (nonatomic,strong) NSMutableArray *dataArra;
@@ -24,7 +24,8 @@
 
 -(void)setUpLanguageData:(NSArray *)dataArray{
     
-    
+    self.dataArra = [NSMutableArray arrayWithArray: dataArray];
+    [self.tableView  reloadData];
     
 }
 
@@ -34,10 +35,10 @@
 #pragma TableView 
 #pragma mark - UITableViewDataSource protocol methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return _dataArra.count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _dataArra.count;
+    return 1;
     
 }// Default is 1 if not implemented
 
@@ -51,8 +52,14 @@
         cell = (LanguageTableViewCell *)[arr objectAtIndex:1];
     }
     
-    NSDictionary *duck = [_dataArra objectAtIndex:indexPath.section];
-    cell.labelLanguage.text = @"English(Australia)";
+    LanguageDS * dataStructer;
+    dataStructer = [_dataArra objectAtIndex:indexPath.row];
+    cell.labelLanguage.text = dataStructer.name;
+    if(dataStructer.nuanceRelationship!=nil){
+        cell.speakerImageView.hidden = NO;
+    }else{
+        cell.speakerImageView.hidden = YES;
+    }
     
     
     return cell;
@@ -60,8 +67,20 @@
 
 #pragma mark - UITableViewDataDelegate protocol methods
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 112.0f;
+    return 44.0f;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    LanguageDS *dataObject = [_dataArra objectAtIndex:indexPath.row];
+    if([self.delegate respondsToSelector:@selector(languageTableView:didSelectLanguageData:)]){
+        
+        [self.delegate languageTableView:self didSelectLanguageData:dataObject];
+    }
+    
+}
+
+
 @end
 
 @implementation LanguageTableViewCell

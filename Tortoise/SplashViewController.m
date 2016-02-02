@@ -37,10 +37,12 @@
 }
 
 
-
+#pragma mark - 
+#pragma mark GOOGLE SIGNIN METHODS
+/*
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
-//    [myActivityIndicator stopAnimating];
-}
+
+}*/
 
 // Present a view that prompts the user to sign in with Google
 - (void)signIn:(GIDSignIn *)signIn
@@ -55,23 +57,12 @@ dismissViewController:(UIViewController *)viewController {
 }
 
 
+#pragma mark -
+#pragma mark - FACEBOOK SignIn Methods
 
 -(IBAction)loginButtonClicked:(id)sender
 {
-//    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-//    login.loginBehavior=FBSDKLoginBehaviorWeb;
-//    [login
-//     logInWithReadPermissions: @[@"public_profile"]
-//     fromViewController:self
-//     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-//         if (error) {
-//             NSLog(@"Process error");
-//         } else if (result.isCancelled) {
-//             NSLog(@"Cancelled");
-//         } else {
-//             NSLog(@"Logged in");
-//         }
-//     }];
+
     [SCFacebook loginCallBack:^(BOOL success, id result) {
         
         
@@ -97,6 +88,10 @@ dismissViewController:(UIViewController *)viewController {
             }
     }];
 }
+
+
+#pragma mark -
+#pragma mark - SplashScreen Methods
 -(void)setSplashScreen{
     
     self.scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);

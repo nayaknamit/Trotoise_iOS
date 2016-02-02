@@ -44,7 +44,7 @@
             </connections>
             <point key="canvasLocation" x="-77.5" y="-79"/>
         </view>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="languageViewTableCell" id="u9w-HE-UCF" customClass="LanguageTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageViewTableCell" id="u9w-HE-UCF" customClass="LanguageTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9w-HE-UCF" id="GsM-0L-6Qz">
