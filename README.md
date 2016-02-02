@@ -1,2 +1,2 @@
-# Trotoise_iOS
-Trotoise App
+# Trotoise
+IOS App
