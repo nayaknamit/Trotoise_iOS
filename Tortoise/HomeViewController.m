@@ -13,6 +13,9 @@
 #import "UIFont+Trotoise.h"
 #import "RadiusView.h"
 #import "KLCPopup.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
+
 @interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
 {
     
@@ -236,7 +239,16 @@
      didUpdateLocations:(NSArray<CLLocation *> *)locations{
     
     CLLocation* location = [locations objectAtIndex:0];
+    
+    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
+    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
+[[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30" withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+    
+}];
+    
     [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
+    
+    
     
 }
 
@@ -263,6 +275,21 @@
     
     cell.placeTitleLbl.text = [duck objectForKey:@"title"];
     cell.descriptionLbl.text = [duck objectForKey:@"description"];
+    
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+//    [manager downloadWithURL:
+//                     options:0
+//                    progress:^(NSInteger receivedSize, NSInteger expectedSize)
+//     {
+//         // progression tracking code
+//     }
+//                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+//     {
+//         if (image)
+//         {
+//             // do something with image
+//         }
+//     }];
     cell.placeImageView.image = [UIImage imageNamed:@"paris.png"];
 
     return cell;

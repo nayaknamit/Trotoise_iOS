@@ -23,6 +23,9 @@
 		B411FDF01C5E81E800BB96C7 /* LanguageDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */; };
 		B411FDF31C5E830600BB96C7 /* LanguageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */; };
 		B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */; };
+		B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */; };
+		B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */; };
+		B43818F01C628D4500B0CCA7 /* Continent.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EE1C628D4500B0CCA7 /* Continent.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
@@ -127,6 +130,12 @@
 		B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInUserDS.h; sourceTree = "<group>"; };
 		B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInUserDS.m; sourceTree = "<group>"; };
 		B43818E31C60FA6E00B0CCA7 /* TortoisePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TortoisePrefixHeader.pch; sourceTree = "<group>"; };
+		B43818E81C6288BD00B0CCA7 /* MonumentListDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentListDS.h; sourceTree = "<group>"; };
+		B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentListDS.m; sourceTree = "<group>"; };
+		B43818EB1C628D4500B0CCA7 /* Continent+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Continent+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Continent+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B43818ED1C628D4500B0CCA7 /* Continent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Continent.h; sourceTree = "<group>"; };
+		B43818EE1C628D4500B0CCA7 /* Continent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Continent.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -446,6 +455,10 @@
 				B411FDDE1C5E270400BB96C7 /* Language+CoreDataProperties.m */,
 				B411FDDF1C5E270400BB96C7 /* Language.h */,
 				B411FDE01C5E270400BB96C7 /* Language.m */,
+				B43818EB1C628D4500B0CCA7 /* Continent+CoreDataProperties.h */,
+				B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */,
+				B43818ED1C628D4500B0CCA7 /* Continent.h */,
+				B43818EE1C628D4500B0CCA7 /* Continent.m */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -457,6 +470,8 @@
 				B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */,
 				B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */,
 				B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */,
+				B43818E81C6288BD00B0CCA7 /* MonumentListDS.h */,
+				B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -824,6 +839,7 @@
 				B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */,
 				B4D0D7091BD0969500B828EF /* AFURLConnectionOperation.m in Sources */,
 				B4D0D6D21BD08EAA00B828EF /* MonumentCityRequest.m in Sources */,
+				B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */,
 				B4B815381BCB66B800C5E3BF /* ShareTableViewCell.m in Sources */,
 				B46582BA1BC4B3A800C57679 /* HomeViewController.m in Sources */,
 				B4E2CA8B1BD00F970050FC3F /* CityMonument+CoreDataProperties.m in Sources */,
@@ -834,11 +850,13 @@
 				B47E60F11BC75C2300187C51 /* HomeViewTableViewCell.m in Sources */,
 				B411FDE21C5E270400BB96C7 /* Language.m in Sources */,
 				B4E2CA911BD011A00050FC3F /* TTAPIHandler.m in Sources */,
+				B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */,
 				B4D0D7071BD0969500B828EF /* AFNetworkActivityIndicatorManager.m in Sources */,
 				B4E2CA8E1BD00F970050FC3F /* MonumentList.m in Sources */,
 				B4D0D70B1BD0969500B828EF /* UIImageView+AFNetworking.m in Sources */,
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
 				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
+				B43818F01C628D4500B0CCA7 /* Continent.m in Sources */,
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,

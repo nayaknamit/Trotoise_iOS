@@ -1,5 +1,5 @@
 //
-//  Country+CoreDataProperties.m
+//  Continent+CoreDataProperties.m
 //  Tortoise
 //
 //  Created by Namit Nayak on 2/4/16.
@@ -9,15 +9,13 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Country+CoreDataProperties.h"
+#import "Continent+CoreDataProperties.h"
 
-@implementation Country (CoreDataProperties)
+@implementation Continent (CoreDataProperties)
 
 @dynamic id;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic name;
 @dynamic symbol;
-@dynamic citylist;
+@dynamic countryList;
 
 @end
