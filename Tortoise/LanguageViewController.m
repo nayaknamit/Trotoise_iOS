@@ -12,6 +12,7 @@
 #import "LanguageTableView.h"
 #import "LanguageDS.h"
 #import "LoggedInUserDS.h"
+#import "HomeViewController.h"
 @interface LanguageViewController ()<LanguageTableViewDelegate>
 @property (nonatomic,strong) LanguageTableView *languageTableView;
 @property (nonatomic,strong) KLCPopup *klcPopView;
@@ -21,7 +22,7 @@
 @property (nonatomic,weak) IBOutlet UIImageView *audioCheckBoxImageView;
 @property (nonatomic,weak) IBOutlet UILabel *loggedInUserLbl;
 @property (nonatomic,weak) IBOutlet UIImageView *profileImageView;
-
+-(IBAction)continueButtonTapped:(id)sender;
 
 @end
 
@@ -31,12 +32,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
     
     self.loggedInUserLbl.text = [NSString stringWithFormat:@"Welcome %@",loggedInUser.name];
+    
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+//    self.profileImageView.clipsToBounds = YES;
+//    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+//    self.profileImageView.layer.masksToBounds = YES;
+ self.profileImageView.layer.borderWidth = 1.0f;
+    self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     if(loggedInUser.imageUrl!=nil){
             [self.profileImageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:loggedInUser.imageUrl]]];
     }
+    
+
     
 UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
                                        initWithTarget:self action:@selector(onTapGestureEventFired:)] ;
@@ -60,6 +70,12 @@ UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
     }];
 }
 
+
+
+-(IBAction)continueButtonTapped:(id)sender{
+   
+    
+}
 -(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(LanguageDS *)data{
     
     [_klcPopView dismiss:YES];
