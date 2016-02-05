@@ -9,6 +9,7 @@
 #import "TTAPIHandler.h"
 #import "AFNetworking.h"
 #import "LanguageDataManager.h"
+#import "MonumentDataManager.h"
 static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx/";
 
@@ -103,7 +104,7 @@ static NSUInteger const TTAPIHandlerDefaultCount = 50;
     
     AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
                                                                                           success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
+                                                                                               responseHandler([self processJSONResponse:JSON forRequest:requestType],nil);
                                                                                               
                                                                                               //                                                                                              responseHandler(anArray, nil);
                                                                                           }
@@ -210,6 +211,16 @@ static NSUInteger const TTAPIHandlerDefaultCount = 50;
             return resultArra;
         }
         
+    }
+    else if (request == GET_MONUMENT_LIST_BY_RANGE){
+        
+        if([JSON isKindOfClass:[NSDictionary class]]){
+            
+            NSArray *monumentListResultArra = [JSON objectForKey:@"data"];
+            NSArray *monumentListArr2 = [[MonumentDataManager sharedManager] getParseAPIDataToLanguageDS:monumentListResultArra withCustomizeData:YES];
+            
+            return monumentListArr2;
+        }
     }
     return nil;
 }

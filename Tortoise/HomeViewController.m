@@ -14,14 +14,14 @@
 #import "RadiusView.h"
 #import "KLCPopup.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "MonumentListDS.h"
 
 @interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
 {
-    
+    BOOL drawForOnce;
 
 }
-@property (nonatomic,strong) NSMutableArray *dataArra;
+@property (nonatomic,strong) __block NSMutableArray *dataArra;
 @property (nonatomic,strong) IBOutlet GMSMapView *mapContainerView;
 @property (nonatomic,strong) IBOutlet UITableView * tableView;
 @property (nonatomic,strong) IBOutlet UIView *mainView;
@@ -53,7 +53,7 @@
     
     [self setUpLocationManager];
     
-    [self dummyData];
+//    [self dummyData];
     
     [[TTAPIHandler sharedWorker] getMonumentListByCityID:@"3102" withRequestType:GET_MONUMENT_LIST_BY_CITYID responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
         
@@ -121,10 +121,16 @@
     
 }
 -(void)mapSetUpWithLatitude:(CLLocationDegrees)latitude withLongitude:(CLLocationDegrees)longitude{
+   
+    if(!drawForOnce){
+        drawForOnce = YES;
+   
+    double lat = 28.467504;
+   double longi =  77.059479;
     
-    GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:latitude
-                                          longitude:longitude
-                                               zoom:4.0];
+    GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:lat
+                                          longitude:longi
+                                               zoom:10.0];
     _mapContainerView.delegate = self;
     [_mapContainerView setCamera:cameraPosition];
 //    [_mapContainerView setMyLocationEnabled:YES];
@@ -137,14 +143,27 @@
                   options:NSKeyValueObservingOptionNew
                   context:NULL];
     
-    
+        for(MonumentListDS * obj in _dataArra){
+            MonumentListDS *mm = (MonumentListDS *)obj;
+            double latitude = [mm.latitude doubleValue];
+            double longitude = [mm.longitude doubleValue];
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.position = CLLocationCoordinate2DMake(latitude, longitude);
+            marker.title = mm.name;
+            marker.snippet = mm.desc;
+            marker.map = _mapContainerView;
+            
+            
+        }
     // Creates a marker in the center of the map.
-    
+  
+         }
+    /*
     GMSMarker *marker = [[GMSMarker alloc] init];
     marker.position = CLLocationCoordinate2DMake(latitude, longitude);
     marker.title = @"Trotoise";
     marker.snippet = @"Trotoise";
-    marker.map = _mapContainerView;
+    marker.map = _mapContainerView;*/
 //    [self addSubview:_mapView];
 
 }
@@ -240,13 +259,15 @@
     
     CLLocation* location = [locations objectAtIndex:0];
     
-    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
-    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
-[[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30" withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+//    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
+//    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
+[[TTAPIHandler sharedWorker] getMonumentListByRange:@"28.467504" withLongitude:@"77.059479" withrad:@"30" withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+    _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
+    [self.tableView reloadData];
+    [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
     
 }];
     
-    [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
     
     
     
@@ -271,26 +292,28 @@
         cell = (HomeViewTableViewCell *)[arr objectAtIndex:0];
     }
     
-    NSDictionary *duck = [_dataArra objectAtIndex:indexPath.section];
+    MonumentListDS *duck = [_dataArra objectAtIndex:indexPath.section];
     
-    cell.placeTitleLbl.text = [duck objectForKey:@"title"];
-    cell.descriptionLbl.text = [duck objectForKey:@"description"];
+    cell.placeTitleLbl.text = duck.name;
+    cell.descriptionLbl.text = duck.desc;
+    
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//    [manager downloadWithURL:
-//                     options:0
-//                    progress:^(NSInteger receivedSize, NSInteger expectedSize)
-//     {
-//         // progression tracking code
-//     }
-//                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
-//     {
-//         if (image)
-//         {
-//             // do something with image
-//         }
-//     }];
-    cell.placeImageView.image = [UIImage imageNamed:@"paris.png"];
+    [manager downloadWithURL:[NSURL URLWithString:duck.thumbnail]
+                     options:0
+                    progress:^(NSInteger receivedSize, NSInteger expectedSize)
+     {
+         // progression tracking code
+     }
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+     {
+         if (image)
+         {
+             cell.placeImageView.image = image;
+             // do something with image
+         }
+     }];
+//    cell.placeImageView.image = [UIImage imageNamed:@"paris.png"];
 
     return cell;
 }

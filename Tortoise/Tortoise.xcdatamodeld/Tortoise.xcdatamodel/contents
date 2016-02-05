@@ -5,7 +5,7 @@
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="citymonumentrelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MonumentList" inverseName="citymonument" inverseEntity="MonumentList" spotlightIndexingEnabled="YES" storedInTruthFile="YES" syncable="YES"/>
+        <relationship name="citymonumentrelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MonumentList" spotlightIndexingEnabled="YES" storedInTruthFile="YES" syncable="YES"/>
     </entity>
     <entity name="Continent" representedClassName="Continent" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -36,7 +36,6 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="citymonument" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CityMonument" inverseName="citymonumentrelationship" inverseEntity="CityMonument" syncable="YES"/>
     </entity>
     <entity name="Nuance" representedClassName="Nuance" syncable="YES">
         <attribute name="code4" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,11 +49,11 @@
     </entity>
     <elements>
         <element name="CityMonument" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Continent" positionX="-54" positionY="72" width="128" height="105"/>
         <element name="Country" positionX="-63" positionY="72" width="128" height="135"/>
         <element name="Language" positionX="-63" positionY="72" width="128" height="105"/>
-        <element name="MonumentList" positionX="-54" positionY="18" width="128" height="180"/>
+        <element name="MonumentList" positionX="-54" positionY="18" width="128" height="165"/>
         <element name="Nuance" positionX="-54" positionY="81" width="128" height="105"/>
         <element name="Provider" positionX="-45" positionY="90" width="128" height="75"/>
-        <element name="Continent" positionX="-54" positionY="72" width="128" height="105"/>
     </elements>
 </model>

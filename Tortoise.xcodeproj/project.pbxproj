@@ -26,6 +26,7 @@
 		B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */; };
 		B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */; };
 		B43818F01C628D4500B0CCA7 /* Continent.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EE1C628D4500B0CCA7 /* Continent.m */; };
+		B43818F31C6371C800B0CCA7 /* MonumentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
@@ -136,6 +137,8 @@
 		B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Continent+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B43818ED1C628D4500B0CCA7 /* Continent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Continent.h; sourceTree = "<group>"; };
 		B43818EE1C628D4500B0CCA7 /* Continent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Continent.m; sourceTree = "<group>"; };
+		B43818F11C6371C800B0CCA7 /* MonumentDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentDataManager.h; sourceTree = "<group>"; };
+		B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentDataManager.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -472,6 +475,8 @@
 				B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */,
 				B43818E81C6288BD00B0CCA7 /* MonumentListDS.h */,
 				B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */,
+				B43818F11C6371C800B0CCA7 /* MonumentDataManager.h */,
+				B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -838,6 +843,7 @@
 				B411FDDA1C5E26B300BB96C7 /* Nuance.m in Sources */,
 				B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */,
 				B4D0D7091BD0969500B828EF /* AFURLConnectionOperation.m in Sources */,
+				B43818F31C6371C800B0CCA7 /* MonumentDataManager.m in Sources */,
 				B4D0D6D21BD08EAA00B828EF /* MonumentCityRequest.m in Sources */,
 				B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */,
 				B4B815381BCB66B800C5E3BF /* ShareTableViewCell.m in Sources */,

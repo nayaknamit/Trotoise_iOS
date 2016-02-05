@@ -11,3 +11,25 @@
 @implementation MonumentListDS
 
 @end
+
+@implementation ContinentDS
+
+
+
+@end
+
+@implementation CountryDS
+
+
+@end
+
+
+@implementation CityMonumentDS
+
+
+
+@end
+
+
+
+
