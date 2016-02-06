@@ -9,12 +9,12 @@
 CLLocationManager *locationManager;
 
 @interface GoogleMaps ()
-    @property (nonatomic,strong) GMSCameraPosition *camera;
-    @property (nonatomic,strong) GMSMapView *mapView;
+//    @property (nonatomic,strong) GMSCameraPosition *camera;
+//    @property (nonatomic,strong) GMSMapView *mapView;
 @end
 
 @implementation GoogleMaps
-
+/*
 -(id)init{
     
     locationManager = [[CLLocationManager alloc] init];
@@ -85,5 +85,5 @@ CLLocationManager *locationManager;
     
 }
 
-
+*/
 @end

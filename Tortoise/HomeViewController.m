@@ -15,7 +15,7 @@
 #import "KLCPopup.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MonumentListDS.h"
-
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
 {
     BOOL drawForOnce;
@@ -128,12 +128,13 @@
     if(!drawForOnce){
         drawForOnce = YES;
    
-    double lat = 28.467504;
-   double longi =  77.059479;
+        MonumentListDS *obj = (MonumentListDS *)[_dataArra objectAtIndex:0];
+        double latitude = [obj.latitude doubleValue];
+        double longitude = [obj.longitude doubleValue];
     
-    GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:lat
-                                          longitude:longi
-                                               zoom:10.0];
+    GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:latitude
+                                          longitude:longitude
+                                               zoom:9.0];
     _mapContainerView.delegate = self;
     [_mapContainerView setCamera:cameraPosition];
 //    [_mapContainerView setMyLocationEnabled:YES];
@@ -145,6 +146,7 @@
                forKeyPath:@"myLocation"
                   options:NSKeyValueObservingOptionNew
                   context:NULL];
+    
     
         for(MonumentListDS * obj in _dataArra){
             MonumentListDS *mm = (MonumentListDS *)obj;
@@ -158,6 +160,18 @@
             
             
         }
+        
+       
+        CLLocationCoordinate2D circleCenter = CLLocationCoordinate2DMake(latitude, longitude);
+        
+        GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
+                                                 radius:1000*[radiusValue integerValue]*1.05];
+        UIColor *color =  UIColorFromRGB(0x3bb3c2);
+        circ.fillColor = [color colorWithAlphaComponent:0.2];
+        circ.strokeColor = UIColorFromRGB(0x3bb3c2);
+        circ.strokeWidth = 0;
+
+        circ.map = _mapContainerView;
     // Creates a marker in the center of the map.
   
          }
@@ -249,8 +263,8 @@
         
         [self.locationManager requestAlwaysAuthorization];
 
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+   _locationManager.distanceFilter = 1000.0f;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
         [_locationManager startUpdatingLocation];
         _locationManager.delegate = self;
         
@@ -306,13 +320,13 @@
     
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadWithURL:[NSURL URLWithString:duck.thumbnail]
+    [manager downloadImageWithURL:[NSURL URLWithString:duck.thumbnail]
                      options:0
                     progress:^(NSInteger receivedSize, NSInteger expectedSize)
      {
          // progression tracking code
      }
-                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished)
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
      {
          if (image)
          {

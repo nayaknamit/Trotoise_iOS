@@ -20,7 +20,7 @@ static NSString *const TTAPIHandlerExtendBaseURL = @"/Trotoise.Services_new/Monu
 
 static NSString *const TTAPIHandlerMethodGET = @"GET";
 static NSString *const TTAPIHandlerMethodPOST = @"POST";
-static NSUInteger const TTAPIHandlerDefaultCount = 50;
+//static NSUInteger const TTAPIHandlerDefaultCount = 50;
 
 #define SERVICE_GETMONUMENTLISTBYCITYID @"GetMonumentListOnCityId?id="
 @interface TTAPIHandler()

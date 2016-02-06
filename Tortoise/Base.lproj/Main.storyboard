@@ -143,7 +143,7 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="KTx-aQ-fsQ"/>
                                                 </connections>
                                             </searchBar>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="60 monuments found in 30 kilometers range." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDR-Ub-fYU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="60 monuments found in 30 kilometers range." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KDR-Ub-fYU">
                                                 <rect key="frame" x="8" y="45" width="427" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="27" id="I9E-HE-3Uq"/>
@@ -181,7 +181,8 @@
                                                 <variation key="widthClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="255" y="53" width="114" height="15"/>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact">
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="255" y="53" width="118" height="15"/>
                                                     <mask key="constraints">
                                                         <include reference="Vcl-rY-4nh"/>
                                                     </mask>
@@ -244,7 +245,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="384" id="ORo-dx-79n"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" priority="900" constant="384" id="ORo-dx-79n"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">

@@ -7,6 +7,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface GoogleMaps : UIView
--(id)initWithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude zoom:(float)zoomScale title:(NSString*)title snippet:(NSString*)snippet frame:(CGRect)rect;
 
+/*-(id)initWithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude zoom:(float)zoomScale title:(NSString*)title snippet:(NSString*)snippet frame:(CGRect)rect;
+*/
 @end

@@ -122,7 +122,7 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
 {
     //get pertinent info
     id delegate        = objc_getAssociatedObject(self, &_delegate);
-    NSArray *dropViews = objc_getAssociatedObject(self, &_dropViews);
+   // NSArray *dropViews = objc_getAssociatedObject(self, &_dropViews);
     UIViewDragDropMode mode = [objc_getAssociatedObject(self, &_mode) integerValue];
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
