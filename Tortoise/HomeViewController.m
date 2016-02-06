@@ -10,11 +10,11 @@
 #import <GoogleMaps.h>
 #import "TTAPIHandler.h"
 #import "UIView+DragDrop.h"
-#import "UIFont+Trotoise.h"
+
 #import "RadiusView.h"
 #import "KLCPopup.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "MonumentListDS.h"
+#import "MonumentDetailViewController.h"
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
 {
@@ -316,7 +316,7 @@
     MonumentListDS *duck = [_dataArra objectAtIndex:indexPath.section];
     
     cell.placeTitleLbl.text = duck.name;
-    cell.descriptionLbl.text = duck.desc;
+    cell.descriptionLbl.text = duck.shortDesc;
     
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
@@ -344,6 +344,14 @@
     return 112.0f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+   MonumentDetailViewController * monumentDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MonumentDetailViewController"];
+    monumentDetailVC.monumentDetailObj = (MonumentListDS *)[_dataArra objectAtIndex:indexPath.row];
+    
+    [self.navigationController pushViewController:monumentDetailVC animated:YES];
+    
+}
 
 //- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
 //    NSLog(@"%f",velocity.y);

@@ -27,6 +27,7 @@
 		B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */; };
 		B43818F01C628D4500B0CCA7 /* Continent.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EE1C628D4500B0CCA7 /* Continent.m */; };
 		B43818F31C6371C800B0CCA7 /* MonumentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */; };
+		B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
@@ -139,6 +140,8 @@
 		B43818EE1C628D4500B0CCA7 /* Continent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Continent.m; sourceTree = "<group>"; };
 		B43818F11C6371C800B0CCA7 /* MonumentDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentDataManager.h; sourceTree = "<group>"; };
 		B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentDataManager.m; sourceTree = "<group>"; };
+		B43818F51C666CFB00B0CCA7 /* MonumentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentDetailViewController.h; sourceTree = "<group>"; };
+		B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentDetailViewController.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -322,6 +325,15 @@
 			name = DataStructure;
 			sourceTree = "<group>";
 		};
+		B43818F41C666CC200B0CCA7 /* MonumentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B43818F51C666CFB00B0CCA7 /* MonumentDetailViewController.h */,
+				B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */,
+			);
+			name = MonumentDetail;
+			sourceTree = "<group>";
+		};
 		B45CA9A21C5F8A0B004DE600 /* SCFacebook */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +419,7 @@
 		B46582EC1BC559C600C57679 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B43818F41C666CC200B0CCA7 /* MonumentDetail */,
 				B411FDE31C5E292400BB96C7 /* Language */,
 				B4FAEB791BCB4088006E9C78 /* MenuViewController */,
 				B4FAEB6F1BCA1833006E9C78 /* Splash */,
@@ -863,6 +876,7 @@
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
 				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
 				B43818F01C628D4500B0CCA7 /* Continent.m in Sources */,
+				B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */,
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,
