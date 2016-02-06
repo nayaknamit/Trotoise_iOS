@@ -12,6 +12,7 @@
 #import "MonumentDataManager.h"
 static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx/";
+static NSString *const TTAPIHandlerExtendBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
 
 //static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 //static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx";
@@ -97,8 +98,17 @@ static NSUInteger const TTAPIHandlerDefaultCount = 50;
     NSString *aPath = @"GetMonumentListByRange";
     
     
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerExtendBaseURL];
+    if (_httpClient !=nil) {
+        _httpClient = nil;
+    }
     
-    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"lat",longitude,@"lng",rad,@"rad" , nil];
+    self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
+    
+    
+    [self.httpClient setDefaultHeader:@"Content-Type" value:@"application/x-www-form-urlencoded"];
+   
+    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"lat",longitude,@"lng",rad,@"rad",@"en",@"lang" , nil];
     
     NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
     

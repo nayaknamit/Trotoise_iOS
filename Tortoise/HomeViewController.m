@@ -19,6 +19,7 @@
 @interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
 {
     BOOL drawForOnce;
+    NSString *radiusValue;
 
 }
 @property (nonatomic,strong) __block NSMutableArray *dataArra;
@@ -31,6 +32,7 @@
 @property (nonatomic,strong) KLCPopup *klcPopView;
 @property (nonatomic,strong) RadiusView *radiusView;
 @property (weak,nonatomic) IBOutlet UIButton *radiusButton;
+@property (nonatomic,weak) IBOutlet UILabel *lblDistanceRequired;
 -(void)setUpLocationManager;
 
 
@@ -46,7 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    radiusValue = @"30";
     [self setUpNavigationBar];
     [self setUpRadiusPopUp];
     [self setUpDraggableView];
@@ -62,11 +64,12 @@
     }];
 }
 -(void)setUpDraggableView{
-    
+//    [_mainView ]
     [_mainView makeDraggable];
     [_mainView setDelegate:self];
     [_mainView setDragMode:UIViewDragDropModeRestrictY];
     [_mainView setStageTopPoint:self.mapContainerView.frame.origin];
+    [_mainView setInitialFramePoint:_mainView.frame ];
 
 }
 -(void)setUpNavigationBar{
@@ -241,9 +244,11 @@
     _locationManager = [[CLLocationManager alloc] init];
     if([CLLocationManager locationServicesEnabled]){
         [self.locationManager requestWhenInUseAuthorization];
-        [self.locationManager requestAlwaysAuthorization];
+//        [self.locationManager requestAlwaysAuthorization];
 //        [_locationManager requestAlwaysAuthorization];
         
+        [self.locationManager requestAlwaysAuthorization];
+
         _locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         [_locationManager startUpdatingLocation];
@@ -261,10 +266,12 @@
     
 //    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
 //    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
-[[TTAPIHandler sharedWorker] getMonumentListByRange:@"28.467504" withLongitude:@"77.059479" withrad:@"30" withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+[[TTAPIHandler sharedWorker] getMonumentListByRange:@"28.467504" withLongitude:@"77.059479" withrad:radiusValue withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
     _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
     [self.tableView reloadData];
     [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
+    
+    _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
     
 }];
     
@@ -367,6 +374,8 @@
 #pragma mark RadiusView Delegate Method
 -(void)radiusViewDidOkButonTappedWithSliderValue:(CGFloat)sliderValue{
     NSLog(@"Radius View Ok Button Pressed slider Value %0.f",sliderValue);
+    radiusValue = [NSString stringWithFormat:@"%0.f",sliderValue];
+    
 }
 -(void)radiusViewDidCancelButonTappedWithSliderValue:(CGFloat)sliderValue{
     [_klcPopView dismiss:YES];

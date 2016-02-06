@@ -22,7 +22,7 @@
 #define ASSIGN   OBJC_ASSOCIATION_ASSIGN
 
 //addresses used as keys for associated objects
-static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode, _stageMidPoint, _stageTopPoint;
+static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode, _stageMidPoint, _stageTopPoint,_initialFrame;
 
 /**
  *  Category implementation
@@ -75,7 +75,12 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
     objc_setAssociatedObject(self,&_stageTopPoint,topPos,STRONG_N);
     
 }
-
+-(void)setInitialFramePoint:(CGRect )initialFrame{
+    NSDictionary *topPos = @{@"Originx": @(initialFrame.origin.x), @"Originy": @(initialFrame.origin.y),@"SizeWidth":@(initialFrame.size.width),@"Sizeheight":@(initialFrame.size.height)};
+    
+    objc_setAssociatedObject(self,&_initialFrame,topPos,STRONG_N);
+    
+}
 -(void)setBOOLMidHeightSet:(BOOL)isVal{
     objc_setAssociatedObject(self, &_isMidHeightSet, @(isVal), STRONG_N);
     
@@ -170,10 +175,16 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
                 //                [recognizer setState:UIGestureRecognizerStateCancelled];
             }else if(self.frame.origin.y == hegith && recognizer.state != UIGestureRecognizerStateChanged && [self getBOOLMidHeight]){
                 self.frame = CGRectMake(oldFrame.origin.x, stageTopPoint.y, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height));
+                [self setBOOLMidHeightSet:NO];
                 if([delegate respondsToSelector:@selector(draggingDidEndViewFrameSet:)]){
                     [delegate draggingDidEndViewFrameSet:self.frame];
                     
                 }
+            }else if ([UIScreen mainScreen].bounds.size.height == self.frame.size.height && recognizer.state != UIGestureRecognizerStateChanged){
+                
+                NSDictionary *initialFrm = objc_getAssociatedObject(self, &_initialFrame);
+               
+                 self.frame = CGRectMake([initialFrm[@"Originx"] floatValue],[initialFrm[@"Originy"] floatValue],[initialFrm[@"SizeWidth"] floatValue],[initialFrm[@"Sizeheight"] floatValue]);
             }
             
             

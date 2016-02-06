@@ -181,8 +181,7 @@
                                                 <variation key="widthClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="255" y="53" width="114" height="15"/>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="255" y="53" width="118" height="15"/>
+                                                <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="Vcl-rY-4nh"/>
                                                     </mask>
@@ -263,7 +262,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.98843204979999999" green="0.57954452339999996" blue="0.37501712990000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="5vj-vV-4XJ" firstAttribute="leading" secondItem="4vQ-LZ-heI" secondAttribute="leading" constant="8" id="9Qm-bW-vyz"/>
                                     <constraint firstAttribute="bottom" secondItem="EfW-f8-dJA" secondAttribute="bottom" constant="-501" id="HkZ-R2-w8D"/>
@@ -400,6 +399,7 @@
                     <connections>
                         <outlet property="barButton" destination="CP0-mY-WdF" id="Yc4-8k-weV"/>
                         <outlet property="bottomConstraint" destination="HkZ-R2-w8D" id="dji-GC-t2q"/>
+                        <outlet property="lblDistanceRequired" destination="KDR-Ub-fYU" id="M5P-Li-Nv4"/>
                         <outlet property="mainView" destination="4vQ-LZ-heI" id="S0a-P8-oxJ"/>
                         <outlet property="mapContainerView" destination="79c-uY-3xY" id="vJO-aZ-K2L"/>
                         <outlet property="radiusButton" destination="TdT-N4-w8b" id="Bkt-wg-VHz"/>

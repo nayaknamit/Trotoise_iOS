@@ -31,9 +31,9 @@ typedef NS_ENUM( NSInteger, UIViewDragDropMode) {
 - (void) makeDraggable;
 
 - (void) setDelegate:(id<UIViewDragDropDelegate>)delegate;
-
+-(void)setInitialFramePoint:(CGRect )initialFrame;
 - (void) setDragMode:(UIViewDragDropMode)mode;
-
+-(void)setInitialFramePoint:(CGRect )initialFrame;
 - (void) setDropViews:(NSArray*)views;
 -(void)setStageTopPoint:(CGPoint )stageTopPoint;
 -(void)setStageMidPoint:(CGPoint)stageMidPoint;

@@ -22,32 +22,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "476365408.944569"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-getParseAPIDataToLanguageDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/HomeViewController.m"
-            timestampString = "476369014.51233"
+            filePath = "Tortoise/MonumentDataManager.m"
+            timestampString = "476415866.326453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-mapSetUpWithLatitude:withLongitude:"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-getParseAPIDataToLanguageDS:withCustomizeData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
