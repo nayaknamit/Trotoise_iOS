@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="afA-E6-ehp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Efy-Dc-lR9">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -554,15 +554,15 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="L2z-Mm-Toa"/>
-                                        <exclude reference="GKY-7E-b0j"/>
-                                        <exclude reference="Lnj-Ou-dFl"/>
-                                        <exclude reference="Tsf-z7-tgz"/>
-                                        <exclude reference="ggN-bL-DUa"/>
-                                        <exclude reference="zYe-0y-W8W"/>
                                         <exclude reference="5ji-zx-XCn"/>
                                         <exclude reference="IoF-d7-BsS"/>
                                         <exclude reference="Qht-L7-mFH"/>
                                         <exclude reference="cd4-jL-g0Q"/>
+                                        <exclude reference="zYe-0y-W8W"/>
+                                        <exclude reference="GKY-7E-b0j"/>
+                                        <exclude reference="Lnj-Ou-dFl"/>
+                                        <exclude reference="Tsf-z7-tgz"/>
+                                        <exclude reference="ggN-bL-DUa"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -573,15 +573,15 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="L2z-Mm-Toa"/>
-                                        <include reference="GKY-7E-b0j"/>
-                                        <include reference="Lnj-Ou-dFl"/>
-                                        <include reference="Tsf-z7-tgz"/>
-                                        <include reference="ggN-bL-DUa"/>
-                                        <include reference="zYe-0y-W8W"/>
                                         <include reference="5ji-zx-XCn"/>
                                         <include reference="IoF-d7-BsS"/>
                                         <include reference="Qht-L7-mFH"/>
                                         <include reference="cd4-jL-g0Q"/>
+                                        <include reference="zYe-0y-W8W"/>
+                                        <include reference="GKY-7E-b0j"/>
+                                        <include reference="Lnj-Ou-dFl"/>
+                                        <include reference="Tsf-z7-tgz"/>
+                                        <include reference="ggN-bL-DUa"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -614,18 +614,18 @@
                                 <exclude reference="CeN-dy-ac1"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="teo-ca-gTz"/>
+                                <exclude reference="w8C-jV-Xhy"/>
+                                <exclude reference="8YK-mo-1Bn"/>
+                                <exclude reference="FAx-Ie-0Xi"/>
+                                <exclude reference="Y09-Nk-9bQ"/>
                                 <exclude reference="8dn-VX-4s6"/>
                                 <exclude reference="kMv-Np-Ish"/>
                                 <exclude reference="onN-XN-QPd"/>
                                 <exclude reference="qes-9B-87o"/>
-                                <exclude reference="8YK-mo-1Bn"/>
-                                <exclude reference="FAx-Ie-0Xi"/>
-                                <exclude reference="Y09-Nk-9bQ"/>
                                 <exclude reference="lGj-Pb-VYZ"/>
                                 <exclude reference="orF-Rg-wyv"/>
                                 <exclude reference="uq0-rm-E9b"/>
-                                <exclude reference="teo-ca-gTz"/>
-                                <exclude reference="w8C-jV-Xhy"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -635,18 +635,18 @@
                                 <include reference="CeN-dy-ac1"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="teo-ca-gTz"/>
+                                <include reference="w8C-jV-Xhy"/>
+                                <include reference="8YK-mo-1Bn"/>
+                                <include reference="FAx-Ie-0Xi"/>
+                                <include reference="Y09-Nk-9bQ"/>
                                 <include reference="8dn-VX-4s6"/>
                                 <include reference="kMv-Np-Ish"/>
                                 <include reference="onN-XN-QPd"/>
                                 <include reference="qes-9B-87o"/>
-                                <include reference="8YK-mo-1Bn"/>
-                                <include reference="FAx-Ie-0Xi"/>
-                                <include reference="Y09-Nk-9bQ"/>
                                 <include reference="lGj-Pb-VYZ"/>
                                 <include reference="orF-Rg-wyv"/>
                                 <include reference="uq0-rm-E9b"/>
-                                <include reference="teo-ca-gTz"/>
-                                <include reference="w8C-jV-Xhy"/>
                             </mask>
                         </variation>
                     </view>

@@ -53,15 +53,15 @@
     [self setUpRadiusPopUp];
     [self setUpDraggableView];
     
-    [self setUpLocationManager];
+//    [self setUpLocationManager];
     
 //    [self dummyData];
     
-    [[TTAPIHandler sharedWorker] getMonumentListByCityID:@"3102" withRequestType:GET_MONUMENT_LIST_BY_CITYID responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-        
-        NSLog(@"einsde");
-        
-    }];
+//    [[TTAPIHandler sharedWorker] getMonumentListByCityID:@"3102" withRequestType:GET_MONUMENT_LIST_BY_CITYID responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+//        
+//        NSLog(@"einsde");
+//        
+//    }];
 }
 -(void)setUpDraggableView{
 //    [_mainView ]
