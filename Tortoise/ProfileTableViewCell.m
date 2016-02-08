@@ -16,10 +16,10 @@
 -(id)init{
     
     if (self=[super init]) {
-        self.profilePicImgView.layer.cornerRadius = self.profilePicImgView.frame.size.width / 2;
-        self.profilePicImgView.clipsToBounds = YES;
-        self.profilePicImgView.layer.borderWidth = 3.0f;
-        self.profilePicImgView.layer.borderColor = [UIColor whiteColor].CGColor;
+//        self.profilePicImgView.layer.cornerRadius = self.profilePicImgView.frame.size.width / 2;
+//        self.profilePicImgView.clipsToBounds = YES;
+//        self.profilePicImgView.layer.borderWidth = 3.0f;
+//        self.profilePicImgView.layer.borderColor = [UIColor whiteColor].CGColor;
     }
     return self;
 }

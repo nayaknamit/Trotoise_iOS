@@ -10,6 +10,7 @@
 #import "ProfileTableViewCell.h"
 #import "MenuTableViewCell.h"
 #import "ShareTableViewCell.h"
+#import "LoggedInUserDS.h"
 @interface MenuTableViewController ()
 @property (nonatomic,strong) NSArray *menuOptsArra;
 @end
@@ -25,8 +26,10 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    LoggedInUserDS *loggedInUserData = [APP_DELEGATE getLoggedInUserData];
     
-    _menuOptsArra =[NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:@"Namit Nayak",@"profileName",@"man.png",@"profilePic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"My Account",@"menuName",@"menu1.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"My Itinerary",@"menuName",@"menu2.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"My Buddy",@"menuName",@"menu3.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Offline Mode",@"menuName",@"menu4.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Offline Mode",@"menuName",@"menu4.png",@"menuPic", nil], nil];
+    
+    _menuOptsArra =[NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:loggedInUserData.name,@"profileName",loggedInUserData.email,@"email",loggedInUserData.coverImageUrl,@"cover",loggedInUserData.imageUrl,@"profilePic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Get Inspired",@"menuName",@"ic_slideshow.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"About Us",@"menuName",@"ic_about_us.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Rate Us",@"menuName",@"ic_feedback.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Language",@"menuName",@"language.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Logout",@"menuName",@"logout.png",@"menuPic", nil], nil];
 
     [self.tableView reloadData];
 
@@ -55,16 +58,14 @@
     
     switch (indexPath.row) {
         case 0:
-            return 120;
+            return 224;
             break;
-            case 5:
-            return 170;
-            
+                        
         default:
-            return 100;
+            return 69;
             break;
     }
-    return 88;
+    return 69;
     
 }
 
@@ -82,18 +83,50 @@
         case 0:
         {
           ProfileTableViewCell *   cell = (ProfileTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ProfileTableViewCell" forIndexPath:indexPath];
-            cell.profilePicImgView.image = [UIImage imageNamed:[data objectForKey:@"profilePic"]];
             cell.userNameLbl.text = [data objectForKey:@"profileName"];
-            return cell;
-        }
-            break;
-        case 5:
-        {
-            ShareTableViewCell *   cell = (ShareTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"ShareTableViewCell" forIndexPath:indexPath];
-            return cell;
+            cell.emailLbl.text = [data objectForKey:@"email"];
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadImageWithURL:(NSURL *)[data objectForKey:@"profilePic"]
+                                  options:0
+                                 progress:^(NSInteger receivedSize, NSInteger expectedSize)
+             {
+                 // progression tracking code
+             }
+                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+             {
+                 if (image)
+                 {
+                                          cell.profilePicImgView.image = image;
+                     cell.profilePicImgView.layer.cornerRadius = cell.profilePicImgView.frame.size.width / 2;
+                     cell.profilePicImgView.clipsToBounds = YES;
+                     cell.profilePicImgView.layer.borderWidth = 3.0f;
+                     cell.profilePicImgView.layer.borderColor = [UIColor whiteColor].CGColor;
 
+                     // do something with image
+                 }
+             }];
+            
+            [manager downloadImageWithURL:(NSURL *)[data objectForKey:@"cover"]
+                                  options:0
+                                 progress:^(NSInteger receivedSize, NSInteger expectedSize)
+             {
+                 // progression tracking code
+             }
+                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+             {
+                 if (image)
+                 {
+                     cell.coverPicImgView.image = image;
+                     // do something with image
+                 }
+             }];
+
+            
+            
+            return cell;
         }
             break;
+        
         default:
         {
             MenuTableViewCell *   cell = (MenuTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MenuTableViewCell" forIndexPath:indexPath];

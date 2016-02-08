@@ -53,7 +53,7 @@
     [self setUpRadiusPopUp];
     [self setUpDraggableView];
     
-//    [self setUpLocationManager];
+    [self setUpLocationManager];
     
 //    [self dummyData];
     
@@ -101,7 +101,7 @@
             break;
         }
     }
-    
+    self.revealViewController.rightViewRevealOverdraw = 0.0f;
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height);
     
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
@@ -263,7 +263,7 @@
         
         [self.locationManager requestAlwaysAuthorization];
 
-   _locationManager.distanceFilter = 1000.0f;
+        _locationManager.distanceFilter = 1000.0f;
         _locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
         [_locationManager startUpdatingLocation];
         _locationManager.delegate = self;

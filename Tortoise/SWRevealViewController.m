@@ -573,13 +573,15 @@ const int FrontViewPositionNone = 0xff;
 
 - (void)_initDefaultProperties
 {
+    
+    
     _frontViewPosition = FrontViewPositionLeft;
     _rearViewPosition = FrontViewPositionLeft;
     _rightViewPosition = FrontViewPositionLeft;
-    _rearViewRevealWidth = 260.0f;
+    _rearViewRevealWidth = 320.0f;
     _rearViewRevealOverdraw = 60.0f;
     _rearViewRevealDisplacement = 40.0f;
-    _rightViewRevealWidth = 260.0f;
+    _rightViewRevealWidth = 320.0f;
     _rightViewRevealOverdraw = 60.0f;
     _rightViewRevealDisplacement = 40.0f;
     _bounceBackOnOverdraw = YES;
@@ -596,6 +598,16 @@ const int FrontViewPositionNone = 0xff;
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
     _draggableBorderWidth = 0.0f;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    float x=(screenBounds.size.width)*8.8/10; //windowWidth=self.window.bounds.size.width;
+    float y=x-260;
+    
+    _frontViewPosition = FrontViewPositionLeft;
+    _rearViewPosition = FrontViewPositionRightMost;
+    _rightViewPosition = FrontViewPositionLeft;
+    _rearViewRevealWidth = x;
+    _rearViewRevealOverdraw = 60.0f+y;
+    _rearViewRevealDisplacement = 40.0f+y;
 }
 
 

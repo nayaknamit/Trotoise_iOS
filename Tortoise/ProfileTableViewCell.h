@@ -12,6 +12,8 @@
 
 
 @property(nonatomic,strong) IBOutlet UILabel *userNameLbl;
+@property(nonatomic,strong) IBOutlet UILabel *emailLbl;
+@property(nonatomic,strong) IBOutlet UIImageView *coverPicImgView;
 @property(nonatomic,strong) IBOutlet UIImageView *profilePicImgView;
 
 @end

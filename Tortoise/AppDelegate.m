@@ -51,7 +51,8 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     // Override point for customization after application launch.
-    
+//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//    float height =  screenBounds.size.height;
     
     return YES;
 }
@@ -165,8 +166,13 @@ withError:(NSError *)error {
     _loggedInUserDS.email = [userDict objectForKey:@"email"];
     if ([userDict objectForKey:@"picture"]!=nil) {
         
-        NSURL *url = [NSURL URLWithString:[[[userDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
-        _loggedInUserDS.imageUrl = url;
+//        NSURL *url = [NSURL URLWithString:[[[userDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
+        _loggedInUserDS.imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large&redirect=true&width=150&height=150",_loggedInUserDS.userID]];
+        
+    }
+    if([userDict objectForKey:@"cover"]!=nil){
+        NSURL *url = [NSURL URLWithString:[[userDict objectForKey:@"cover"] objectForKey:@"source"]];
+        _loggedInUserDS.coverImageUrl = url;
         
     }
     

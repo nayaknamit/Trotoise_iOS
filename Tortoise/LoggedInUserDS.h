@@ -15,6 +15,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *email;
 @property (nonatomic,strong) NSURL *imageUrl;
+@property (nonatomic,strong) NSURL *coverImageUrl;
 @property (nonatomic) BOOL isFacebookLoggedIn;
 
 @end

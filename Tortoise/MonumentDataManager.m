@@ -89,6 +89,19 @@
                                 monumentListDS.addInfo = [monumentDict objectForKey:@"addInfo"];
                                 monumentListDS.thumbnail = [monumentDict objectForKey:@"thumbnail"];
                                 monumentListDS.monumentID = [NSNumber numberWithInteger:[[monumentDict objectForKey:@"id"] integerValue]];
+                                NSArray *imageAttributeArra = [monumentDict objectForKey:@"arrImages"];
+                                if (imageAttributeArra.count>0) {
+                                    NSMutableSet *imageAttriMutableSet = [NSMutableSet set];
+                                    [imageAttributeArra enumerateObjectsUsingBlock:^(id  _Nonnull obj4, NSUInteger idx4, BOOL * _Nonnull stop4) {
+                                       
+                                        ImageAttributeDS *imageAttributeObject = [[ImageAttributeDS alloc] init];
+                                        imageAttributeObject.imageUrl = (NSString *)obj4;
+                                        [imageAttriMutableSet addObject:imageAttributeObject];
+                                    }];
+                                    
+                                    monumentListDS.imageAttributes = (NSSet *)imageAttriMutableSet ;
+                                }
+                                
                                 [monumentList addObject:monumentListDS];
                                 
                             }];

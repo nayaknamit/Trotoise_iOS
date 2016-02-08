@@ -16,5 +16,6 @@
 
 
 #import "AppDelegate.h"
-
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIFont+Trotoise.h"
 #define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)

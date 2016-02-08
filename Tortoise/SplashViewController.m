@@ -89,7 +89,7 @@ dismissViewController:(UIViewController *)viewController {
 - (void)getUserInfo
 {
     
-    [SCFacebook getUserFields:@"id, name, email, birthday, about, picture" callBack:^(BOOL success, id result) {
+    [SCFacebook getUserFields:@"id,cover, name, email, birthday, about, picture" callBack:^(BOOL success, id result) {
         if (success) {
             
             [APP_DELEGATE setLoggedInUserData:(NSDictionary *)result isFacebookData:YES];

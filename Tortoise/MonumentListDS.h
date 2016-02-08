@@ -17,9 +17,15 @@
 @property (nonatomic, retain) NSString *desc;
 @property (nonatomic, retain) NSString *addInfo;
 @property (nonatomic, retain) NSString *thumbnail;
+@property (nonatomic, retain) NSSet *imageAttributes;
+
 @end
 
+@interface ImageAttributeDS : NSObject
+@property (nonatomic, retain) NSString *imageUrl;
 
+
+@end
 
 @interface CountryDS : NSObject
 @property (nonatomic, retain) NSNumber *countryID;

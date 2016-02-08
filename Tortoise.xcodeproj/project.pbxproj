@@ -28,6 +28,8 @@
 		B43818F01C628D4500B0CCA7 /* Continent.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EE1C628D4500B0CCA7 /* Continent.m */; };
 		B43818F31C6371C800B0CCA7 /* MonumentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */; };
 		B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */; };
+		B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */; };
+		B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B43819A01C68B82800B0CCA7 /* ImageAttribute.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
@@ -73,11 +75,11 @@
 		B4D0D70B1BD0969500B828EF /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D0D7021BD0969500B828EF /* UIImageView+AFNetworking.m */; };
 		B4E2CA8B1BD00F970050FC3F /* CityMonument+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2CA841BD00F970050FC3F /* CityMonument+CoreDataProperties.m */; };
 		B4E2CA8C1BD00F970050FC3F /* CityMonument.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2CA861BD00F970050FC3F /* CityMonument.m */; };
-		B4E2CA8D1BD00F970050FC3F /* MonumentList+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2CA881BD00F970050FC3F /* MonumentList+CoreDataProperties.m */; };
-		B4E2CA8E1BD00F970050FC3F /* MonumentList.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2CA8A1BD00F970050FC3F /* MonumentList.m */; };
 		B4E2CA911BD011A00050FC3F /* TTAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2CA901BD011A00050FC3F /* TTAPIHandler.m */; };
 		B4EE37E31C4AAC05009E8E3F /* Country+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EE37E01C4AAC05009E8E3F /* Country+CoreDataProperties.m */; };
 		B4EE37E41C4AAC05009E8E3F /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EE37E21C4AAC05009E8E3F /* Country.m */; };
+		B4F006D11C68C25600FB78BE /* MonumentList+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */; };
+		B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F006D01C68C25600FB78BE /* MonumentList.m */; };
 		B4FAEB721BCA1883006E9C78 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB711BCA1883006E9C78 /* SplashViewController.m */; };
 		B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB7B1BCB40C6006E9C78 /* MenuTableViewController.m */; };
 		B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB821BCB4F5C006E9C78 /* SWRevealViewController.m */; };
@@ -142,6 +144,10 @@
 		B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentDataManager.m; sourceTree = "<group>"; };
 		B43818F51C666CFB00B0CCA7 /* MonumentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentDetailViewController.h; sourceTree = "<group>"; };
 		B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentDetailViewController.m; sourceTree = "<group>"; };
+		B438199D1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ImageAttribute+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageAttribute+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B438199F1C68B82800B0CCA7 /* ImageAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAttribute.h; sourceTree = "<group>"; };
+		B43819A01C68B82800B0CCA7 /* ImageAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAttribute.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
@@ -217,16 +223,16 @@
 		B4E2CA841BD00F970050FC3F /* CityMonument+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CityMonument+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B4E2CA851BD00F970050FC3F /* CityMonument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityMonument.h; sourceTree = "<group>"; };
 		B4E2CA861BD00F970050FC3F /* CityMonument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityMonument.m; sourceTree = "<group>"; };
-		B4E2CA871BD00F970050FC3F /* MonumentList+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MonumentList+CoreDataProperties.h"; sourceTree = "<group>"; };
-		B4E2CA881BD00F970050FC3F /* MonumentList+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MonumentList+CoreDataProperties.m"; sourceTree = "<group>"; };
-		B4E2CA891BD00F970050FC3F /* MonumentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentList.h; sourceTree = "<group>"; };
-		B4E2CA8A1BD00F970050FC3F /* MonumentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentList.m; sourceTree = "<group>"; };
 		B4E2CA8F1BD011A00050FC3F /* TTAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAPIHandler.h; sourceTree = "<group>"; };
 		B4E2CA901BD011A00050FC3F /* TTAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAPIHandler.m; sourceTree = "<group>"; };
 		B4EE37DF1C4AAC05009E8E3F /* Country+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Country+CoreDataProperties.h"; sourceTree = "<group>"; };
 		B4EE37E01C4AAC05009E8E3F /* Country+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Country+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B4EE37E11C4AAC05009E8E3F /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
 		B4EE37E21C4AAC05009E8E3F /* Country.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Country.m; sourceTree = "<group>"; };
+		B4F006CD1C68C25600FB78BE /* MonumentList+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MonumentList+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MonumentList+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B4F006CF1C68C25600FB78BE /* MonumentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentList.h; sourceTree = "<group>"; };
+		B4F006D01C68C25600FB78BE /* MonumentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentList.m; sourceTree = "<group>"; };
 		B4FAEB701BCA1883006E9C78 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		B4FAEB711BCA1883006E9C78 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		B4FAEB7A1BCB40C6006E9C78 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -451,10 +457,6 @@
 				B4E2CA841BD00F970050FC3F /* CityMonument+CoreDataProperties.m */,
 				B4E2CA851BD00F970050FC3F /* CityMonument.h */,
 				B4E2CA861BD00F970050FC3F /* CityMonument.m */,
-				B4E2CA871BD00F970050FC3F /* MonumentList+CoreDataProperties.h */,
-				B4E2CA881BD00F970050FC3F /* MonumentList+CoreDataProperties.m */,
-				B4E2CA891BD00F970050FC3F /* MonumentList.h */,
-				B4E2CA8A1BD00F970050FC3F /* MonumentList.m */,
 				B4EE37DF1C4AAC05009E8E3F /* Country+CoreDataProperties.h */,
 				B4EE37E01C4AAC05009E8E3F /* Country+CoreDataProperties.m */,
 				B4EE37E11C4AAC05009E8E3F /* Country.h */,
@@ -475,6 +477,14 @@
 				B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */,
 				B43818ED1C628D4500B0CCA7 /* Continent.h */,
 				B43818EE1C628D4500B0CCA7 /* Continent.m */,
+				B438199D1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.h */,
+				B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */,
+				B438199F1C68B82800B0CCA7 /* ImageAttribute.h */,
+				B43819A01C68B82800B0CCA7 /* ImageAttribute.m */,
+				B4F006CD1C68C25600FB78BE /* MonumentList+CoreDataProperties.h */,
+				B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */,
+				B4F006CF1C68C25600FB78BE /* MonumentList.h */,
+				B4F006D01C68C25600FB78BE /* MonumentList.m */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -863,6 +873,7 @@
 				B46582BA1BC4B3A800C57679 /* HomeViewController.m in Sources */,
 				B4E2CA8B1BD00F970050FC3F /* CityMonument+CoreDataProperties.m in Sources */,
 				B4FAEB721BCA1883006E9C78 /* SplashViewController.m in Sources */,
+				B4F006D11C68C25600FB78BE /* MonumentList+CoreDataProperties.m in Sources */,
 				B4E2CA8C1BD00F970050FC3F /* CityMonument.m in Sources */,
 				B4EE37E41C4AAC05009E8E3F /* Country.m in Sources */,
 				B4B815321BCB666000C5E3BF /* ProfileTableViewCell.m in Sources */,
@@ -871,7 +882,7 @@
 				B4E2CA911BD011A00050FC3F /* TTAPIHandler.m in Sources */,
 				B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */,
 				B4D0D7071BD0969500B828EF /* AFNetworkActivityIndicatorManager.m in Sources */,
-				B4E2CA8E1BD00F970050FC3F /* MonumentList.m in Sources */,
+				B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */,
 				B4D0D70B1BD0969500B828EF /* UIImageView+AFNetworking.m in Sources */,
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
 				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
@@ -885,8 +896,8 @@
 				B411FDF31C5E830600BB96C7 /* LanguageDataManager.m in Sources */,
 				B46582B71BC4B3A800C57679 /* AppDelegate.m in Sources */,
 				B4D0D7041BD0969500B828EF /* AFHTTPRequestOperation.m in Sources */,
+				B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */,
 				B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */,
-				B4E2CA8D1BD00F970050FC3F /* MonumentList+CoreDataProperties.m in Sources */,
 				B4B815351BCB666F00C5E3BF /* MenuTableViewCell.m in Sources */,
 				B411FDF01C5E81E800BB96C7 /* LanguageDS.m in Sources */,
 				B411FDD01C5E09E200BB96C7 /* RadiusView.m in Sources */,
@@ -900,6 +911,7 @@
 				B4D0D7031BD0969500B828EF /* AFHTTPClient.m in Sources */,
 				B411FDD91C5E26B300BB96C7 /* Nuance+CoreDataProperties.m in Sources */,
 				B411FDE11C5E270400BB96C7 /* Language+CoreDataProperties.m in Sources */,
+				B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,7 +1005,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_GROUP = "";
 				INSTALL_OWNER = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -1034,7 +1046,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_GROUP = "";
 				INSTALL_OWNER = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1055,7 +1067,7 @@
 				INFOPLIST_FILE = Tortoise/Info.plist;
 				INSTALL_GROUP = "";
 				INSTALL_OWNER = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.inda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1077,7 +1089,7 @@
 				INFOPLIST_FILE = Tortoise/Info.plist;
 				INSTALL_GROUP = "";
 				INSTALL_OWNER = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.inda;
 				PRODUCT_NAME = "$(TARGET_NAME)";

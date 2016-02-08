@@ -12,6 +12,11 @@
 
 @end
 
+@implementation ImageAttributeDS
+
+
+
+@end
 @implementation ContinentDS
 
 
