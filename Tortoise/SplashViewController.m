@@ -74,16 +74,36 @@ dismissViewController:(UIViewController *)viewController {
 -(IBAction)loginButtonClicked:(id)sender
 {
 
-    [SCFacebook loginCallBack:^(BOOL success, id result) {
+//    [[NSUserDefaults standardUserDefaults] setObject:_loggedInUserDS forKey:@"LoggedInUserInfo"];
+   
+    NSDictionary *loggedInUserDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoggedInUserInfo"];
+    
+    
+    
+    
+    if(loggedInUserDict!=nil){
         
-        
-        if (success) {
-            [self getUserInfo];
-        }else{
-        
-         }
-    }];
 
+        [APP_DELEGATE setLoggedInUserData:loggedInUserDict isFacebookData:NO];
+        
+        LanguageViewController *languageVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LanguageViewController"];
+        [self.navigationController pushViewController:languageVC animated:YES];
+
+        
+    }else{
+        [SCFacebook loginCallBack:^(BOOL success, id result) {
+            
+            
+            if (success) {
+                [self getUserInfo];
+            }else{
+                
+            }
+        }];
+
+    }
+    
+    
 }
 
 - (void)getUserInfo
@@ -116,7 +136,7 @@ dismissViewController:(UIViewController *)viewController {
     scrollViewWidth = self.scrollView.frame.size.width;
     CGFloat scrollViewHeight = self.scrollView.frame.size.height;
     
-    UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, scrollViewWidth, scrollViewHeight)]
+    UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, scrollViewWidth, scrollViewHeight)]
     ;
     
     imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
@@ -126,25 +146,25 @@ dismissViewController:(UIViewController *)viewController {
     
     
     
-    UIImageView *imageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewWidth, 0, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewWidth, -20, scrollViewWidth, scrollViewHeight)];
     
     
     imageViewTwo.image = [UIImage imageNamed:self.splashImageArra[1]];
     
     
-    UIImageView *imageViewThree = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*2, 0, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewThree = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*2,-20, scrollViewWidth, scrollViewHeight)];
     
     
     
     imageViewThree.image = [UIImage imageNamed:self.splashImageArra[2]];
     
-    UIImageView *imageViewFour = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*3, 0, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewFour = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*3, -20, scrollViewWidth, scrollViewHeight)];
     
     
     
     imageViewFour.image = [UIImage imageNamed:self.splashImageArra[3]];
     
-    UIImageView *imageViewFive = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*4, 0, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewFive = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*4, -20, scrollViewWidth, scrollViewHeight)];
     
     
     
@@ -157,7 +177,7 @@ dismissViewController:(UIViewController *)viewController {
     [self.scrollView addSubview:imageViewFive];
     //
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height-20);
     
     
     self.scrollView.delegate = self;

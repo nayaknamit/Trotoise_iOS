@@ -185,6 +185,9 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
                 NSDictionary *initialFrm = objc_getAssociatedObject(self, &_initialFrame);
                
                  self.frame = CGRectMake([initialFrm[@"Originx"] floatValue],[initialFrm[@"Originy"] floatValue],[initialFrm[@"SizeWidth"] floatValue],[initialFrm[@"Sizeheight"] floatValue]);
+            }else{
+                [self setBOOLMidHeightSet:NO];
+
             }
             
             

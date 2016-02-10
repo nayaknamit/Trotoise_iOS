@@ -171,6 +171,15 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     NSDictionary *aParametersDictionary = nil;
     
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL];
+    if (_httpClient !=nil) {
+        _httpClient = nil;
+    }
+    
+    self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
+    
+
+    
     NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
     
     AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest

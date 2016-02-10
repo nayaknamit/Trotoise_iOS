@@ -7,10 +7,15 @@
 #import "Constants.h"
 #import "SCFacebook.h"
 #import "LoggedInUserDS.h"
+#import "LanguageDS.h"
 @import GoogleMaps;
 
 @interface AppDelegate ()
 @property (nonatomic,strong) LoggedInUserDS *loggedInUserDS;
+@property (nonatomic,strong) NSArray *languageDataArray;
+@property (nonatomic,strong) NSArray *cityMonumentListArray;
+@property (nonatomic) CLLocationCoordinate2D locationCoordinate;
+@property (nonatomic,strong)NSString *currentLocationAddress;
 @end
 
 @implementation AppDelegate
@@ -102,10 +107,19 @@
 }
 
 #pragma mark - Google SignIN Methods
+
+-(void)disconnectGoogleSignIn{
+    
+    [[GIDSignIn sharedInstance] disconnect];
+
+}
 - (void)signIn:(GIDSignIn *)signIn
 didSignInForUser:(GIDGoogleUser *)user
      withError:(NSError *)error {
     // Perform any operations on signed in user here.
+    if (_loggedInUserDS) {
+        _loggedInUserDS = nil;
+    }
     _loggedInUserDS = [[LoggedInUserDS alloc] init];
     if(user!=nil){
         
@@ -130,6 +144,10 @@ didDisconnectWithUser:(GIDGoogleUser *)user
 withError:(NSError *)error {
     // Perform any operations when the user disconnects from app here.
     // ...
+    
+    _loggedInUserDS = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"LoggedInUserInfo"];
+    [self instantiateIntialVC];
 }
 
 -(LoggedInUserDS *)getLoggedInUserData{
@@ -153,11 +171,79 @@ withError:(NSError *)error {
  
  */
 
+-(void)setCurrentLocationAddress:(NSString *)address{
+   if( _loggedInUserDS!=nil)
+        _loggedInUserDS.formattedAddressString = address;
+    
+    
+}
+-(NSString *)getCurrentLocationAddress{
+    
+    return _currentLocationAddress;
+}
+-(void)setDefaultLanguage{
+    
+    [_languageDataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        LanguageDS *languageDs = (LanguageDS *)obj;
+        if ([languageDs.name isEqualToString:@"English (US)"]) {
+            
+            [self setSelectedLanguageData:languageDs];
+            *stop = YES;
+            return ;
+            
+        }
+    }];
+}
+-(void)setSelectedLanguageData:(LanguageDS *)languageDS{
+    if(_loggedInUserDS !=nil)
+    {
+        _loggedInUserDS.selectedLanguageDS = languageDS;
+        
+        
+    }
+}
+
+-(void)logOutUser{
+    if(_loggedInUserDS){
+        
+        if(_loggedInUserDS.isFacebookLoggedIn)
+        {
+            [SCFacebook logoutCallBack:^(BOOL success, id result) {
+            
+                if (success) {
+                    NSLog(@"Facebook Logout Successfully");
+                    
+                }
+                [self instantiateIntialVC];
+                _loggedInUserDS = nil;
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"LoggedInUserInfo"];
+
+            }];
+        
+        }else{
+            [self disconnectGoogleSignIn];
+    
+        }
+        
+       
+   
+        
+        
+    }
+    
+}
+-(void)instantiateIntialVC{
+ UIStoryboard *stoaryBoard     =  [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+  self.window.rootViewController =  [stoaryBoard instantiateInitialViewController];
+}
 -(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook{
 
     if(_loggedInUserDS !=nil){
         _loggedInUserDS = nil;
     }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:userDict forKey:@"LoggedInUserInfo"];
+
     _loggedInUserDS = [[LoggedInUserDS alloc] init];
     _loggedInUserDS.name = [userDict objectForKey:@"name"];
     _loggedInUserDS.userID = [userDict objectForKey:@"id"];
@@ -167,7 +253,7 @@ withError:(NSError *)error {
     if ([userDict objectForKey:@"picture"]!=nil) {
         
 //        NSURL *url = [NSURL URLWithString:[[[userDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
-        _loggedInUserDS.imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large&redirect=true&width=150&height=150",_loggedInUserDS.userID]];
+        _loggedInUserDS.imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&redirect=true&width=150&height=150",_loggedInUserDS.userID]];
         
     }
     if([userDict objectForKey:@"cover"]!=nil){
@@ -176,8 +262,37 @@ withError:(NSError *)error {
         
     }
     
+    
 }
 
+-(CLLocationCoordinate2D)getCurrentLocationCoordinate{
+    
+    return _locationCoordinate;
+}
+-(void)setCurrentLocationCoordinate:(CLLocationCoordinate2D)coordinate{
+    _locationCoordinate = coordinate;
+    
+}
+
+-(NSArray *)getLanguageDataArray{
+    
+    return _languageDataArray;
+}
+-(void)setLanguageDataArray:(NSArray *)languageDataArray{
+    
+    _languageDataArray = [NSArray arrayWithArray:languageDataArray];
+    
+}
+
+-(NSArray *)getMonumentListArray{
+    
+    return _cityMonumentListArray;
+}
+-(void)setCityMonumentListArray:(NSArray *)arr{
+    
+    _cityMonumentListArray = [NSArray arrayWithArray:arr];
+    
+}
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;

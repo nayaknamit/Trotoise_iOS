@@ -13,6 +13,7 @@
 #import "LanguageDS.h"
 #import "LoggedInUserDS.h"
 #import "HomeViewController.h"
+#import "LanguageDataManager.h"
 @interface LanguageViewController ()<LanguageTableViewDelegate>
 @property (nonatomic,strong) LanguageTableView *languageTableView;
 @property (nonatomic,strong) KLCPopup *klcPopView;
@@ -32,26 +33,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    [self setUpLanguageView];
     
+}
+
+
+
+-(void)setUpLanguageView{
+    
+    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    [APP_DELEGATE setDefaultLanguage];
     self.loggedInUserLbl.text = [NSString stringWithFormat:@"Welcome %@",loggedInUser.name];
     
-    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-//    self.profileImageView.clipsToBounds = YES;
-//    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-//    self.profileImageView.layer.masksToBounds = YES;
- self.profileImageView.layer.borderWidth = 1.0f;
-    self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    if(loggedInUser.imageUrl!=nil){
-            [self.profileImageView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:loggedInUser.imageUrl]]];
+    
+    
+    if(loggedInUser.selectedLanguageDS){
+        
+        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
     }
     
-
-    
-UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
-                                       initWithTarget:self action:@selector(onTapGestureEventFired:)] ;
-    
-    
+    UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(onTapGestureEventFired:)] ;
     [recognizer setNumberOfTapsRequired:01];
     
     NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"LanguageTableView" owner:self options:nil];
@@ -59,19 +61,73 @@ UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
     [self.languageDisplayView addGestureRecognizer:recognizer];
     self.languageTableView.delegate = self;
     _klcPopView = [KLCPopup popupWithContentView:self.languageTableView];
-
+    
+    [self.languageTableView setUpLanguageData:[APP_DELEGATE getLanguageDataArray]];
     
     
-    [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(NSArray *languageMappingArra, NSError *error) {
-        NSLog(@"LanguageDescription %@",[languageMappingArra description]);
-        [self.languageTableView setUpLanguageData:languageMappingArra];
+    if(loggedInUser.imageUrl!=nil){
+        
+            [self setProfileImageWithUrl:loggedInUser.imageUrl];
+//        [self performSelector:@selector(performMethodAfterDelay:) withObject:loggedInUser afterDelay:0.5];
+        
+        
+    }
 
+}
+-(void)performMethodAfterDelay:(LoggedInUserDS *)loggedInUser{
+
+    [self setProfileImageWithUrl:loggedInUser.imageUrl];
+    
+}
+
+-(void)setDefaultLanguage:(NSArray *)languageArr{
+    
+    [languageArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        LanguageDS *languageDs = (LanguageDS *)obj;
+        if ([languageDs.name isEqualToString:@"English (US)"]) {
+            
+            [self updateLanguageDetailsOnScreen:languageDs];
+            *stop = YES;
+            return ;
+            
+        }
+    }];
+}
+-(void)setProfileImageWithUrl:(NSURL *)url{
+    
+    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:url placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (image)
+        {
+            self.profileImageView.image = image;
+            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+            self.profileImageView.clipsToBounds = YES;
+            self.profileImageView.layer.borderWidth = 3.0f;
+            self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+            
+            // do something with image
+        }
         
     }];
 }
 
+-(void)updateLanguageDetailsOnScreen:(LanguageDS *)languageDS{
+    
+    self.textCheckBoxImageView.image = [UIImage imageNamed:@"checkbox"];
+    
+    if(languageDS.nuanceRelationship !=nil){
+        self.speakrImageView.hidden = NO;
+        self.audioCheckBoxImageView.image = [UIImage imageNamed:@"checkbox"];
+    }else{
+        self.speakrImageView.hidden = YES;
+        self.audioCheckBoxImageView.image = [UIImage imageNamed:@"uncheck"];
+    }
+    self.languageLabel.text = languageDS.name;
+    [APP_DELEGATE setSelectedLanguageData:languageDS];
 
-
+    
+}
 -(IBAction)continueButtonTapped:(id)sender{
    
     
@@ -79,17 +135,9 @@ UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
 -(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(LanguageDS *)data{
     
     [_klcPopView dismiss:YES];
-    self.textCheckBoxImageView.image = [UIImage imageNamed:@"checkbox"];
+    [self updateLanguageDetailsOnScreen:data];
     
-    if(data.nuanceRelationship !=nil){
-        self.speakrImageView.hidden = NO;
-        self.audioCheckBoxImageView.image = [UIImage imageNamed:@"checkbox"];
-    }else{
-        self.speakrImageView.hidden = YES;
-        self.audioCheckBoxImageView.image = [UIImage imageNamed:@"uncheck"];
-    }
-    self.languageLabel.text = data.name;
-    
+    [APP_DELEGATE setSelectedLanguageData:data];
 }
 
 - (void)didReceiveMemoryWarning {

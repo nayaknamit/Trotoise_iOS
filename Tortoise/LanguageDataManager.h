@@ -11,4 +11,5 @@
 @interface LanguageDataManager : NSObject
 +(id)sharedManager;
 -(NSArray *)getParseAPIDataToLanguageDS:(NSArray *)arraData;
+-(BOOL)isLanguageDataExistInCoreData;
 @end

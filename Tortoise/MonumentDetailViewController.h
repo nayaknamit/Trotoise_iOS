@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class MonumentListDS;
-@interface MonumentDetailViewController : UIViewController
+@interface MonumentDetailViewController : UIViewController<UIScrollViewDelegate>
 
 @property (nonatomic,strong) MonumentListDS * monumentDetailObj;
 @end

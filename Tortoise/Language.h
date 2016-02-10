@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Nuance;
+@class Nuance,LanguageDS;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Language : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
-
++(void)insertDataIntoBasket:( LanguageDS*)dataObject withContextManagedObject:(NSManagedObjectContext *)context;
++(BOOL)isDataExistwithContext:(NSManagedObjectContext *)context;
++(NSArray *)getLanguageDataFromContext:(NSManagedObjectContext *)context;
 @end
 
 NS_ASSUME_NONNULL_END

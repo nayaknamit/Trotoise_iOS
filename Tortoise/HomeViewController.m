@@ -15,11 +15,19 @@
 #import "KLCPopup.h"
 #import "MonumentListDS.h"
 #import "MonumentDetailViewController.h"
+
+#import "LoggedInUserDS.h"
+#import "LanguageDS.h"
+#import "LanguageViewController.h"
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-@interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate>
+@interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate,GMSAutocompleteViewControllerDelegate>
 {
     BOOL drawForOnce;
     NSString *radiusValue;
+    GMSAutocompleteResultsViewController *_resultsViewController;
+    UISearchController *_searchController;
+    GMSAutocompleteTableDataSource *_tableDataSource;
+    UISearchDisplayController * _searchDisplayController;
 
 }
 @property (nonatomic,strong) __block NSMutableArray *dataArra;
@@ -33,6 +41,11 @@
 @property (nonatomic,strong) RadiusView *radiusView;
 @property (weak,nonatomic) IBOutlet UIButton *radiusButton;
 @property (nonatomic,weak) IBOutlet UILabel *lblDistanceRequired;
+@property (nonatomic,strong)GMSAutocompleteFetcher* fetcher;
+@property (nonatomic,strong) IBOutlet UIView *searchView;
+
+
+
 -(void)setUpLocationManager;
 
 
@@ -46,22 +59,93 @@
 
 @implementation HomeViewController
 
+
+-(void)setUpAutoComplete{
+    
+    // Set up the autocomplete filter.
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    acController.delegate = self;
+    [self presentViewController:acController animated:YES completion:nil];
+
+
+    
+
+}
+#pragma mark GoogleController AutoSearch Method
+
+
+// Handle the user's selection.
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didAutocompleteWithPlace:(GMSPlace *)place {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // Do something with the selected place.
+    NSLog(@"Place name %@", place.name);
+    NSLog(@"Place address %@", place.formattedAddress);
+    NSLog(@"Place attributions %@", place.attributions.string);
+    _searchBar.text = place.formattedAddress;
+    NSLog(@"lat : %f long : %f",place.coordinate.latitude,place.coordinate.longitude);
+}
+
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didFailAutocompleteWithError:(NSError *)error {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    // TODO: handle the error.
+    NSLog(@"Error: %@", [error description]);
+}
+
+// User canceled the operation.
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// Turn the network activity indicator on and off again.
+- (void)didRequestAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)didUpdateAutocompletePredictions:(GMSAutocompleteViewController *)viewController {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+# pragma -
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     radiusValue = @"30";
     [self setUpNavigationBar];
     [self setUpRadiusPopUp];
     [self setUpDraggableView];
+//    [self setUpLocationManager];
+    [self setUpInitialData];
+    }
+
+-(void)setUpInitialData{
     
-    [self setUpLocationManager];
+    self.dataArra = [NSMutableArray arrayWithArray:[APP_DELEGATE getMonumentListArray]];
+    [self.tableView reloadData];
+    [self mapSetUpWithLatitude:0.0f withLongitude:0.0f];
     
-//    [self dummyData];
+    _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
+    LoggedInUserDS *loggedinUser = [APP_DELEGATE getLoggedInUserData];
+  
+    _searchBar.text = loggedinUser.formattedAddressString;
+
     
-//    [[TTAPIHandler sharedWorker] getMonumentListByCityID:@"3102" withRequestType:GET_MONUMENT_LIST_BY_CITYID responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-//        
-//        NSLog(@"einsde");
-//        
-//    }];
+    
+
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+
+//    [_mapContainerView removeObserver:self forKeyPath:@"myLocation"];
+
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    [_mainView setBOOLMidHeightSet:NO];
 }
 -(void)setUpDraggableView{
 //    [_mainView ]
@@ -83,11 +167,21 @@
                                                                      [UIFont TrotoiseFontCondensedRegular:24], NSFontAttributeName, nil]];
     
     
+    
+    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    LanguageDS *languageDS = loggedInUser.selectedLanguageDS;
+    
     UIButton* customButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateNormal];
-    [customButton setTitle:@"En" forState:UIControlStateNormal];
+    [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateSelected];
+    NSString *languageLocale = [languageDS.lang capitalizedString];
+    [customButton setTitle:languageLocale forState:UIControlStateNormal];
+    
+    [customButton setTitle:languageLocale forState:UIControlStateHighlighted];
     [customButton.titleLabel setFont:[UIFont TrotoiseFontLight:18]];
     [customButton sizeToFit];
+    [customButton addTarget:self action:@selector(customLanguageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
     UIBarButtonItem* customBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customButton];
     self.navigationItem.rightBarButtonItem = customBarButtonItem;
     _barButton.target = self.revealViewController;
@@ -108,11 +202,62 @@
     
     
 }
+-(void)customLanguageButtonTapped:(id)sender{
+ LanguageViewController *languageVC =   [self.storyboard instantiateViewControllerWithIdentifier:@"LanguageViewController"];
+  
+    [self.navigationController presentViewController:languageVC animated:YES completion:nil];
+}
 -(IBAction)radiusBtnTapped:(id)sender{
     [_klcPopView show];
 }
 -(IBAction)currentLocationBtnTapped:(id)sender{
+    UIButton *btn = (UIButton *)sender;
     
+    if(btn.tag ==1002)
+    {
+        [self setUpAutoComplete];
+        
+    }else{
+        [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+            if (error != nil) {
+                NSLog(@"Current Place error %@", [error localizedDescription]);
+                return;
+            }
+            GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
+            
+            GMSPlace *place = likelihood.place;
+            NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
+            NSLog(@"Current Place address %@", place.formattedAddress);
+            NSLog(@"Current Place attributions %@", place.attributions);
+            NSLog(@"Current PlaceID %@", place.placeID);
+            [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+            self.searchBar.text = place.formattedAddress;
+            CLLocation* location;// = place.coordinate;
+            location = [[CLLocation alloc] initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
+            
+            
+            NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
+            NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
+            
+            
+            if(TARGET_OS_SIMULATOR){
+                
+                lat = @"28.467504";
+                longitude = @"77.059479";
+            }
+            
+            [[TTAPIHandler sharedWorker] getMonumentListByRange:lat  withLongitude:longitude withrad:radiusValue withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+                _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
+                [self.tableView reloadData];
+                [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
+                
+                _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
+                
+            }];
+            
+        }];
+
+    }
 }
 -(void)setUpRadiusPopUp{
     NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"RadiusView" owner:self options:nil];
@@ -142,10 +287,10 @@
     [_mapContainerView.settings setMyLocationButton:YES];
     
     // Listen to the myLocation property of GMSMapView.
-    [_mapContainerView addObserver:self
-               forKeyPath:@"myLocation"
-                  options:NSKeyValueObservingOptionNew
-                  context:NULL];
+//    [_mapContainerView addObserver:self
+//               forKeyPath:@"myLocation"
+//                  options:NSKeyValueObservingOptionNew
+//                  context:NULL];
     
     
         for(MonumentListDS * obj in _dataArra){
@@ -253,46 +398,6 @@
 
 #pragma mark - CLLOCATION MANAGER INITIALIATION 
 
--(void)setUpLocationManager{
-    
-    _locationManager = [[CLLocationManager alloc] init];
-    if([CLLocationManager locationServicesEnabled]){
-        [self.locationManager requestWhenInUseAuthorization];
-//        [self.locationManager requestAlwaysAuthorization];
-//        [_locationManager requestAlwaysAuthorization];
-        
-        [self.locationManager requestAlwaysAuthorization];
-
-        _locationManager.distanceFilter = 1000.0f;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-        [_locationManager startUpdatingLocation];
-        _locationManager.delegate = self;
-        
-    }
-    
-    
-}
-#pragma mark - CLLOCATION DELEGATE
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
-    CLLocation* location = [locations objectAtIndex:0];
-    
-//    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
-//    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
-[[TTAPIHandler sharedWorker] getMonumentListByRange:@"28.467504" withLongitude:@"77.059479" withrad:radiusValue withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-    _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
-    [self.tableView reloadData];
-    [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
-    
-    _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
-    
-}];
-    
-    
-    
-    
-}
 
 #pragma mark - UITableViewDataSource protocol methods
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -347,7 +452,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
    MonumentDetailViewController * monumentDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MonumentDetailViewController"];
-    monumentDetailVC.monumentDetailObj = (MonumentListDS *)[_dataArra objectAtIndex:indexPath.row];
+   // NSInteger row = indexPath.section;
+    monumentDetailVC.monumentDetailObj = (MonumentListDS *)[_dataArra objectAtIndex:indexPath.section];
     
     [self.navigationController pushViewController:monumentDetailVC animated:YES];
     
@@ -373,24 +479,7 @@
 //    }
 //    
 //}
-#pragma Mark #
 
--(void)dummyData{
-   NSString *des = @" Greater Paris (the city plus surrounding departments) received 22,4 million visitors in 2014, making it one of the world's top tourist destinations. The largest numbers of foreign tourists in 2014 came from the United States (2.74 million), the U.K., Germany, Italy, Japan, Spain and China (532,000). Arrivals from the U.K, Germany, Russia and Japan dropped from 2013, while arrivals from the Near and Middle East grew by twenty percent.";
-    
-    
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict4 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict33 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict44 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict333 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    NSDictionary *dict444 = [[NSDictionary alloc] initWithObjectsAndKeys:@"Paris",@"title",des,@"description", nil];
-    _dataArra = [NSMutableArray arrayWithObjects:dict,dict1,dict2,dict3,dict4,dict33,dict44,dict333,dict444, nil];
-    
-}
 
 #pragma mark -
 #pragma mark RadiusView Delegate Method
@@ -398,14 +487,37 @@
     NSLog(@"Radius View Ok Button Pressed slider Value %0.f",sliderValue);
     radiusValue = [NSString stringWithFormat:@"%0.f",sliderValue];
     
+    CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate];
+    
+    
+    NSString *lat = [NSString stringWithFormat:@"%f",coordinate.latitude ];
+    NSString *longitude = [NSString stringWithFormat:@"%f",coordinate.longitude ];
+    
+    
+    if(TARGET_OS_SIMULATOR){
+        
+        lat = @"28.467504";
+        longitude = @"77.059479";
+    }
+    
+    [[TTAPIHandler sharedWorker] getMonumentListByRange:lat  withLongitude:longitude withrad:radiusValue withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+        _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
+        [self.tableView reloadData];
+        [self mapSetUpWithLatitude:coordinate.latitude withLongitude:coordinate.longitude];
+        
+        _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
+        
+    }];
+    
+    
 }
 -(void)radiusViewDidCancelButonTappedWithSliderValue:(CGFloat)sliderValue{
     [_klcPopView dismiss:YES];
 
 }
 
-#pragma mark - 
-#pragma mark DRAGGING METHODS 
+#pragma mark -
+#pragma mark DRAGGING METHODS
 
 
 

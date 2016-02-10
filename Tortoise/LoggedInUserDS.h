@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class  LanguageDS;
 @interface LoggedInUserDS : NSObject
 
 @property (nonatomic,strong) NSString *userID;
@@ -17,5 +17,6 @@
 @property (nonatomic,strong) NSURL *imageUrl;
 @property (nonatomic,strong) NSURL *coverImageUrl;
 @property (nonatomic) BOOL isFacebookLoggedIn;
-
+@property (nonatomic,strong) LanguageDS *selectedLanguageDS;
+@property (nonatomic,strong) NSString *formattedAddressString;
 @end

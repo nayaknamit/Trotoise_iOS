@@ -46,6 +46,10 @@
 		B46582FC1BC5613900C57679 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FB1BC5613900C57679 /* CoreLocation.framework */; };
 		B46582FE1BC5613F00C57679 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FD1BC5613F00C57679 /* MapKit.framework */; };
 		B47E60F11BC75C2300187C51 /* HomeViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47E60F01BC75C2300187C51 /* HomeViewTableViewCell.m */; };
+		B48AE2FA1C6A538800FA5DFD /* DataAccessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE2F91C6A538800FA5DFD /* DataAccessManager.m */; };
+		B48AE2FE1C6A79E600FA5DFD /* GetInspiredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE2FD1C6A79E600FA5DFD /* GetInspiredViewController.m */; };
+		B48AE3131C6BB7AB00FA5DFD /* InitialSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */; };
+		B48AE3151C6BB7EA00FA5DFD /* splash_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */; };
 		B4AF73341C5D1AD20061A25E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73331C5D1AD20061A25E /* CoreGraphics.framework */; };
 		B4AF73361C5D1ADB0061A25E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73351C5D1ADB0061A25E /* UIKit.framework */; };
 		B4AF73381C5D1AE80061A25E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73371C5D1AE80061A25E /* Foundation.framework */; };
@@ -176,6 +180,13 @@
 		B46582FD1BC5613F00C57679 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B47E60EF1BC75C2300187C51 /* HomeViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewTableViewCell.h; sourceTree = "<group>"; };
 		B47E60F01BC75C2300187C51 /* HomeViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewTableViewCell.m; sourceTree = "<group>"; };
+		B48AE2F81C6A538800FA5DFD /* DataAccessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccessManager.h; sourceTree = "<group>"; };
+		B48AE2F91C6A538800FA5DFD /* DataAccessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccessManager.m; sourceTree = "<group>"; };
+		B48AE2FC1C6A79E600FA5DFD /* GetInspiredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInspiredViewController.h; sourceTree = "<group>"; };
+		B48AE2FD1C6A79E600FA5DFD /* GetInspiredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInspiredViewController.m; sourceTree = "<group>"; };
+		B48AE3111C6BB7AB00FA5DFD /* InitialSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialSplashViewController.h; sourceTree = "<group>"; };
+		B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialSplashViewController.m; sourceTree = "<group>"; };
+		B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_logo.png; sourceTree = "<group>"; };
 		B4AF73331C5D1AD20061A25E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B4AF73351C5D1ADB0061A25E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B4AF73371C5D1AE80061A25E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -325,6 +336,8 @@
 		B411FDED1C5E81C100BB96C7 /* DataStructure */ = {
 			isa = PBXGroup;
 			children = (
+				B48AE2F81C6A538800FA5DFD /* DataAccessManager.h */,
+				B48AE2F91C6A538800FA5DFD /* DataAccessManager.m */,
 				B411FDEE1C5E81E800BB96C7 /* LanguageDS.h */,
 				B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */,
 			);
@@ -385,6 +398,7 @@
 				B46582EC1BC559C600C57679 /* Controllers */,
 				B46582B51BC4B3A800C57679 /* AppDelegate.h */,
 				B46582B61BC4B3A800C57679 /* AppDelegate.m */,
+				B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */,
 				B46582C11BC4B3A800C57679 /* Assets.xcassets */,
 				B46582BB1BC4B3A800C57679 /* Main.storyboard */,
 				B4B2D3BB1C5CA813002191EC /* tableViewCellBG.png */,
@@ -425,6 +439,7 @@
 		B46582EC1BC559C600C57679 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B48AE2FB1C6A79C900FA5DFD /* GetInspired */,
 				B43818F41C666CC200B0CCA7 /* MonumentDetail */,
 				B411FDE31C5E292400BB96C7 /* Language */,
 				B4FAEB791BCB4088006E9C78 /* MenuViewController */,
@@ -561,6 +576,15 @@
 			name = HMVCell;
 			sourceTree = "<group>";
 		};
+		B48AE2FB1C6A79C900FA5DFD /* GetInspired */ = {
+			isa = PBXGroup;
+			children = (
+				B48AE2FC1C6A79E600FA5DFD /* GetInspiredViewController.h */,
+				B48AE2FD1C6A79E600FA5DFD /* GetInspiredViewController.m */,
+			);
+			name = GetInspired;
+			sourceTree = "<group>";
+		};
 		B4B2D3AC1C5C8B80002191EC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +668,8 @@
 			children = (
 				B4FAEB701BCA1883006E9C78 /* SplashViewController.h */,
 				B4FAEB711BCA1883006E9C78 /* SplashViewController.m */,
+				B48AE3111C6BB7AB00FA5DFD /* InitialSplashViewController.h */,
+				B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */,
 			);
 			name = Splash;
 			sourceTree = "<group>";
@@ -801,6 +827,7 @@
 				B411FDCC1C5E03B200BB96C7 /* RadiusView.xib in Resources */,
 				B4B2D3B81C5C8B80002191EC /* RobotoCondensed-Regular.ttf in Resources */,
 				B4B2D3BA1C5C9FCA002191EC /* HMVCell.xib in Resources */,
+				B48AE3151C6BB7EA00FA5DFD /* splash_logo.png in Resources */,
 				B4B2D3BC1C5CA813002191EC /* tableViewCellBG.png in Resources */,
 				B46582BD1BC4B3A800C57679 /* Main.storyboard in Resources */,
 			);
@@ -887,14 +914,17 @@
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
 				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
 				B43818F01C628D4500B0CCA7 /* Continent.m in Sources */,
+				B48AE3131C6BB7AB00FA5DFD /* InitialSplashViewController.m in Sources */,
 				B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */,
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,
+				B48AE2FE1C6A79E600FA5DFD /* GetInspiredViewController.m in Sources */,
 				B4D0D70A1BD0969500B828EF /* AFXMLRequestOperation.m in Sources */,
 				B411FDDB1C5E26B300BB96C7 /* Provider+CoreDataProperties.m in Sources */,
 				B411FDF31C5E830600BB96C7 /* LanguageDataManager.m in Sources */,
 				B46582B71BC4B3A800C57679 /* AppDelegate.m in Sources */,
+				B48AE2FA1C6A538800FA5DFD /* DataAccessManager.m in Sources */,
 				B4D0D7041BD0969500B828EF /* AFHTTPRequestOperation.m in Sources */,
 				B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */,
 				B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */,

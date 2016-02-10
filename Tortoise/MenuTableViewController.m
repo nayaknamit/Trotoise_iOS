@@ -11,6 +11,8 @@
 #import "MenuTableViewCell.h"
 #import "ShareTableViewCell.h"
 #import "LoggedInUserDS.h"
+#import "GetInspiredViewController.h"
+#import "LanguageViewController.h"
 @interface MenuTableViewController ()
 @property (nonatomic,strong) NSArray *menuOptsArra;
 @end
@@ -96,7 +98,7 @@
              {
                  if (image)
                  {
-                                          cell.profilePicImgView.image = image;
+                    cell.profilePicImgView.image = image;
                      cell.profilePicImgView.layer.cornerRadius = cell.profilePicImgView.frame.size.width / 2;
                      cell.profilePicImgView.clipsToBounds = YES;
                      cell.profilePicImgView.layer.borderWidth = 3.0f;
@@ -126,13 +128,53 @@
             return cell;
         }
             break;
-        
+        case 1:
+        {
+            NSString *CellIdentifier = @"MenuTableViewCell1";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            return cell;
+        }
+            break;
+        case 2:
+        {
+            NSString *CellIdentifier = @"MenuTableViewCell2";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            return cell;
+        }
+            
+            break;
+        case 3:
+        {
+            NSString *CellIdentifier = @"MenuTableViewCell3";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            return cell;
+        }
+            break;
+        case 4:
+        {
+            NSString *CellIdentifier = @"MenuTableViewCell4";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            return cell;
+        }
+            break;
+        case 5:
+        {
+            NSString *CellIdentifier = @"MenuTableViewCell5";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+            
+            return cell;
+        }
+            break;
         default:
         {
-            MenuTableViewCell *   cell = (MenuTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MenuTableViewCell" forIndexPath:indexPath];
-            cell.menuImageView.image = [UIImage imageNamed:[data objectForKey:@"menuPic"]];
-            cell.menuLabel.text = [data objectForKey:@"menuName"];
-            return cell;
+//            MenuTableViewCell *   cell = (MenuTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"MenuTableViewCell" forIndexPath:indexPath];
+//            cell.menuImageView.image = [UIImage imageNamed:[data objectForKey:@"menuPic"]];
+//            cell.menuLabel.text = [data objectForKey:@"menuName"];
+//            return cell;
 
         }
             break;
@@ -143,6 +185,20 @@
     
     return nil;
 }
+#pragma mark TABLEVIEW DELEGATE
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+    case 5:
+        {
+            [APP_DELEGATE logOutUser];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 /*
 // Override to support conditional editing of the table view.
