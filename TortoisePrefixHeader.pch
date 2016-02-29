@@ -19,4 +19,15 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIFont+Trotoise.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MBProgressHUD.h"
+#import "Utilities.h"
+#import "Constants.h"
+#import "UIView+Toast.h"
+
 #define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
+
+
+//            [[TranslatorManager sharedInstance] translateLanguage:cityMonumentArra withSource:@"en" withTarget:@"fr"];
+
+#define SCAN_MONUMENT_KM @"Scan Monuments within (KM)"
+#define SCAN_MONUMENT_MILE @"Scan Monuments within (Mi)"

@@ -16,12 +16,20 @@
 #import "SplashViewController.h"
 
 #import "HomeViewController.h"
+#import "MenuTableViewController.h"
+#import "TranslatorManager.h"
 #import "LanguageDataManager.h"
 @interface InitialSplashViewController ()<CLLocationManagerDelegate>
 {
-   IBOutlet UIImageView *imageView;
+
     BOOL isOpenOnce;
+    BOOL isCloseAnimation;
+    CGFloat textImageLogoX;
+    CGFloat storiesLogoX;
 }
+@property (nonatomic,weak)   IBOutlet UIImageView *imageView;
+@property (nonatomic,weak) IBOutlet UIImageView *textImageView;
+@property (nonatomic,weak) IBOutlet UILabel *storiesLogoLbl;
 
 @end
 @implementation InitialSplashViewController
@@ -34,19 +42,36 @@ static dispatch_once_t predicate;
     
 //    imageView.center = self.view.center;
     
-    imageView.frame = CGRectMake(-200, imageView.frame.origin.y,imageView.frame.size.width,imageView.frame.size.height);
+    storiesLogoX = _storiesLogoLbl.frame.origin.x;
+     textImageLogoX = _leadConstraint.constant;
+    _imageView.frame = CGRectMake(-200, _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
+//    _textImageView.frame = CGRectMake(-500, _textImageView.frame.origin.y, _textImageView.frame.size.width, _textImageView.frame.size.height);
     
-//    [self.view insertSubview:imageView atIndex:1000];
+    _storiesLogoLbl.frame = CGRectMake(self.view.frame.size.width+200, _storiesLogoLbl.frame.origin.y, _storiesLogoLbl.frame.size.width, _storiesLogoLbl.frame.size.height);
+    
+    
     [self animateSplashScreen];
     
     isOpenOnce = NO;
+    isCloseAnimation = NO;
     [self setUpLocationManager];
     
     
     
     
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _leadConstraint.constant = 400;
+    _trailConstraint.constant = -200;
+    [_storiesLogoLbl updateConstraintsIfNeeded];
+    [_textImageView updateConstraintsIfNeeded];
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+[[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];    
+}
 
 -(void)setUpLocationManager{
     
@@ -59,7 +84,7 @@ static dispatch_once_t predicate;
         [APP_DELEGATE.locationManager requestAlwaysAuthorization];
         
         APP_DELEGATE.locationManager.distanceFilter = 1000.0f;
-        APP_DELEGATE.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        APP_DELEGATE.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [APP_DELEGATE.locationManager startUpdatingLocation];
         APP_DELEGATE.locationManager.delegate = self;
         
@@ -93,49 +118,83 @@ static dispatch_once_t predicate;
 //        
 //    }];
     
-    if(TARGET_OS_SIMULATOR){
-        
-        lat = @"28.467504";
-        longitude = @"77.059479";
-    }
+//    if(TARGET_OS_SIMULATOR){
+//        
+//        lat = @"28.467504";
+//        longitude = @"77.059479";
+//    }
    
     dispatch_once(&predicate, ^{
         //your code here
         
-        [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30" withRequestType:
+        [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"en" withRequestType:
          GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
              
-             [APP_DELEGATE setCityMonumentListArray:cityMonumentArra];
-             if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
-                 [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(NSArray *languageMappingArra, NSError *error) {
-                     
-                     [APP_DELEGATE setLanguageDataArray:languageMappingArra];
-                     [self openSplashViewController];
-                 }];
+             if (error!=nil) {
+                 [self.navigationController.view makeToast:@"Unable to load Monuments List."
+                                                  duration:1.0
+                                                  position:CSToastPositionCenter];
              }else{
-                 NSArray *languageArr = [[LanguageDataManager sharedManager] getParseAPIDataToLanguageDS:nil];
                  
-                 [APP_DELEGATE setLanguageDataArray:languageArr];
-                 [self openSplashViewController];
-                 [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
-                     if (error != nil) {
-                         NSLog(@"Current Place error %@", [error localizedDescription]);
-                         return;
-                     }
-                     GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
-                     
-                     GMSPlace *place = likelihood.place;
-                     NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
-                     NSLog(@"Current Place address %@", place.formattedAddress);
-                     NSLog(@"Current Place attributions %@", place.attributions);
-                     NSLog(@"Current PlaceID %@", place.placeID);
-                     
-                     
-                     [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
-                     
-                 }];
+                 [APP_DELEGATE setCityMonumentListArray:cityMonumentArra];
+                 
+                 APP_DELEGATE.defaultCityMonumentList = [NSMutableArray arrayWithArray:cityMonumentArra];
+                 if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
+                     [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(NSArray *languageMappingArra, NSError *error) {
+                         
+                         
+                         [APP_DELEGATE setLanguageDataArray:languageMappingArra];
+                         
+                         [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+                             if (error != nil) {
+                                 NSLog(@"Current Place error %@", [error localizedDescription]);
+                                 return;
+                             }
+                             GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
+                             
+                             GMSPlace *place = likelihood.place;
+                             NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
+                             NSLog(@"Current Place address %@", place.formattedAddress);
+                             NSLog(@"Current Place attributions %@", place.attributions);
+                             NSLog(@"Current PlaceID %@", place.placeID);
+                             
+                             
+                             [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+                             isCloseAnimation = YES;
 
+                             
+                         }];
+                     }];
+                 }else{
+                     NSArray *languageArr = [[LanguageDataManager sharedManager] getParseAPIDataToLanguageDS:nil];
+                     
+                     [APP_DELEGATE setLanguageDataArray:languageArr];
+                     [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+                         if (error != nil) {
+                             NSLog(@"Current Place error %@", [error localizedDescription]);
+                             return;
+                         }
+                         GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
+                         
+                         GMSPlace *place = likelihood.place;
+                         NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
+                         NSLog(@"Current Place address %@", place.formattedAddress);
+                         NSLog(@"Current Place attributions %@", place.attributions);
+                         NSLog(@"Current PlaceID %@", place.placeID);
+                         
+                         
+                         [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+                         isCloseAnimation = YES;
+
+                         
+                     }];
+                     
+                     
+                 }
+                 
              }
+             
+             
              
              
              
@@ -147,27 +206,88 @@ static dispatch_once_t predicate;
     
     
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
 -(void)openSplashViewController{
-    if(!isOpenOnce){
+    NSDictionary *loggedInUserDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoggedInUserInfo"];
+    
+    
+    if(loggedInUserDict!=nil){
+        [APP_DELEGATE setLoggedInUserData:loggedInUserDict isFacebookData:NO];
+
+//       SWRevealController *revealVC = [[SWRevealViewController alloc] initWithRearViewController:<#(UIViewController *)#> frontViewController:<#(UIViewController *)#>]
+//        UIViewController *Cc = self.revealViewController;
         
-        SplashViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"SplashViewController"];
         
-        [self.navigationController pushViewController:nav animated:YES];
-        isOpenOnce = YES;
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        HomeViewController * homeVC = [sb instantiateViewControllerWithIdentifier:@"HomeViewController"];
         
+        UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
+        MenuTableViewController *menuTableVC = [sb instantiateViewControllerWithIdentifier:@"MenuTableViewController"];
+        
+        SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
+                                                        initWithRearViewController:menuTableVC frontViewController:nav];
+        
+        [self.navigationController pushViewController:mainRevealController animated:YES];
+        
+        }else{
+        if(!isOpenOnce){
+            SplashViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"SplashViewController"];
+            
+            [self.navigationController pushViewController:nav animated:YES];
+            isOpenOnce = YES;
+            
+        }
     }
+    
 }
 
 -(void)animateSplashScreen{
+    
+    
     [UIView animateWithDuration:3 animations:^{
         
-        imageView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width / 2)-(150/2), imageView.frame.origin.y,imageView.frame.size.width,imageView.frame.size.height);
+        _imageView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width / 2)-(150/2), _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
         
         
     } completion:^(BOOL finished) {
-        imageView.frame = CGRectMake(-200, imageView.frame.origin.y,imageView.frame.size.width,imageView.frame.size.height);
-        [self animateSplashScreen];
+        if(isCloseAnimation){
+           
+         
+            [self performSelector:@selector(animate) withObject:nil afterDelay:3.0];
+           
+            
+        }else{
+            _imageView.frame = CGRectMake(-200, _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
+
+            [self animateSplashScreen];
+
+        }
+        
     }];
+    
+}
+-(void)animate{
+    
+    [UIView animateWithDuration:5 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _leadConstraint.constant = -6;
+        [_textImageView updateConstraintsIfNeeded];
+
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:4 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _trailConstraint.constant = -28;
+            [_storiesLogoLbl updateConstraintsIfNeeded];
+
+            
+        } completion:^(BOOL finished) {
+            [self openSplashViewController];
+
+        }];
+    }];
+
     
 }
 - (void)didReceiveMemoryWarning {

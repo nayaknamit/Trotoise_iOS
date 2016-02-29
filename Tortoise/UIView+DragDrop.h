@@ -12,7 +12,11 @@ typedef NS_ENUM( NSInteger, UIViewDragDropMode) {
     UIViewDragDropModeRestrictY,
     UIViewDragDropModeRestrictX
 };
-
+typedef NS_ENUM(NSUInteger,POINTMOVEDIRECTION) {
+    INITAL_POINT_DIRECTION,
+    MIDWAY_POINT_DIRECTION,
+    TOP_WAY_POINT_DIRECTION
+};
 @protocol UIViewDragDropDelegate;
 
 /**
@@ -58,6 +62,7 @@ typedef NS_ENUM( NSInteger, UIViewDragDropMode) {
 - (void) draggingDidBeginForView:(UIView*)view;
 - (void) draggingDidEndWithoutDropForView:(UIView*)view;
 -(void)draggingDidEndViewFrameSet:(CGRect)viewFrame;
+-(void)sendUpdatedHeightForTableView:(CGFloat)height withPointDirection:(POINTMOVEDIRECTION)direction;
 - (void) view:(UIView *)view didHoverOverDropView:(UIView *)dropView;
 - (void) view:(UIView *)view didUnhoverOverDropView:(UIView *)dropView;
 

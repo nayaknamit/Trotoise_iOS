@@ -10,6 +10,7 @@
 #import "SCFacebook.h"
 #import "SplashViewController.h"
 #import "LanguageViewController.h"
+#import "ImageScrollerViewController.h"
 @interface SplashViewController()
 {
     
@@ -135,36 +136,100 @@ dismissViewController:(UIViewController *)viewController {
     
     scrollViewWidth = self.scrollView.frame.size.width;
     CGFloat scrollViewHeight = self.scrollView.frame.size.height;
+    NSInteger counter =0;
+    for(NSString *imageNameString in self.splashImageArra){
+      
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(scrollViewWidth*counter, -20, scrollViewWidth, scrollViewHeight+20)];
+        
+        view.translatesAutoresizingMaskIntoConstraints = YES;
+        view.autoresizesSubviews = YES;
+        
+        UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, view.frame.size.width, view.frame.size.height)];
+        
+        
+        
+        imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
+        imageViewOne.image = [UIImage imageNamed:imageNameString];
+        imageViewOne.autoresizesSubviews = YES;
+        UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0,[UIScreen mainScreen].bounds.size.height/2+40,imageViewOne.frame.size.width,70)];
+            lblTitle.numberOfLines = 2;
+                                                                      
+        lblTitle.textAlignment = NSTextAlignmentCenter;
+        [lblTitle setFont:[UIFont TrotoiseFontCondensedRegular:14]];
+//        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
+        [lblTitle setText:@"We never run out of stories to tell. You \n never run out of places to see."];
+//        lblTitle.backgroundColor = [UIColor blackColor];
+        lblTitle.textColor = [UIColor darkGrayColor];
+        lblTitle.translatesAutoresizingMaskIntoConstraints = YES;
+        lblTitle.autoresizesSubviews = YES;
+        
+        UILabel *lblDes = [[UILabel alloc] initWithFrame:CGRectMake(0,lblTitle.frame.origin.y+lblTitle.frame.size.height-35,imageViewOne.frame.size.width,70)];
+        lblDes.numberOfLines = 2;
     
-    UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, scrollViewWidth, scrollViewHeight)]
+        lblDes.textAlignment = NSTextAlignmentCenter;
+        [lblDes setFont:[UIFont TrotoiseFontLightItalic:12]];
+        //        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
+        [lblDes setText:@"Discover the world in a way you never have."];
+        //        lblTitle.backgroundColor = [UIColor blackColor];
+        lblDes.textColor = [UIColor darkGrayColor];
+        lblDes.translatesAutoresizingMaskIntoConstraints = YES;
+        lblDes.autoresizesSubviews = YES;
+
+        [view addSubview:imageViewOne];
+        [view insertSubview:lblTitle aboveSubview:imageViewOne];
+        
+        [view insertSubview:lblDes aboveSubview:imageViewOne];
+//        [imageViewOne insertSubview:lblTitle atIndex:100];
+        
+
+//        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"RadiusView" owner:self options:nil];
+//      ImageScrollerViewController *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageScrollerViewController"];
+    
+//      imageVC.titleText = @"Helloo Namit Nayak We never run out of stories to tell. You \n never run out of places to see.";
+//        imageVC.imageNameString = imageNameString;
+//        
+//        imageVC.view.frame = CGRectMake(scrollViewWidth*counter, -20,scrollViewWidth, scrollViewHeight+20);
+        
+        counter++;
+        [self.scrollView addSubview:view];
+        
+    }
+    
+    /*
+    UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, scrollViewWidth, scrollViewHeight+20)]
     ;
     
     imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
     imageViewOne.image = [UIImage imageNamed:self.splashImageArra[0]];
     imageViewOne.autoresizesSubviews = YES;
     
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewOne.frame.size.height-120,imageViewOne.frame.size.width, imageViewOne.frame.size.height)];
+    lblTitle.textAlignment = NSTextAlignmentCenter;
+    [lblTitle setFont:[UIFont TrotoiseFontMedium:10]];
+    lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
     
     
+
     
-    UIImageView *imageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewWidth, -20, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewWidth, -20, scrollViewWidth, scrollViewHeight+20)];
     
     
     imageViewTwo.image = [UIImage imageNamed:self.splashImageArra[1]];
     
     
-    UIImageView *imageViewThree = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*2,-20, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewThree = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*2,-20, scrollViewWidth, scrollViewHeight+20)];
     
     
     
     imageViewThree.image = [UIImage imageNamed:self.splashImageArra[2]];
     
-    UIImageView *imageViewFour = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*3, -20, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewFour = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*3, -20, scrollViewWidth, scrollViewHeight+20)];
     
     
     
     imageViewFour.image = [UIImage imageNamed:self.splashImageArra[3]];
     
-    UIImageView *imageViewFive = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*4, -20, scrollViewWidth, scrollViewHeight)];
+    UIImageView *imageViewFive = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*4, -20, scrollViewWidth, scrollViewHeight+20)];
     
     
     
@@ -175,8 +240,8 @@ dismissViewController:(UIViewController *)viewController {
     [self.scrollView addSubview:imageViewThree];
     [self.scrollView addSubview:imageViewFour];
     [self.scrollView addSubview:imageViewFive];
-    //
     
+    */
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height-20);
     
     

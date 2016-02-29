@@ -12,4 +12,5 @@
 @interface LanguageViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet UIView *languageDisplayView;
+@property (nonatomic,weak) IBOutlet UIView *switchView;
 @end

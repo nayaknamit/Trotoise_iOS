@@ -13,4 +13,10 @@
 
 ///Google Key
 
-#define GOOGLE_KEY @"AIzaSyCONEqui1YwFtouy3zycz1ZVBSC5dWGbcY"
+#define GOOGLE_KEY @" AIzaSyCCb48sgUVVLDVnvh7-cL3pqrZ2HONp0_M"
+#define  GA_TRANSLATE_DONE @"GA_TRANSLATE_DONE"
+
+//TESTING
+
+//PRD
+//#define GOOGLE_KEY @"AIzaSyBhAlIC5XNC72tMZKUWGqmkV-_uH_A0X-Y"

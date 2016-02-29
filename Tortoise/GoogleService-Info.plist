@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>800880821866-vaglipf0mig2vlq9fvhju3clr2p16n3l.apps.googleusercontent.com</string>
+	<string>18690135084-dlrpv4o0c999bhtomi4ejhjtfbeo6l71.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.800880821866-vaglipf0mig2vlq9fvhju3clr2p16n3l</string>
+	<string>com.googleusercontent.apps.18690135084-dlrpv4o0c999bhtomi4ejhjtfbeo6l71</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.trotoise.inda</string>
+	<string>com.trotoise.trotoise</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -21,6 +21,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:800880821866:ios:529b934be4b9430d</string>
+	<string>1:18690135084:ios:ab290c020316cf26</string>
 </dict>
 </plist>

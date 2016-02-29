@@ -28,6 +28,14 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
  *  Category implementation
  */
 
+
+typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
+    UIPanGestureRecognizerDirectionUndefined,
+    UIPanGestureRecognizerDirectionUp,
+    UIPanGestureRecognizerDirectionDown,
+    UIPanGestureRecognizerDirectionLeft,
+    UIPanGestureRecognizerDirectionRight
+};
 @interface UIView() <UIGestureRecognizerDelegate>
 {
    
@@ -118,6 +126,10 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
 //    return (self.frame.origin.y == hegith)?NO:YES;
 //}
 
+    static UIPanGestureRecognizerDirection direction = UIPanGestureRecognizerDirectionUndefined;
+    static POINTMOVEDIRECTION pointMoveDirection = INITAL_POINT_DIRECTION;
+
+
 - (void) dragging:(UIPanGestureRecognizer *)recognizer
 {
     //get pertinent info
@@ -136,6 +148,18 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
         NSDictionary *startPos = @{@"x": @(self.center.x), @"y": @(self.center.y)};
         
         objc_setAssociatedObject(self, &_startPos, startPos, STRONG_N);
+        
+        CGPoint velocity = [recognizer velocityInView:recognizer.view];
+        
+        BOOL isVerticalGesture = fabs(velocity.y) > fabs(velocity.x);
+        
+        if (isVerticalGesture) {
+            if (velocity.y > 0) {
+                direction = UIPanGestureRecognizerDirectionDown;
+            } else {
+                direction = UIPanGestureRecognizerDirectionUp;
+            }
+        }
     }
     
     //process the drag
@@ -165,30 +189,45 @@ static char _delegate, _dropViews, _startPos,_isMidHeightSet, _isHovering, _mode
         
             CGRect oldFrame  = self.frame;
             
-//            self.center = CGPointMake(newX, newY);
-            CGFloat hegith = [UIScreen mainScreen].bounds.size.height/2;
-
-            if(self.frame.origin.y > hegith  && recognizer.state != UIGestureRecognizerStateChanged && ![self getBOOLMidHeight]){
-                self.frame = CGRectMake(oldFrame.origin.x, hegith, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
-                
-                [self setBOOLMidHeightSet:YES];
-                //                [recognizer setState:UIGestureRecognizerStateCancelled];
-            }else if(self.frame.origin.y == hegith && recognizer.state != UIGestureRecognizerStateChanged && [self getBOOLMidHeight]){
-                self.frame = CGRectMake(oldFrame.origin.x, stageTopPoint.y, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height));
-                [self setBOOLMidHeightSet:NO];
-                if([delegate respondsToSelector:@selector(draggingDidEndViewFrameSet:)]){
-                    [delegate draggingDidEndViewFrameSet:self.frame];
-                    
-                }
-            }else if ([UIScreen mainScreen].bounds.size.height == self.frame.size.height && recognizer.state != UIGestureRecognizerStateChanged){
-                
+            if (direction == UIPanGestureRecognizerDirectionDown) {
                 NSDictionary *initialFrm = objc_getAssociatedObject(self, &_initialFrame);
-               
-                 self.frame = CGRectMake([initialFrm[@"Originx"] floatValue],[initialFrm[@"Originy"] floatValue],[initialFrm[@"SizeWidth"] floatValue],[initialFrm[@"Sizeheight"] floatValue]);
-            }else{
+                
+//                self.frame = CGRectMake([initialFrm[@"Originx"] floatValue],([UIScreen mainScreen].bounds.size.height- 80-15),[initialFrm[@"SizeWidth"] floatValue],[initialFrm[@"Sizeheight"] floatValue]);
                 [self setBOOLMidHeightSet:NO];
-
+                [self updateConstraintsIfNeeded];
+             [delegate sendUpdatedHeightForTableView:[initialFrm[@"Sizeheight"] floatValue] withPointDirection:INITAL_POINT_DIRECTION];
+            
+            }else if(direction == UIPanGestureRecognizerDirectionUp){
+                
+                
+                CGFloat hegith = [UIScreen mainScreen].bounds.size.height/2;
+                NSLog(@"BOOL MID HEIGHT %d",[self getBOOLMidHeight]);
+               
+                if(self.frame.origin.y > hegith  && recognizer.state != UIGestureRecognizerStateChanged && ![self getBOOLMidHeight]){
+                    self.frame = CGRectMake(oldFrame.origin.x, hegith, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
+                    if([delegate respondsToSelector:@selector(sendUpdatedHeightForTableView:withPointDirection:)]){
+            
+                        [delegate sendUpdatedHeightForTableView:hegith withPointDirection:MIDWAY_POINT_DIRECTION];
+                    }
+                    
+                    [self setBOOLMidHeightSet:YES];
+                    //                [recognizer setState:UIGestureRecognizerStateCancelled];
+                }else if(self.frame.origin.y == hegith && recognizer.state != UIGestureRecognizerStateChanged && [self getBOOLMidHeight]){
+                    self.frame = CGRectMake(oldFrame.origin.x, stageTopPoint.y, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height));
+                    [self setBOOLMidHeightSet:NO];
+                    if([delegate respondsToSelector:@selector(draggingDidEndViewFrameSet:)]){
+                        [delegate draggingDidEndViewFrameSet:self.frame];
+                        
+                    }
+                    if([delegate respondsToSelector:@selector(sendUpdatedHeightForTableView:withPointDirection:)]){
+                        
+                        [delegate sendUpdatedHeightForTableView:([UIScreen mainScreen].bounds.size.height - stageTopPoint.y) withPointDirection:TOP_WAY_POINT_DIRECTION];
+                    }
+                }
+            
             }
+            
+
             
             
         } completion:nil];

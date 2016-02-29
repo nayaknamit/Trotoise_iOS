@@ -25,7 +25,7 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
 #define SERVICE_GETMONUMENTLISTBYCITYID @"GetMonumentListOnCityId?id="
 @interface TTAPIHandler()
 
-@property (nonatomic, strong) AFHTTPClient *httpClient;
+@property (nonatomic, strong) NSString *httpClient;
 
 
 @end
@@ -55,15 +55,16 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     {
         
         NSString *baseURL = [NSString stringWithFormat:@"%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL];
-        self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
-        
-        
-        [self.httpClient setDefaultHeader:@"Content-Type" value:@"application/x-www-form-urlencoded"];
+//        self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
+        self.httpClient = baseURL;
+//        [self.httpClient  ]
+//        [self.httpClient setDefaultHeader:@"Content-Type" value:@"application/x-www-form-urlencoded"];
 //        [self.httpClient setDefaultHeader:@"client123" value:@"token"];
 //        [self.httpClient setDefaultHeader:@"client123" value:@"clientID"];
 //        [self.httpClient setDefaultHeader:@"BedBathUS" value:@"X-bbb-site-id"];
 //        [self.httpClient setDefaultHeader:@"MobileApp" value:@"v"];
 //        
+//        [self.httpClient setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         
         
     }
@@ -73,96 +74,127 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
 
 - (void)getMonumentListByCityID:(NSString*)cityID withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler{
     
+    
+   
+    
+    // 2
+    
     NSString *aPath = @"GetMonumentListOnCityId";
     
     NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityID,@"id" , nil];
+   
     
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSMutableURLRequest *aURLRequest = [manager.requestSerializer  requestWithMethod:TTAPIHandlerMethodGET URLString:self.httpClient parameters:aParametersDictionary error:nil];
+    
+    
+    [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    //[self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
 
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
-                                                                                              
-//                                                                                              responseHandler(anArray, nil);
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
+    
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+       
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+    
+  
     // execute the operation
-    [anOperation start];
+    [operation start];
 
     
 }
-- (void)getMonumentListByRange:(NSString*)latitude withLongitude:(NSString*)longitude withrad:(NSString *)rad withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler{
+- (void)getMonumentListByRange:(NSString*)latitude withLongitude:(NSString*)longitude withrad:(NSString *)rad withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler{
     
     NSString *aPath = @"GetMonumentListByRange";
+    TRRANGETYPE rangeTyp = [APP_DELEGATE getRangeType];
+    NSString * radius = rad;
     
-    
-    NSString *baseURL = [NSString stringWithFormat:@"%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerExtendBaseURL];
-    if (_httpClient !=nil) {
-        _httpClient = nil;
+    if (rangeTyp == TRRANGE_MILETYPE) {
+        double ra = [rad doubleValue];
+        ra = ra * 1.60;
+        radius = [NSString stringWithFormat:@"%.f",ra];
     }
     
-    self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerExtendBaseURL,aPath];
     
     
-    [self.httpClient setDefaultHeader:@"Content-Type" value:@"application/x-www-form-urlencoded"];
-   
-    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"lat",longitude,@"lng",rad,@"rad",@"en",@"lang" , nil];
+    self.httpClient = baseURL;
     
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
+     NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:latitude,@"lat",longitude,@"lng",radius,@"rad",locale,@"lang" , nil];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+  
+    NSMutableURLRequest *aURLRequest = [manager.requestSerializer  requestWithMethod:TTAPIHandlerMethodGET URLString:self.httpClient parameters:aParametersDictionary error:nil];
+
+    [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                               responseHandler([self processJSONResponse:JSON forRequest:requestType],nil);
-                                                                                              
-                                                                                              //                                                                                              responseHandler(anArray, nil);
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        responseHandler(nil, error);
+    }];
+    
+    
+    
+    
     // execute the operation
-    [anOperation start];
+    [operation start];
+    
 }
 -(void)getMonumentListByCityName:(NSString *)cityName withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler{
-    NSString *aPath = @"GetMonumentListOnCityName";
-    
-    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"name" , nil];
-    
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
-    
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
-                                                                                              
-                                                                                              //                                                                                              responseHandler(anArray, nil);
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
-    // execute the operation
-    [anOperation start];
+//    NSString *aPath = @"GetMonumentListOnCityName";
+//    
+//    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"name" , nil];
+//    
+//    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
+//    
+//    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
+//                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                                                                                              
+//                                                                                              
+//                                                                                              //                                                                                              responseHandler(anArray, nil);
+//                                                                                          }
+//                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                                                                                              responseHandler(nil, error);
+//                                                                                          }];
+//    // execute the operation
+//    [anOperation start];
 }
 
 -(void)getMonumentListByCountryID:(NSString *)countryID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler{
     
-    NSString *aPath = @"GetMonumentListOnCountryId";
-    
-    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:countryID,@"id" , nil];
-    
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
-    
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
-                                                                                              
-                                                                                              //                                                                                              responseHandler(anArray, nil);
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
-    // execute the operation
-    [anOperation start];
+//    NSString *aPath = @"GetMonumentListOnCountryId";
+//    
+//    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:countryID,@"id" , nil];
+//    
+//    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
+//    
+//    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
+//                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//                                                                                              
+//                                                                                              
+//                                                                                              //                                                                                              responseHandler(anArray, nil);
+//                                                                                          }
+//                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//                                                                                              responseHandler(nil, error);
+//                                                                                          }];
+//    // execute the operation
+//    [anOperation start];
 }
 
 -(void)getLanguageMappingwithRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTLanguageMappingResponse)responseHandler{
@@ -171,30 +203,35 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     NSDictionary *aParametersDictionary = nil;
     
-    NSString *baseURL = [NSString stringWithFormat:@"%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL];
-    if (_httpClient !=nil) {
-        _httpClient = nil;
-    }
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL,aPath];
+   
     
-    self.httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseURL]];
+    self.httpClient = baseURL;
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableURLRequest *aURLRequest = [manager.requestSerializer  requestWithMethod:TTAPIHandlerMethodGET URLString:self.httpClient parameters:aParametersDictionary error:nil];
+    
+    [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        responseHandler(nil, error);
+    }];
 
     
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
-    
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
-                                                                                              
-                                                                                              responseHandler([self processJSONResponse:JSON forRequest:requestType],nil);
-                                                                                              
-                                                                                              //
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
+  
     // execute the operation
-    [anOperation start];
+    [operation start];
 }
 
 -(void)getMonumentDetailByMonumentID:(NSString *)monumentID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTMonumentDetailResponse)responseHandler{
@@ -202,20 +239,42 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:monumentID,@"id" , nil];
     
-    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
+   
     
-    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                              
-                                                                                              
-                                                                                              //                                                                                              responseHandler(anArray, nil);
-                                                                                          }
-                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                              responseHandler(nil, error);
-                                                                                          }];
+    
+    
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL,aPath];
+    
+    
+    self.httpClient = baseURL;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableURLRequest *aURLRequest = [manager.requestSerializer  requestWithMethod:TTAPIHandlerMethodGET URLString:self.httpClient parameters:aParametersDictionary error:nil];
+    
+    [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        responseHandler(nil, error);
+    }];
+    
+    
+    
     // execute the operation
-    [anOperation start];
+    [operation start];
+
     
+
 }
 
 

@@ -129,11 +129,20 @@
     
     ContinentDS *cDS = [monumentMainArra objectAtIndex:0];
     CountryDS *countryDS = [[cDS.countryList allObjects] objectAtIndex:0];
-    CityMonumentDS *cityMonumemtDS = [[countryDS.citylistSet allObjects ] objectAtIndex:0];
-    NSArray * monumentListArr = [cityMonumemtDS.citymonumentrelationship allObjects];
+    NSArray *cityListArra =[countryDS.citylistSet allObjects ];
+    NSMutableArray *finalMonumentListArra = [NSMutableArray array];
+    
+    [cityListArra enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CityMonumentDS *cityMonumemtDS = (CityMonumentDS *)obj;
+        [finalMonumentListArra addObjectsFromArray:[cityMonumemtDS.citymonumentrelationship allObjects]];
+        
+    }];
+    
+//    CityMonumentDS *cityMonumemtDS = [[countryDS.citylistSet allObjects ] objectAtIndex:0];
+//    NSArray * monumentListArr = [cityMonumemtDS.citymonumentrelationship allObjects];
     
     
-        return  monumentListArr;
+        return  finalMonumentListArra;
         
 }
 

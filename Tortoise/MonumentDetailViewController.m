@@ -122,7 +122,7 @@
              }];
             
             [self.imageScrollerView addSubview:imageView];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
+//            imageView.contentMode = UIViewContentModeScaleAspectFill;
             [self.imageViews addObject:imageView];
         }];
     
@@ -156,12 +156,23 @@
 - (void)mediaFocusManagerWillDisappear:(ASMediaFocusManager *)mediaFocusManager
 {
     self.statusBarHidden = NO;
-    if([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-    {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
+//    if([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+//    {
+//        [self setNeedsStatusBarAppearanceUpdate];
+//    }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-
+    [self.imageScrollerView updateConstraintsIfNeeded];
+    NSArray *childArra = [self.imageScrollerView subviews];
+    [childArra  enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if([obj isKindOfClass:[UIImageView class]]){
+            UIImageView *img = (UIImageView *)obj;
+            __block CGFloat scrollViewWidth = self.view.bounds.size.width;
+            __block CGFloat scrollViewHeight = 201;
+            img.frame  = CGRectMake(scrollViewWidth*idx, 0,scrollViewWidth, scrollViewHeight);
+            img.contentMode = UIViewContentModeScaleAspectFill;
+        }
+        
+    }];
 }
 - (UIViewController *)parentViewControllerForMediaFocusManager:(ASMediaFocusManager *)mediaFocusManager
 {
@@ -182,7 +193,7 @@
   ImageAttributeDS *imageDS =  [[self.monumentDetailObj.imageAttributes allObjects] objectAtIndex:index];
     url  = [NSURL URLWithString:imageDS.imageUrl];
     
-    NSString *stringUrl = [url absoluteString];
+//    NSString *stringUrl = [url absoluteString];
 //    float width = [UIScreen mainScreen].bounds.size.width;
 //    float height = [UIScreen mainScreen].bounds.size.height;
 //stringUrl = [stringUrl stringByReplacingOccurrencesOfString:@"h_702" withString:[NSString stringWithFormat:@"h_%0.1f",height]];

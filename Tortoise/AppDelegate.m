@@ -8,6 +8,7 @@
 #import "SCFacebook.h"
 #import "LoggedInUserDS.h"
 #import "LanguageDS.h"
+#import "SplashViewController.h"
 @import GoogleMaps;
 
 @interface AppDelegate ()
@@ -28,6 +29,7 @@
    
     [GMSServices provideAPIKey:GOOGLE_KEY];
     
+    _isLanguageChange = NO;
     
     ///GOOGLE SIGN IN IMPLEMENTATION
     NSError* configureError;
@@ -129,6 +131,7 @@ didSignInForUser:(GIDGoogleUser *)user
         [_loggedInUserDS setEmail:user.profile.email];
         [_loggedInUserDS setIsFacebookLoggedIn:NO];
         if(user.profile.hasImage){
+            NSURL *ur = [user.profile imageURLWithDimension:110];
             [_loggedInUserDS setImageUrl:[user.profile imageURLWithDimension:110]];
             
             
@@ -173,13 +176,18 @@ withError:(NSError *)error {
 
 -(void)setCurrentLocationAddress:(NSString *)address{
    if( _loggedInUserDS!=nil)
-        _loggedInUserDS.formattedAddressString = address;
+   {
+    _loggedInUserDS.formattedAddressString = address;
+       _currentLocationAddress = address;
+   }else{
+    _currentLocationAddress = address;
+   }
     
-    
+   
 }
 -(NSString *)getCurrentLocationAddress{
     
-    return _currentLocationAddress;
+    return  _currentLocationAddress;
 }
 -(void)setDefaultLanguage{
     
@@ -194,6 +202,24 @@ withError:(NSError *)error {
         }
     }];
 }
+
+
+-(void)setRangeType:(TRRANGETYPE)rangeType{
+    
+    if(_loggedInUserDS !=nil)
+    {
+        _loggedInUserDS.rangeType = rangeType;
+        
+    }
+}
+-(TRRANGETYPE)getRangeType{
+    if(_loggedInUserDS !=nil)
+    {
+     return    _loggedInUserDS.rangeType ;
+        
+    }
+    return TRRANGE_KILOMETERTYPE;
+}
 -(void)setSelectedLanguageData:(LanguageDS *)languageDS{
     if(_loggedInUserDS !=nil)
     {
@@ -202,7 +228,16 @@ withError:(NSError *)error {
         
     }
 }
-
+-(LanguageDS *)getLanguage{
+    
+    if(_loggedInUserDS !=nil)
+    {
+      return   _loggedInUserDS.selectedLanguageDS ;
+        
+        
+    }
+    return nil;
+}
 -(void)logOutUser{
     if(_loggedInUserDS){
         
@@ -234,7 +269,12 @@ withError:(NSError *)error {
 }
 -(void)instantiateIntialVC{
  UIStoryboard *stoaryBoard     =  [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-  self.window.rootViewController =  [stoaryBoard instantiateInitialViewController];
+SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIdentifier:@"SplashViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:splashVC];
+    nav.navigationBarHidden = YES;
+    [nav setNavigationBarHidden:YES];
+    self.window.rootViewController = nav;
+
 }
 -(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook{
 
@@ -289,7 +329,10 @@ withError:(NSError *)error {
     return _cityMonumentListArray;
 }
 -(void)setCityMonumentListArray:(NSArray *)arr{
-    
+    if(_cityMonumentListArray != nil){
+        
+        _cityMonumentListArray = nil;
+    }
     _cityMonumentListArray = [NSArray arrayWithArray:arr];
     
 }

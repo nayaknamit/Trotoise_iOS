@@ -15,4 +15,5 @@
 + (UIFont*)TrotoiseCareerStatFont;
 + (UIFont*)TrotoiseFontOswaldRegular:(CGFloat)size;
 + (UIFont*)TrotoiseFontCondensedRegular:(CGFloat)size;
++ (UIFont*)TrotoiseFontMedium:(CGFloat)size;
 @end

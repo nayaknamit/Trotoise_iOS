@@ -14,7 +14,7 @@
 @property (nonatomic,strong)IBOutlet UILabel *sliderLabel;
 @property (nonatomic,strong) IBOutlet UIButton *okBtn;
 @property (nonatomic,strong) IBOutlet UIButton *cancelBtn;
-
+@property (nonatomic,strong)IBOutlet UILabel *titleLbl;
 @property (nonatomic,weak) id<RadiusViewDelegate> delegate;
 
 -(IBAction)okBtnTapped:(id)sender;

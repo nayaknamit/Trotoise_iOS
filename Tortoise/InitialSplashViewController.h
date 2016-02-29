@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SWRevealViewController.h"
 @interface InitialSplashViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *leadConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailConstraint;
 
 @end

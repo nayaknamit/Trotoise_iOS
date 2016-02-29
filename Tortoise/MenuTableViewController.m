@@ -29,12 +29,21 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     LoggedInUserDS *loggedInUserData = [APP_DELEGATE getLoggedInUserData];
+    UISwipeGestureRecognizer *swipeGEsture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(revealToggle:)];
     
+    swipeGEsture.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    [self.view addGestureRecognizer:swipeGEsture];
     
     _menuOptsArra =[NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:loggedInUserData.name,@"profileName",loggedInUserData.email,@"email",loggedInUserData.coverImageUrl,@"cover",loggedInUserData.imageUrl,@"profilePic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Get Inspired",@"menuName",@"ic_slideshow.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"About Us",@"menuName",@"ic_about_us.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Rate Us",@"menuName",@"ic_feedback.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Language",@"menuName",@"language.png",@"menuPic", nil],[NSDictionary dictionaryWithObjectsAndKeys:@"Logout",@"menuName",@"logout.png",@"menuPic", nil], nil];
 
     [self.tableView reloadData];
 
+}
+
+-(void)revealToggle:(UIGestureRecognizer *)recog{
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SWIPE_LEFT_GESTURE" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

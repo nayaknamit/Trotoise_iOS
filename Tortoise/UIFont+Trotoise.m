@@ -11,6 +11,8 @@ NSString* const TrotoiseFontBoldItalic = @"Roboto-Italic";
 NSString* const TrotoiseFontLight = @"Roboto-Light";
 NSString* const TrotoiseFontLightItalic = @"Roboto-Regular";
 NSString* const TrotoiseFontOswaldRegular = @"Oswald-Regular";
+NSString* const TrotoiseFontMedium = @"Roboto-Medium";
+
 NSString* const TrotoiseFontCondensed = @"RobotoCondensed-Regular";
 @implementation UIFont (Trotoise)
 
@@ -19,6 +21,10 @@ NSString* const TrotoiseFontCondensed = @"RobotoCondensed-Regular";
 
 }
 
++ (UIFont*)TrotoiseFontMedium:(CGFloat)size {
+    return [UIFont fontWithName:TrotoiseFontMedium size:size];
+    
+}
 + (UIFont*)TrotoiseFontBoldItalic:(CGFloat)size {
     return [UIFont fontWithName:TrotoiseFontBoldItalic size:size];
 
