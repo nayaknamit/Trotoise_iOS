@@ -1,0 +1,90 @@
+//
+//  TortoisePrefixHeader.pch
+//  Tortoise
+//
+//  Created by Namit Nayak on 2/2/16.
+//  Copyright © 2016 Namit Nayak. All rights reserved.
+//
+
+#ifndef TortoisePrefixHeader_pch
+#define TortoisePrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* TortoisePrefixHeader_pch */
+
+
+#import "AppDelegate.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIFont+Trotoise.h"
+#import <CoreLocation/CoreLocation.h>
+#import "MBProgressHUD.h"
+#import "Utilities.h"
+#import "Constants.h"
+#import "UIView+Toast.h"
+
+#define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
+
+
+//            [[TranslatorManager sharedInstance] translateLanguage:cityMonumentArra withSource:@"en" withTarget:@"fr"];
+
+#define SCAN_MONUMENT_KM @"Scan Monuments within (KM)"
+#define SCAN_MONUMENT_MILE @"Scan Monuments within (Mi)"
+
+/*
+ 5. choose from offline or online mode. Miss nothing.
+ 4Crisp content or short audio clip. Take your pick.
+ Access to audio text and voice search
+ explore the city in a language
+ 
+ We make sure that time is not an impediment. And neither is language.
+ 
+ 
+ We like to make you feel like a tourist. And yet, completely at home.
+ 
+ 
+ History is best read in hard bound books. We like to keep it short and simple.
+ 
+ 
+ Travelling is the best form of education. We simply make it easy and enjoyable.
+ */
+
+
+#define SPLASH_TEXT_TITLE_ONE @"We never run out of stories to tell. You \n never run out of places to see."
+#define SPLASH_TEXT_DESC_ONE @"Discover the world in a way you never have."
+#define SPLASH_TEXT_TITLE_TWO @" We make sure that time is not an impediment. And neither is language."
+#define SPLASH_TEXT_DESC_TWO @"Explore the city in a language of your choice."
+#define SPLASH_TEXT_TITLE_THREE @"We like to make you feel like a tourist. And yet, completely at home."
+#define SPLASH_TEXT_DESC_THREEE @"Access to audio text and voice search."
+#define SPLASH_TEXT_TITLE_FOUR @"History is best read in hard bound books. We like to keep it short and simple."
+#define SPLASH_TEXT_DESC_FOUR @"Crisp content or short audio clip. Take your pick."
+#define SPLASH_TEXT_TITLE_FIVE @"Travelling is the best form of education. We simply make it easy and enjoyable."
+#define SPLASH_TEXT_DESC_FIVE @"choose from offline or online mode. Miss nothing."
+
+
+
+
+
+
+#define SPECH_TRANSLATION_KEY_ONE  @"AIzaSyDehuJKtWI5sZ5GyKgoKve5nUx7q5OZghU"
+
+
+#define SPECH_TRANSLATION_KEY_TWO  @"AIzaSyBh3D0vDSk88NpRrNM3NNmdiQYrJVdi598"
+
+#define SPECH_TRANSLATION_KEY_THREE  @"AIzaSyDX-rbD8xd1nYm-aCuUu9eQGhpdsiI71ak"
+
+
+#define SPECH_TRANSLATION_KEY_FOUR  @"AIzaSyCm9MvpkLZX2sOhJceGrhcnGwFzWUHBrIs"
+
+
+#define SPECH_TRANSLATION_KEY_FIVE  @"AIzaSyCOcQtB8z7sH9CfQ5et3jbLq9Y6Lp5U9Bs"
+
+
+#define SPECH_TRANSLATION_KEY_SIX @"AIzaSyCPQY_AEzFPOxd0Tk1DyN4nKbysG-f8ewg"
+
+
+#define SPECH_TRANSLATION_KEY_SEVEN  @"AIzaSyBOa6slZeirTuwyvhX_0f7V0cUO0pxhxXk"
+
+
+#define SPECH_TRANSLATION_KEY_EIGHT  @"AIzaSyANAG4m9alStWvRG2CVgTg3DW2e3vJR5hg"

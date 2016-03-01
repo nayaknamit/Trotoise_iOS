@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </mutableArray>
+        <mutableArray key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hMVTableCell" rowHeight="118" id="N43-pX-Aja" customClass="HomeViewTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="346" height="118"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N43-pX-Aja" id="dSm-tf-fBq">
+                <rect key="frame" x="0.0" y="0.0" width="346" height="117.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tableViewCell1" translatesAutoresizingMaskIntoConstraints="NO" id="O5F-Qw-qHa" userLabel="BGImageView">
+                        <rect key="frame" x="8" y="5" width="330" height="303.5"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Cx-PJ-sF7">
+                        <rect key="frame" x="16" y="17" width="92" height="82.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="92" id="gSa-EE-ay5"/>
+                            <constraint firstAttribute="height" constant="81.5" id="hbk-Sv-kDB"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7R-pT-XYg">
+                        <rect key="frame" x="121" y="30" width="209" height="71.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70.5" id="7YO-py-FkP"/>
+                            <constraint firstAttribute="width" constant="209" id="hHC-Mf-BoW"/>
+                        </constraints>
+                        <string key="text">Greater Paris (the city plus surrounding departments) received 22,4 million visitors in 2014, making it one of the world's top tourist destinations. The largest numbers of foreign tourists in 2014 came from the United States (2.74 million), the U.K., Germany, Italy, Japan, Spain and China (532,000). Arrivals from the U.K, Germany, Russia and Japan dropped from 2013, while arrivals from the Near and Middle East grew by twenty percent.</string>
+                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taj Mahal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKx-15-3ut">
+                        <rect key="frame" x="121" y="7" width="199" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Gmq-KU-rvO"/>
+                            <constraint firstAttribute="width" constant="199" id="wCN-ah-7se"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="PKx-15-3ut" firstAttribute="leading" secondItem="8Cx-PJ-sF7" secondAttribute="trailing" constant="13" id="1Eu-dM-Evk"/>
+                    <constraint firstItem="A7R-pT-XYg" firstAttribute="top" secondItem="PKx-15-3ut" secondAttribute="bottom" constant="-1" id="1gK-sG-TBA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="A7R-pT-XYg" secondAttribute="trailing" constant="8" id="2dk-Lk-guc"/>
+                    <constraint firstItem="O5F-Qw-qHa" firstAttribute="top" secondItem="dSm-tf-fBq" secondAttribute="topMargin" constant="-3" id="Kf4-ng-UUI"/>
+                    <constraint firstItem="O5F-Qw-qHa" firstAttribute="top" secondItem="8Cx-PJ-sF7" secondAttribute="bottom" constant="-93.5" id="Nuk-jo-kuR"/>
+                    <constraint firstItem="O5F-Qw-qHa" firstAttribute="leading" secondItem="8Cx-PJ-sF7" secondAttribute="trailing" constant="-100" id="O8A-G6-gCz"/>
+                    <constraint firstItem="O5F-Qw-qHa" firstAttribute="leading" secondItem="dSm-tf-fBq" secondAttribute="leadingMargin" id="Rfk-AQ-5DA"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="O5F-Qw-qHa" secondAttribute="bottom" constant="-7.5" id="XG6-F1-B3Z"/>
+                    <constraint firstItem="PKx-15-3ut" firstAttribute="top" secondItem="dSm-tf-fBq" secondAttribute="topMargin" constant="-1" id="Zdg-0T-Ahr"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="O5F-Qw-qHa" secondAttribute="trailing" id="knc-EW-G7N"/>
+                    <constraint firstItem="8Cx-PJ-sF7" firstAttribute="top" secondItem="dSm-tf-fBq" secondAttribute="topMargin" constant="9" id="nRK-jy-R8k"/>
+                    <constraint firstItem="A7R-pT-XYg" firstAttribute="leading" secondItem="8Cx-PJ-sF7" secondAttribute="trailing" constant="13" id="piH-V9-pxm"/>
+                    <constraint firstItem="8Cx-PJ-sF7" firstAttribute="leading" secondItem="dSm-tf-fBq" secondAttribute="leadingMargin" constant="8" id="sLa-C1-ICk"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="A7R-pT-XYg" secondAttribute="bottom" constant="11" id="tGJ-4x-Zfp"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Nuk-jo-kuR"/>
+                        <exclude reference="sLa-C1-ICk"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="descriptionLbl" destination="A7R-pT-XYg" id="ucl-5S-zkA"/>
+                <outlet property="placeImageView" destination="8Cx-PJ-sF7" id="Nim-99-vpz"/>
+                <outlet property="placeTitleLbl" destination="PKx-15-3ut" id="Xu7-dX-mhf"/>
+            </connections>
+            <point key="canvasLocation" x="190" y="223"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="tableViewCell1" width="955" height="303"/>
+    </resources>
+</document>
