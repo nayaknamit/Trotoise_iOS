@@ -1,2 +1,0 @@
-# Trotoise
-IOS App
