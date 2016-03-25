@@ -16,4 +16,5 @@ typedef enum{
 -(NSArray *)getLanguageArrayFromDB;
 -(void)getParseAPIDataToLanguageDS:(NSArray *)arraData;
 -(BOOL)isLanguageDataExistInCoreData;
+-(Language *)getDefaultLanguageObject;
 @end

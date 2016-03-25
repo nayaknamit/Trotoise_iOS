@@ -15,7 +15,7 @@
 #import "Provider.h"
 @interface LanguageDataManager(){
     
-    __block NSManagedObjectContext *context;
+    
     
 }
 @end
@@ -37,7 +37,6 @@
 -(id)init{
     
     if (self=[super init]) {
-        context =   [[DataAccessManager sharedInstance]managedObjectContext];
 
     }
     return self;
@@ -107,7 +106,7 @@
         
             
             NSEntityDescription *entity =[NSEntityDescription entityForName:@"Language" inManagedObjectContext:context];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@ AND Language.nuance.lang LIKE %@",[dict objectForKey:@"lg_name"],[dict objectForKey:@"nuance"]];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@ AND nuanceRelationship.lang CONTAINS[cd] %@",[dict objectForKey:@"lg_name"],[dict objectForKey:@"nuance"]];
             
             /* Tell the request that we want to read the
              contents of the Person entity */
@@ -175,7 +174,8 @@
 
 -(void)getParseAPIDataToLanguageDS:(NSArray *)arraData{
     
-   
+  __block NSManagedObjectContext * context =   [[DataAccessManager sharedInstance]managedObjectContext];
+
     if ([Language isDataExistwithContext:context]) {
         
         }else{

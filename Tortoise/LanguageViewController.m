@@ -79,16 +79,20 @@
     LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
     self.loggedInUserLbl.text = [NSString stringWithFormat:@"Welcome %@",loggedInUser.name];
     
-    if(loggedInUser.selectedLanguageDS){
-        
-        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-    }else{
-//        [APP_DELEGATE setDefaultLanguage];
-        loggedInUser = [APP_DELEGATE getLoggedInUserData];
+    
+    [self updateLanguageDetailsOnScreen:[[LanguageDataManager sharedManager] getDefaultLanguageObject]];
 
-        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-
-    }
+//    
+//    if(loggedInUser.selectedLanguageDS){
+//        
+//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
+//    }else{
+////        [APP_DELEGATE setDefaultLanguage];
+//        loggedInUser = [APP_DELEGATE getLoggedInUserData];
+//
+//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
+//
+//    }
     
     
     

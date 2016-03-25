@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "479678276.350871"
+            timestampString = "480578599.757887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-languageTableView:didSelectLanguageData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "479678276.350871"
+            timestampString = "480578599.757887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "-languageTableView:didSelectLanguageData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -217,8 +217,8 @@
                   symbolName = "-[TranslatorManager translateLanguageForMonumentObject:withSource:withTarget:]"
                   moduleName = "Trotoise"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nnayak/Trotoise_iOS%202/Tortoise/TranslatorManager.m"
-                  timestampString = "480475812.683822"
+                  urlString = "file:///Users/nnayak/Trotoise_iOS/Tortoise/TranslatorManager.m"
+                  timestampString = "480578600.86592"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
@@ -232,8 +232,8 @@
                   symbolName = "__78-[TranslatorManager translateLanguageForMonumentObject:withSource:withTarget:]_block_invoke"
                   moduleName = "Trotoise"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nnayak/Trotoise_iOS%202/Tortoise/TranslatorManager.m"
-                  timestampString = "480475812.683943"
+                  urlString = "file:///Users/nnayak/Trotoise_iOS/Tortoise/TranslatorManager.m"
+                  timestampString = "480578600.866094"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "209"
@@ -394,23 +394,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "479678276.350871"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "-prepareForSegue:sender:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "479678276.350871"
+            timestampString = "480578599.757887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "248"
@@ -425,12 +409,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            filePath = "Tortoise/LanguageViewController.m"
+            timestampString = "480578599.757887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "826"
-            endingLineNumber = "826"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tortoise/HomeViewController.m"
+            timestampString = "480578938.651541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
             landmarkName = "-initiateLanguageRequest:"
             landmarkType = "5">
          </BreakpointContent>
@@ -618,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "-setUpNavigationBar"
             landmarkType = "5">
          </BreakpointContent>
@@ -761,11 +761,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "845"
-            endingLineNumber = "845"
+            startingLineNumber = "844"
+            endingLineNumber = "844"
             landmarkName = "-initiateLanguageRequest:"
             landmarkType = "5">
          </BreakpointContent>
@@ -841,11 +841,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "-callMonumentAPIForLocation"
             landmarkType = "5">
          </BreakpointContent>
@@ -857,11 +857,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "-callMonumentAPIForLocation"
             landmarkType = "5">
          </BreakpointContent>
@@ -873,11 +873,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "-callMonumentAPIForLocation"
             landmarkType = "5">
          </BreakpointContent>
@@ -889,11 +889,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "399"
+            endingLineNumber = "399"
             landmarkName = "-callMonumentAPIForLocation"
             landmarkType = "5">
          </BreakpointContent>
@@ -921,11 +921,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480169156.882605"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "834"
-            endingLineNumber = "834"
+            startingLineNumber = "833"
+            endingLineNumber = "833"
             landmarkName = "-initiateLanguageRequest:"
             landmarkType = "5">
          </BreakpointContent>
@@ -985,27 +985,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageDataManager.m"
-            timestampString = "480367783.379989"
+            timestampString = "480578097.763888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "-getParseAPIDataToLanguageDS:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/LanguageDataManager.m"
-            timestampString = "480367783.379989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "-getLanguageArrayFromDB"
             landmarkType = "5">
          </BreakpointContent>
@@ -1033,11 +1017,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageViewController.m"
-            timestampString = "480108991.88713"
+            timestampString = "480578599.757887"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "-onTapGestureEventFired:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1128,38 +1112,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/TTAPIHandler.m"
-            timestampString = "480367783.379989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "-processJSONResponse:forRequest:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/TTAPIHandler.m"
-            timestampString = "480158176.834742"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-getMonumentListByRange:withLongitude:withrad:withLanguageLocale:withRequestType:responseHandler:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Tortoise/MonumentDataManager.m"
             timestampString = "480160098.150934"
             startingColumnNumber = "9223372036854775807"
@@ -1199,54 +1151,6 @@
             startingLineNumber = "101"
             endingLineNumber = "101"
             landmarkName = "-getMonumentListArra"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480167114.666355"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/TTAPIHandler.m"
-            timestampString = "480367783.379989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "-processJSONResponse:forRequest:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480167114.666355"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1305,11 +1209,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tortoise/HomeViewController.m"
-            timestampString = "480173383.952015"
+            timestampString = "480578938.651541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "718"
-            endingLineNumber = "718"
+            startingLineNumber = "717"
+            endingLineNumber = "717"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1320,124 +1224,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480180110.973782"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480180113.280726"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[MonumentDataManager getParseAPIDataToMonumentDS:withCustomizeData:]_block_invoke"
-                  moduleName = "Trotoise"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nnayak/Trotoise_iOS%202/Tortoise/MonumentDataManager.m"
-                  timestampString = "480475812.714393"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "596">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[MonumentDataManager getParseAPIDataToMonumentDS:withCustomizeData:]_block_invoke_2"
-                  moduleName = "Trotoise"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nnayak/Trotoise_iOS%202/Tortoise/MonumentDataManager.m"
-                  timestampString = "480475812.714496"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480180115.305942"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480180116.307239"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tortoise/MonumentDataManager.m"
-            timestampString = "480180370.829467"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "-getParseAPIDataToMonumentDS:withCustomizeData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Tortoise/LanguageDataManager.m"
-            timestampString = "480367783.379989"
+            timestampString = "480578097.763888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "-getDefaultLanguageObject"
             landmarkType = "5">
          </BreakpointContent>
@@ -1448,13 +1240,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/AppDelegate.m"
-            timestampString = "480364787.230297"
+            filePath = "Tortoise/LanguageDataManager.m"
+            timestampString = "480578097.763888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-application:didFinishLaunchingWithOptions:"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-setDefaultLanguage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1464,13 +1256,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tortoise/InitialSplashViewController.m"
-            timestampString = "480364873.907564"
+            filePath = "Tortoise/LanguageDataManager.m"
+            timestampString = "480578097.763888"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-setDefaultLanguage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tortoise/LanguageDataManager.m"
+            timestampString = "480578097.763888"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-setDefaultLanguage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tortoise/LanguageDataManager.m"
+            timestampString = "480578097.763888"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "-setDefaultLanguage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tortoise/LanguageDataManager.m"
+            timestampString = "480578365.065578"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-getDefaultLanguageObject"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

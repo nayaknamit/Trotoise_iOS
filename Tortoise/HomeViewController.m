@@ -25,7 +25,7 @@
 #import "LanguagePopUpView.h"
 #import "AutoCompleteView.h"
 #import "TranslatorManager.h"
-
+#import "LanguageDataManager.h"
 #import "TextToSpeech.h"
 #import "Nuance+CoreDataProperties.h"
 #import "Provider+CoreDataProperties.h"
@@ -271,12 +271,11 @@
     
     
     LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
-    LanguageDS *languageDS = loggedInUser.selectedLanguageDS;
-    
+    Language *defaultLang = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
     customButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateNormal];
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateSelected];
-    NSString *languageLocale = [languageDS.lang capitalizedString];
+    NSString *languageLocale = [defaultLang.localeCode capitalizedString];
     [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateNormal];
     
     [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateHighlighted];
