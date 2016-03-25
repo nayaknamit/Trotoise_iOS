@@ -2,7 +2,7 @@
 //  Language+CoreDataProperties.m
 //  Tortoise
 //
-//  Created by Namit Nayak on 1/31/16.
+//  Created by Namit Nayak on 3/20/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,9 +13,10 @@
 
 @implementation Language (CoreDataProperties)
 
+@dynamic localeCode;
 @dynamic name;
 @dynamic transCode;
-@dynamic lang;
+@dynamic isDefaultLanguage;
 @dynamic nuanceRelationship;
 
 @end

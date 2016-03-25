@@ -1,4 +1,4 @@
-//
+;//
 //  AppDelegate.m
 //  Tortoise
 //
@@ -9,11 +9,14 @@
 #import "LoggedInUserDS.h"
 #import "LanguageDS.h"
 #import "SplashViewController.h"
+#import "LanguageDataManager.h"
+#import "Language+CoreDataProperties.h"
+#import "Nuance+CoreDataProperties.h"
+#import "Provider+CoreDataProperties.h"
 @import GoogleMaps;
 
 @interface AppDelegate ()
 @property (nonatomic,strong) LoggedInUserDS *loggedInUserDS;
-@property (nonatomic,strong) NSArray *languageDataArray;
 @property (nonatomic,strong) NSArray *cityMonumentListArray;
 @property (nonatomic) CLLocationCoordinate2D locationCoordinate;
 @property (nonatomic,strong)NSString *currentLocationAddress;
@@ -34,7 +37,7 @@
     
     ///GOOGLE SIGN IN IMPLEMENTATION
     NSError* configureError;
-    [[GGLContext sharedInstance] configureWithError: &configureError];
+//    [[GGLContext sharedInstance] configureWithError: &configureError];
     NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
     
     [GIDSignIn sharedInstance].delegate = self;
@@ -66,6 +69,8 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
+    
+   
     // Override point for customization after application launch.
 //    CGRect screenBounds = [[UIScreen mainScreen] bounds];
 //    float height =  screenBounds.size.height;
@@ -211,33 +216,58 @@ withError:(NSError *)error {
     
     return  _currentLocationAddress;
 }
--(void)setDefaultLanguage{
-    
-    [_languageDataArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        LanguageDS *languageDs = (LanguageDS *)obj;
-        if ([self getUserDefaultLanguageIsChached]) {
-        
-            NSDictionary *dict = [self getLocalCahceLangugeDict ];
-            if ([languageDs.name isEqualToString:[dict objectForKey:@"lg_name"]]) {
-                [self setSelectedLanguageData:languageDs];
-                *stop = YES;
-                return ;
-            }else{
-                NSLog(@"mismatched %@",languageDs.name);
-            }
-            
-        }else{
-            if ([languageDs.name isEqualToString:@"English (US)"]) {
-                
-                [self setSelectedLanguageData:languageDs];
-                *stop = YES;
-                return ;
-                
-            }
-        }
-        
-    }];
-}
+//-(void)setDefaultLanguage{
+//    
+//    [[[LanguageDataManager sharedManager] getLanguageArrayFromDB] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//
+//        Language *language = (Language *)obj;
+//        
+//        if ([self getUserDefaultLanguageIsChached]) {
+//        
+//            NSDictionary *dict = [self getLocalCahceLangugeDict ];
+//            
+//            
+//            if ([language.name isEqualToString:[dict objectForKey:@"lg_name"]]) {
+//                if ([dict objectForKey:@"nuance"]!=nil) {
+//                    if (language.nuanceRelationship) {
+//                        Nuance *naunce = [[language.nuanceRelationship allObjects] objectAtIndex:0];
+//                        if ([naunce.lang isEqualToString:[dict objectForKey:@"nuance"]]){
+//                            [self setSelectedLanguageData:language];
+//                            *stop = YES;
+//                            return ;
+//                            
+//                        }
+//
+//                }
+//                
+//            }else{
+//                    [self setSelectedLanguageData:language];
+//                    *stop = YES;
+//                    return ;
+//                }
+//                
+//            }else{
+//                NSLog(@"mismatched %@",language.name);
+//            }
+//            
+//        }else{
+//            if ([language.name isEqualToString:@"English"]) {
+//                Nuance *naunce = [[language.nuanceRelationship allObjects] objectAtIndex:0];
+//                if ([naunce.lang isEqualToString:@"English (US)"]){
+//                    
+//                    {
+//                        [self setSelectedLanguageData:language];
+//                        *stop = YES;
+//                        return ;
+//                    }
+//                
+//                
+//            }
+//        }
+//    }
+//        
+//    }];
+//}
 
 
 -(void)setRangeType:(TRRANGETYPE)rangeType{
@@ -256,7 +286,7 @@ withError:(NSError *)error {
     }
     return TRRANGE_KILOMETERTYPE;
 }
--(void)setSelectedLanguageData:(LanguageDS *)languageDS{
+-(void)setSelectedLanguageData:(Language *)languageDS{
     if(_loggedInUserDS !=nil)
     {
         _loggedInUserDS.selectedLanguageDS = languageDS;
@@ -264,7 +294,7 @@ withError:(NSError *)error {
         
     }
 }
--(LanguageDS *)getLanguage{
+-(Language *)getLanguage{
     
     if(_loggedInUserDS !=nil)
     {
@@ -350,15 +380,7 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
     
 }
 
--(NSArray *)getLanguageDataArray{
-    
-    return _languageDataArray;
-}
--(void)setLanguageDataArray:(NSArray *)languageDataArray{
-    
-    _languageDataArray = [NSArray arrayWithArray:languageDataArray];
-    
-}
+
 -(NSArray *)getSplashTextArray{
    
     return _splashTextArra;
@@ -368,18 +390,18 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
     
     _splashTextArra = [arr copy];
 }
--(NSArray *)getMonumentListArray{
-    
-    return _cityMonumentListArray;
-}
--(void)setCityMonumentListArray:(NSArray *)arr{
-    if(_cityMonumentListArray != nil){
-        
-        _cityMonumentListArray = nil;
-    }
-    _cityMonumentListArray = [NSArray arrayWithArray:arr];
-    
-}
+//-(NSArray *)getMonumentListArray{
+//    
+//    return _cityMonumentListArray;
+//}
+//-(void)setCityMonumentListArray:(NSArray *)arr{
+////    if(_cityMonumentListArray != nil){
+////        
+////        _cityMonumentListArray = nil;
+////    }
+////    _cityMonumentListArray = [NSArray arrayWithArray:arr];
+////    
+//}
 
 -(void)setUserDefaultLanguageIsCached:(BOOL)isCached{
     [[NSUserDefaults standardUserDefaults] setBool:isCached
@@ -391,11 +413,15 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"isLanguageCache"];
     
 }
--(void)setUpLanguageInUSerDefualts:(LanguageDS *)languageDS withSplashTextArr:(NSArray *)textArr{
+-(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textArr{
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [self setUserDefaultLanguageIsCached:YES];
+    if (languageDS.nuanceRelationship) {
+        Nuance *naunceDs = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
+        [dict setObject:naunceDs.lang forKey:@"nuance"];
+    }
     [dict setObject:languageDS.name forKey:@"lg_name"];
     [dict setObject:languageDS.transCode forKey:@"lg_transCode"];
     [dict setObject:textArr forKey:@"splashTextArr"];

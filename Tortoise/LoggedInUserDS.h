@@ -13,7 +13,7 @@ enum
     
 };
 #import <Foundation/Foundation.h>
-@class  LanguageDS;
+@class  Language;
 @interface LoggedInUserDS : NSObject
 
 @property (nonatomic,strong) NSString *userID;
@@ -24,6 +24,6 @@ enum
 @property (nonatomic) TRRANGETYPE rangeType;
 @property (nonatomic,strong) NSURL *coverImageUrl;
 @property (nonatomic) BOOL isFacebookLoggedIn;
-@property (nonatomic,strong) LanguageDS *selectedLanguageDS;
+@property (nonatomic,strong) Language *selectedLanguageDS;
 @property (nonatomic,strong) NSString *formattedAddressString;
 @end

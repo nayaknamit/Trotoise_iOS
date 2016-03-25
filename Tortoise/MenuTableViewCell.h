@@ -13,5 +13,5 @@
 
 @property(nonatomic,strong) IBOutlet UILabel *menuLabel;
 @property(nonatomic,strong) IBOutlet UIImageView *menuImageView;
-
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailingConst;
 @end

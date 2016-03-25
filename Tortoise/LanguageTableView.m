@@ -7,10 +7,13 @@
 //
 
 #import "LanguageTableView.h"
-#import "LanguageDS.h"
+#import "Language+CoreDataProperties.h"
+#import "Nuance+CoreDataProperties.h"
+#import "Provider+CoreDataProperties.h"
+#import "LanguageDataManager.h"
 @interface LanguageTableView ()
 
-@property (nonatomic,strong) NSMutableArray *dataArra;
+@property (nonatomic,strong) NSArray *dataArra;
 @end
 @implementation LanguageTableView
 
@@ -22,9 +25,9 @@
 }
 */
 
--(void)setUpLanguageData:(NSArray *)dataArray{
+-(void)setUpLanguageData{
     
-    self.dataArra = [NSMutableArray arrayWithArray: dataArray];
+    self.dataArra = [[LanguageDataManager sharedManager] getLanguageArrayFromDB];
     [self.tableView  reloadData];
     
 }
@@ -52,16 +55,21 @@
         cell = (LanguageTableViewCell *)[arr objectAtIndex:1];
     }
     
-    LanguageDS * dataStructer;
+    Language* dataStructer;
     dataStructer = [_dataArra objectAtIndex:indexPath.row];
-    cell.labelLanguage.text = dataStructer.name;
-    if(dataStructer.nuanceRelationship!=nil){
-        cell.speakerImageView.hidden = NO;
-    }else{
-        cell.speakerImageView.hidden = YES;
-    }
     
-    
+           if (dataStructer.nuanceRelationship.allObjects.count > 0) {
+               NSLog(@"%@",dataStructer.name);
+               
+               
+            Nuance *nuanceDS = [[dataStructer.nuanceRelationship allObjects] objectAtIndex:0];
+            cell.labelLanguage.text = nuanceDS.lang;
+                cell.speakerImageView.hidden = NO;
+        }else{
+        cell.labelLanguage.text = dataStructer.name;
+            cell.speakerImageView.hidden = YES;
+        }
+   
     return cell;
 }
 
@@ -72,7 +80,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    LanguageDS *dataObject = [_dataArra objectAtIndex:indexPath.row];
+    Language *dataObject = [_dataArra objectAtIndex:indexPath.row];
     if([self.delegate respondsToSelector:@selector(languageTableView:didSelectLanguageData:)]){
         
         [self.delegate languageTableView:self didSelectLanguageData:dataObject];

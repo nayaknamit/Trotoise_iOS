@@ -6,9 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Oswald-Regular.ttf">
-            <string>Oswald</string>
-        </mutableArray>
         <mutableArray key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </mutableArray>
@@ -27,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="378" height="383.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo_txt" translatesAutoresizingMaskIntoConstraints="NO" id="zyf-7j-5e7">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trotoiseFinal.png" translatesAutoresizingMaskIntoConstraints="NO" id="zyf-7j-5e7">
                         <rect key="frame" x="61" y="12" width="256" height="92.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="256" id="fef-Z2-a24"/>
@@ -37,29 +34,6 @@
                             <rect key="frame" x="58" y="8.5" width="256" height="92.5"/>
                         </variation>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="THa-Mb-YAg">
-                        <rect key="frame" x="133" y="19" width="69" height="79"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="79" id="Boh-9R-dx0"/>
-                            <constraint firstAttribute="width" constant="69" id="Uyy-54-5rJ"/>
-                        </constraints>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
-                            <rect key="frame" x="134" y="15" width="63" height="79.5"/>
-                        </variation>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stories in your pocket" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gh-Oc-pcN">
-                        <rect key="frame" x="223" y="84" width="91" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="91" id="HZJ-Vf-zr8"/>
-                            <constraint firstAttribute="height" constant="21" id="MmD-c0-W0z"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Oswald" family="Oswald" pointSize="10"/>
-                        <color key="textColor" red="0.23137254900000001" green="0.70196078429999997" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
-                            <rect key="frame" x="222" y="82" width="98" height="21"/>
-                        </variation>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moI-fS-vIk">
                         <rect key="frame" x="150" y="129" width="79" height="33"/>
                         <constraints>
@@ -76,7 +50,7 @@
                         </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqL-QS-sqI">
-                        <rect key="frame" x="61" y="172" width="253" height="60"/>
+                        <rect key="frame" x="62.5" y="172" width="253" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="PTB-wD-DPK"/>
                             <constraint firstAttribute="width" constant="253" id="SoQ-LA-rcu"/>
@@ -92,7 +66,7 @@ A story in your heart.</string>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="150" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkV-78-4YB" customClass="TSLabel">
                         <rect key="frame" x="16" y="247" width="347" height="128.5"/>
-                        <mutableString key="text">Not every holiday is a long one. Or even a planned one. But its what you discover in your journey, that makes even a business trip, your own personal holiday. Discover a story or two with Trotoise. 
+                        <string key="text">Not every holiday is a long one. Or even a planned one. But its what you discover in your journey, that makes even a business trip, your own personal holiday. Discover a story or two with Trotoise. 
 
 This pocket friendly travel guide enhances your travel experience by giving you engaging and succinct information, historical facts about popular monuments and must-visits within your range of comfort.
 
@@ -101,7 +75,7 @@ Unravel the sublime and the ridiculous with your very own travel guide.
 
 Log in with Google+ or Facebook, select your preferred language, choose the range or distance you are willing to go to and let Trotoise bring alive the many stories as you go about exploring the city.
 
-For more information on the terms and conditions please visit our website http://www.trotoise.com</mutableString>
+For more information on the terms and conditions please visit our website http://www.trotoise.com</string>
                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                         <color key="textColor" red="0.18039215689999999" green="0.2901960784" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -113,17 +87,13 @@ For more information on the terms and conditions please visit our website http:/
                 <constraints>
                     <constraint firstItem="bkV-78-4YB" firstAttribute="top" secondItem="vqL-QS-sqI" secondAttribute="bottom" constant="15" id="2v5-Sm-9pb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bkV-78-4YB" secondAttribute="trailing" constant="7" id="35q-f4-B5T"/>
+                    <constraint firstItem="zyf-7j-5e7" firstAttribute="centerX" secondItem="2e7-HK-3Ty" secondAttribute="centerX" id="4IK-S3-Y23"/>
                     <constraint firstItem="moI-fS-vIk" firstAttribute="top" secondItem="zyf-7j-5e7" secondAttribute="bottom" constant="24.5" id="6vg-I6-JIs"/>
                     <constraint firstAttribute="bottomMargin" secondItem="bkV-78-4YB" secondAttribute="bottom" id="8Bx-Hb-h5T"/>
-                    <constraint firstItem="moI-fS-vIk" firstAttribute="leading" secondItem="2e7-HK-3Ty" secondAttribute="leadingMargin" constant="142" id="Bvq-cP-6lB"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="8gh-Oc-pcN" secondAttribute="trailing" constant="56" id="CPx-IW-0RU"/>
+                    <constraint firstItem="moI-fS-vIk" firstAttribute="centerX" secondItem="2e7-HK-3Ty" secondAttribute="centerX" id="92t-fv-J6Y"/>
                     <constraint firstItem="zyf-7j-5e7" firstAttribute="top" secondItem="2e7-HK-3Ty" secondAttribute="topMargin" constant="4" id="Cyc-ra-x5J"/>
-                    <constraint firstItem="zyf-7j-5e7" firstAttribute="leading" secondItem="2e7-HK-3Ty" secondAttribute="leadingMargin" constant="53" id="K5h-Xr-QbA"/>
-                    <constraint firstItem="8gh-Oc-pcN" firstAttribute="top" secondItem="THa-Mb-YAg" secondAttribute="bottom" constant="-14" id="Oqx-bS-jCq"/>
-                    <constraint firstItem="THa-Mb-YAg" firstAttribute="top" secondItem="2e7-HK-3Ty" secondAttribute="topMargin" constant="11" id="niD-HY-9In"/>
-                    <constraint firstItem="vqL-QS-sqI" firstAttribute="leading" secondItem="2e7-HK-3Ty" secondAttribute="leadingMargin" constant="53" id="oSk-eZ-5LV"/>
+                    <constraint firstItem="vqL-QS-sqI" firstAttribute="centerX" secondItem="2e7-HK-3Ty" secondAttribute="centerX" id="btK-aZ-RE5"/>
                     <constraint firstItem="bkV-78-4YB" firstAttribute="leading" secondItem="2e7-HK-3Ty" secondAttribute="leadingMargin" constant="8" id="weJ-1S-Mjb"/>
-                    <constraint firstItem="THa-Mb-YAg" firstAttribute="leading" secondItem="2e7-HK-3Ty" secondAttribute="leadingMargin" constant="125" id="yhy-eo-Xe7"/>
                     <constraint firstItem="vqL-QS-sqI" firstAttribute="top" secondItem="moI-fS-vIk" secondAttribute="bottom" constant="10" id="zGs-YR-jI1"/>
                 </constraints>
             </tableViewCellContentView>
@@ -134,7 +104,6 @@ For more information on the terms and conditions please visit our website http:/
         </tableViewCell>
     </objects>
     <resources>
-        <image name="splash_logo.png" width="600" height="700"/>
-        <image name="splash_logo_txt" width="1024" height="362"/>
+        <image name="trotoiseFinal.png" width="994" height="298"/>
     </resources>
 </document>

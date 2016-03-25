@@ -51,16 +51,16 @@
  */
 
 
-#define SPLASH_TEXT_TITLE_ONE @"We never run out of stories to tell. You \n never run out of places to see."
+#define SPLASH_TEXT_TITLE_ONE @"We never run out of stories to tell. You never run out of places to see."
 #define SPLASH_TEXT_DESC_ONE @"Discover the world in a way you never have."
 #define SPLASH_TEXT_TITLE_TWO @" We make sure that time is not an impediment. And neither is language."
 #define SPLASH_TEXT_DESC_TWO @"Explore the city in a language of your choice."
 #define SPLASH_TEXT_TITLE_THREE @"We like to make you feel like a tourist. And yet, completely at home."
-#define SPLASH_TEXT_DESC_THREEE @"Access to audio text and voice search."
+#define SPLASH_TEXT_DESC_THREEE @"Access to audio,text and voice search."
 #define SPLASH_TEXT_TITLE_FOUR @"History is best read in hard bound books. We like to keep it short and simple."
 #define SPLASH_TEXT_DESC_FOUR @"Crisp content or short audio clip. Take your pick."
 #define SPLASH_TEXT_TITLE_FIVE @"Travelling is the best form of education. We simply make it easy and enjoyable."
-#define SPLASH_TEXT_DESC_FIVE @"choose from offline or online mode. Miss nothing."
+#define SPLASH_TEXT_DESC_FIVE @"Choose from offline or online mode. Miss nothing."
 
 
 
@@ -88,3 +88,14 @@
 
 
 #define SPECH_TRANSLATION_KEY_EIGHT  @"AIzaSyANAG4m9alStWvRG2CVgTg3DW2e3vJR5hg"
+
+
+
+#define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_5 (IS_IPHONE && ([[UIScreen mainScreen] bounds].size.height == 568.0) && ((IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale == [UIScreen mainScreen].scale) || !IS_OS_8_OR_LATER))
+#define IS_STANDARD_IPHONE_6 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0  && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale == [UIScreen mainScreen].scale)
+#define IS_ZOOMED_IPHONE_6 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0 && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale > [UIScreen mainScreen].scale)
+#define IS_STANDARD_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 736.0)
+#define IS_ZOOMED_IPHONE_6_PLUS (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0 && IS_OS_8_OR_LATER && [UIScreen mainScreen].nativeScale < [UIScreen mainScreen].scale)

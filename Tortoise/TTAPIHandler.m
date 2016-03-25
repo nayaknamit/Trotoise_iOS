@@ -13,7 +13,7 @@
 static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx/";
 static NSString *const TTAPIHandlerExtendBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
-
+//http://52.16.49.213/Trotoise.Services_new/Monument.asmx/GetLanguageList
 //static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 //static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx";
 
@@ -141,8 +141,12 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        
-        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        NSArray *ss = [self processJSONResponse:responseObject forRequest:requestType];
+        BOOL isResultSuccess = NO;
+        if (ss.count>0) {
+            isResultSuccess = YES;
+        }
+        responseHandler(isResultSuccess,nil);
         
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -199,11 +203,11 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
 
 -(void)getLanguageMappingwithRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTLanguageMappingResponse)responseHandler{
     
-    NSString *aPath = @"GetLanguageMapping";
+    NSString *aPath = @"GetLanguageList";
     
     NSDictionary *aParametersDictionary = nil;
     
-    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL,aPath];
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerExtendBaseURL,aPath];
    
     
     self.httpClient = baseURL;
@@ -221,7 +225,8 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         
-        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        [self processJSONResponse:responseObject forRequest:requestType];
+        responseHandler(YES,nil);
         
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
@@ -285,8 +290,7 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
         
         if([JSON isKindOfClass:[NSDictionary class]]){
             NSArray *languageArray  = [JSON objectForKey:@"data"];
-          NSArray * resultArra = [[LanguageDataManager sharedManager] getParseAPIDataToLanguageDS:languageArray];
-            return resultArra;
+            [[LanguageDataManager sharedManager] getParseAPIDataToLanguageDS:languageArray];
         }
         
     }
@@ -295,9 +299,16 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
         if([JSON isKindOfClass:[NSDictionary class]]){
             
             NSArray *monumentListResultArra = [JSON objectForKey:@"data"];
-            NSArray *monumentListArr2 = [[MonumentDataManager sharedManager] getParseAPIDataToLanguageDS:monumentListResultArra withCustomizeData:YES];
-            
-            return monumentListArr2;
+          
+            if (monumentListResultArra.count>0) {
+             BOOL isMonument = [[MonumentDataManager sharedManager] getParseAPIDataToMonumentDS:monumentListResultArra withCustomizeData:YES];
+                if (isMonument){
+                    return monumentListResultArra;
+                }else{
+                    return nil;
+                }
+            }
+            return nil;
         }
     }
     return nil;

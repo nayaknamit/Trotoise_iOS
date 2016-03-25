@@ -15,9 +15,9 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
-    _bgView.layer.borderColor = [[UIColor blackColor] CGColor];
-    _bgView.layer.borderWidth = 1;
-    _bgView.layer.cornerRadius = 38;
+//    _bgView.layer.borderColor = [[UIColor blackColor] CGColor];
+//    /_bgView.layer.borderWidth = 1;
+//    _bgView.layer.cornerRadius = 38;
     
 }
 

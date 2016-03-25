@@ -31,49 +31,40 @@
 //    [imageCache clearDisk];
 //    [self.scrollView setMaximumZoomScale:15];
 //    [self.scrollView setMinimumZoomScale:1.0];
-    UIImage* image = [[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageUrl]]];
+//    UIImage* image = [[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageUrl]]];
     
-    self.fullScreenImageView = [[UIImageView alloc]initWithImage:[FullScreenViewController imageWithImage:image scaledToMaxWidth:1024 maxHeight:1024]];
-// self.fullScreenImageView.center = self.scrollView.center;
+    NSString *imageURLModified =[ self.imageUrl stringByReplacingOccurrencesOfString:@"h_720" withString:[NSString stringWithFormat:@"h_%0.f",[UIScreen mainScreen].bounds.size.height+40]];
     
-    self.fullScreenImageView.frame = CGRectMake(-26, 0, image.size.width, image.size.height/2+120);
+    
+//    self.fullScreenImageView = [[UIImageView alloc]initWithImage:[FullScreenViewController imageWithImage:image scaledToMaxWidth:1024 maxHeight:[UIScreen mainScreen].bounds.size.height]];
+// self.fullScreenImageView.center = self.scrollView.center;[UIImage imageNamed:@"EsselWorld1.jpg"]
+    self.fullScreenImageView = [[UIImageView alloc]init];
+
+    self.fullScreenImageView.frame = CGRectMake(self.fullScreenImageView.frame.origin.x,self.fullScreenImageView.frame.origin.y, 1080, [UIScreen mainScreen].bounds.size.height);
+    
+[Utilities downloadImageWithURL:[NSURL URLWithString:imageURLModified] completionBlock:^(BOOL succeeded, UIImage *image) {
+    self.fullScreenImageView.image = image;
+
+//    [self.scrollView ]
+    
+}];
     self.fullScreenImageView.translatesAutoresizingMaskIntoConstraints = YES;
     self.fullScreenImageView.autoresizesSubviews = YES;
-    self.fullScreenImageView.contentMode = (UIViewContentModeCenter);
-//    self.fullScreenImageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    //    self.fullScreenImageView.contentMode = (UIViewContentModeCenter);
+    self.fullScreenImageView.contentMode =UIViewContentModeTopLeft;
+    
+    //    self.fullScreenImageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.fullScreenImageView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:self.fullScreenImageView];
     
     self.scrollView.contentMode = (UIViewContentModeScaleAspectFit);
-    self.scrollView.contentSize = CGSizeMake(self.fullScreenImageView.bounds.size.width,self.fullScreenImageView.bounds.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.fullScreenImageView.bounds.size.width-40,self.fullScreenImageView.bounds.size.height);
     self.scrollView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     self.scrollView.maximumZoomScale = 2.0;
     self.scrollView.minimumZoomScale = 1;
     
-//    [manager downloadImageWithURL: [NSURL URLWithString:self.imageUrl]
-//                          options:0
-//                         progress:^(NSInteger receivedSize, NSInteger expectedSize)
-//     {
-//         // progression tracking code
-//     }
-//                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
-//     {
-//         if (image)
-//         {
-//            
-//              self.fullScreenImageView.image = image;
-//             self.scrollView.contentSize = CGSizeMake(self.fullScreenImageView.frame.size.width,self.fullScreenImageView.frame.size.height);
-////             self.fullScreenImageView.frame = CGRectMake(self.fullScreenImageView.frame.origin.x, self.fullScreenImageView.frame.origin.y, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
-//             
-//             self.fullScreenImageView.image = image;
-//             [Utilities hideHUDForView:_fullScreenImageView];
-//             
-////             [self.scrollView setZoomScale:3.0 animated:YES];
-//
-//             // do something with image
-//         }
-//     }];
-//
+    [self.scrollView layoutIfNeeded];
+//    self.fullScreenImageView.frame = CGRectMake(-26, 0, image.size.width, image.size.height/2+120);
     
     // Do any additional setup after loading the view.
 }

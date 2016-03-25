@@ -8,7 +8,7 @@
 #import <Google/SignIn.h>
 #import <CoreLocation/CoreLocation.h>
 #import "LoggedInUserDS.h"
-@class LoggedInUserDS, LanguageDS, CLLocationManager;
+@class LoggedInUserDS, Language, CLLocationManager;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -23,17 +23,15 @@
 -(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
--(void)setSelectedLanguageData:(LanguageDS *)languageDS;
--(LanguageDS *)getLanguage;
+-(void)setSelectedLanguageData:(Language *)languageDS;
+-(Language *)getLanguage;
 -(void)disconnectGoogleSignIn;
 -(void)logOutUser;
--(NSArray *)getLanguageDataArray;
--(void)setLanguageDataArray:(NSArray *)languageDataArray;
--(NSArray *)getMonumentListArray;
--(void)setCityMonumentListArray:(NSArray *)arr;
+//-(NSArray *)getMonumentListArray;
+//-(void)setCityMonumentListArray:(NSArray *)arr;
 -(CLLocationCoordinate2D)getCurrentLocationCoordinate;
 -(void)setCurrentLocationCoordinate:(CLLocationCoordinate2D)coordinate;
--(void)setDefaultLanguage;
+//-(void)setDefaultLanguage;
 -(void)setCurrentLocationAddress:(NSString *)address;
 -(NSString *)getCurrentLocationAddress;
 -(void)setRangeType:(TRRANGETYPE)rangeType;
@@ -42,6 +40,7 @@
 -(void)setSplashTextWithLanguageChange:(NSArray *)arr;
 -(void)setUserDefaultLanguageIsCached:(BOOL)isCached;
 -(BOOL)getUserDefaultLanguageIsChached;
--(void)setUpLanguageInUSerDefualts:(LanguageDS *)languageDS withSplashTextArr:(NSArray *)textArr;
+-(NSDictionary *)getLocalCahceLangugeDict;
+-(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textAr;
 @end
 

@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class LanguageDS;
+@class Language;
 @protocol LanguageTableViewDelegate;
 @interface LanguageTableView : UIView <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,weak) IBOutlet UITableView *tableView;
 
 @property (nonatomic,assign) id<LanguageTableViewDelegate> delegate;
--(void)setUpLanguageData:(NSArray *)dataArray;
+-(void)setUpLanguageData;
 @end
 
 
@@ -30,6 +30,6 @@
 
 @optional
 
--(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(LanguageDS *)data;
+-(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(Language *)data;
 
 @end

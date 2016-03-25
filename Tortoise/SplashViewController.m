@@ -10,7 +10,7 @@
 #import "SCFacebook.h"
 #import "SplashViewController.h"
 #import "LanguageViewController.h"
-#import "ImageScrollerViewController.h"
+#import "SplashTextView.h"
 @interface SplashViewController()
 {
     
@@ -29,7 +29,8 @@
     [super viewDidLoad];
     
     [GIDSignIn sharedInstance].uiDelegate = self;
-
+    _signInButton.colorScheme  = kGIDSignInButtonColorSchemeDark;
+    _signInButton.style =kGIDSignInButtonStyleWide;
     
     self.splashImageArra = [NSArray arrayWithObjects:@"walkthrough_01",@"walkthrough_02",@"walkthrough_03",@"walkthrough_04",@"walkthrough_05", nil];
     self.splashTextArra = [NSMutableArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_ONE,@"title",SPLASH_TEXT_DESC_ONE,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_TWO,@"title",SPLASH_TEXT_DESC_TWO,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_THREE,@"title",SPLASH_TEXT_DESC_THREEE,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_FOUR,@"title",SPLASH_TEXT_DESC_FOUR,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_FIVE,@"title",SPLASH_TEXT_DESC_FIVE,@"desc", nil], nil];
@@ -153,101 +154,33 @@ dismissViewController:(UIViewController *)viewController {
         imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
         imageViewOne.image = [UIImage imageNamed:imageNameString];
         imageViewOne.autoresizesSubviews = YES;
-        UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0,[UIScreen mainScreen].bounds.size.height/2+40,imageViewOne.frame.size.width,70)];
-            lblTitle.numberOfLines = 2;
-                                                                      
-        lblTitle.textAlignment = NSTextAlignmentCenter;
-        [lblTitle setFont:[UIFont TrotoiseFontCondensedRegular:14]];
+        
+        
+
         NSDictionary *textDict = [self.splashTextArra objectAtIndex:counter];
-        
-        
-//        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
-        [lblTitle setText:[textDict objectForKey:@"title"]];
-        
-//        lblTitle.backgroundColor = [UIColor blackColor];
-        lblTitle.textColor = [UIColor darkGrayColor];
-        lblTitle.translatesAutoresizingMaskIntoConstraints = YES;
-        lblTitle.autoresizesSubviews = YES;
-        
-        UILabel *lblDes = [[UILabel alloc] initWithFrame:CGRectMake(0,lblTitle.frame.origin.y+lblTitle.frame.size.height-35,imageViewOne.frame.size.width,70)];
-        lblDes.numberOfLines = 2;
-    
-        lblDes.textAlignment = NSTextAlignmentCenter;
-        [lblDes setFont:[UIFont TrotoiseFontLightItalic:12]];
-        //        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
-        [lblDes setText:[textDict objectForKey:@"desc"]];
-        //        lblTitle.backgroundColor = [UIColor blackColor];
-        lblDes.textColor = [UIColor darkGrayColor];
-        lblDes.translatesAutoresizingMaskIntoConstraints = YES;
-        lblDes.autoresizesSubviews = YES;
 
+
+        
+        
+        
         [view addSubview:imageViewOne];
-        [view insertSubview:lblTitle aboveSubview:imageViewOne];
         
-        [view insertSubview:lblDes aboveSubview:imageViewOne];
-//        [imageViewOne insertSubview:lblTitle atIndex:100];
-        
+        SplashTextView *splashTextView = (SplashTextView *)[[[NSBundle mainBundle] loadNibNamed:@"SplashTextView" owner:self options:nil] objectAtIndex:0];
 
-//        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"RadiusView" owner:self options:nil];
-//      ImageScrollerViewController *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageScrollerViewController"];
-    
-//      imageVC.titleText = @"Helloo Namit Nayak We never run out of stories to tell. You \n never run out of places to see.";
-//        imageVC.imageNameString = imageNameString;
-//        
-//        imageVC.view.frame = CGRectMake(scrollViewWidth*counter, -20,scrollViewWidth, scrollViewHeight+20);
+        splashTextView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height/2+20, [UIScreen mainScreen].bounds.size.width, 100);
+        
+        splashTextView.titleLabel.text =[textDict objectForKey:@"title"];
+        splashTextView.descLabel.text = [textDict objectForKey:@"desc"];
+        
+        [view insertSubview:splashTextView aboveSubview:imageViewOne];
         
         counter++;
         [self.scrollView addSubview:view];
         
     }
     
-    /*
-    UIImageView *imageViewOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, scrollViewWidth, scrollViewHeight+20)]
-    ;
-    
-    imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
-    imageViewOne.image = [UIImage imageNamed:self.splashImageArra[0]];
-    imageViewOne.autoresizesSubviews = YES;
-    
-    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewOne.frame.size.height-120,imageViewOne.frame.size.width, imageViewOne.frame.size.height)];
-    lblTitle.textAlignment = NSTextAlignmentCenter;
-    [lblTitle setFont:[UIFont TrotoiseFontMedium:10]];
-    lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
-    
-    
 
-    
-    UIImageView *imageViewTwo = [[UIImageView alloc] initWithFrame:CGRectMake(scrollViewWidth, -20, scrollViewWidth, scrollViewHeight+20)];
-    
-    
-    imageViewTwo.image = [UIImage imageNamed:self.splashImageArra[1]];
-    
-    
-    UIImageView *imageViewThree = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*2,-20, scrollViewWidth, scrollViewHeight+20)];
-    
-    
-    
-    imageViewThree.image = [UIImage imageNamed:self.splashImageArra[2]];
-    
-    UIImageView *imageViewFour = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*3, -20, scrollViewWidth, scrollViewHeight+20)];
-    
-    
-    
-    imageViewFour.image = [UIImage imageNamed:self.splashImageArra[3]];
-    
-    UIImageView *imageViewFive = [[UIImageView alloc] initWithFrame:CGRectMake((scrollViewWidth)*4, -20, scrollViewWidth, scrollViewHeight+20)];
-    
-    
-    
-    imageViewFive.image = [UIImage imageNamed:self.splashImageArra[4]];
-    
-    [self.scrollView addSubview:imageViewOne];
-    [self.scrollView addSubview:imageViewTwo];
-    [self.scrollView addSubview:imageViewThree];
-    [self.scrollView addSubview:imageViewFour];
-    [self.scrollView addSubview:imageViewFive];
-    
-    */
+
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height-20);
     
     
@@ -307,4 +240,10 @@ dismissViewController:(UIViewController *)viewController {
 //    [scrollView setContentOffset:CGPointMake([currentIndex intValue] * pageWidth, 0) animated:YES];
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.scrollView = nil;
+    self.splashImageArra = nil;
+ 
+}
 @end

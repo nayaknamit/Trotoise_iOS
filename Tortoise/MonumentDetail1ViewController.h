@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class MonumentListDS;
+@class MonumentList;
 @interface MonumentDetail1ViewController : UIViewController<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) MonumentListDS * monumentDetailObj;
-@property (nonatomic,strong) LanguageDS *selectedLanguageFromGlobe;
+@property (nonatomic,strong) MonumentList * monumentDetailObj;
+@property (nonatomic,strong) Language *selectedLanguageFromGlobe;
 @end

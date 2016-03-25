@@ -2,7 +2,7 @@
 //  Language+CoreDataProperties.h
 //  Tortoise
 //
-//  Created by Namit Nayak on 1/31/16.
+//  Created by Namit Nayak on 3/20/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,9 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Language (CoreDataProperties)
 
+@property (nullable, nonatomic, retain) NSString *localeCode;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *transCode;
-@property (nullable, nonatomic, retain) NSString *lang;
+@property (nullable, nonatomic, retain) NSNumber *isDefaultLanguage;
 @property (nullable, nonatomic, retain) NSSet<Nuance *> *nuanceRelationship;
 
 @end

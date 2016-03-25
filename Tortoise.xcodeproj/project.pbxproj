@@ -26,9 +26,10 @@
 		B411FDEC1C5E3DE300BB96C7 /* LanguageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDEB1C5E3DE300BB96C7 /* LanguageTableView.m */; };
 		B411FDF01C5E81E800BB96C7 /* LanguageDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */; };
 		B411FDF31C5E830600BB96C7 /* LanguageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */; };
+		B41DFF551C8F073400622754 /* trotoiseFinal.png in Resources */ = {isa = PBXBuildFile; fileRef = B41DFF541C8F073400622754 /* trotoiseFinal.png */; };
+		B41DFF571C8F631D00622754 /* googleSign2.png in Resources */ = {isa = PBXBuildFile; fileRef = B41DFF561C8F631D00622754 /* googleSign2.png */; };
 		B43270501C760AC2007DFCB8 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B432704F1C760AC2007DFCB8 /* SpeechKit.framework */; };
 		B43270531C760AF4007DFCB8 /* SpeechTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = B43270521C760AF4007DFCB8 /* SpeechTranslator.m */; };
-		B43270561C760B17007DFCB8 /* SKSConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = B43270551C760B17007DFCB8 /* SKSConfiguration.mm */; };
 		B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */; };
 		B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */; };
 		B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */; };
@@ -37,8 +38,10 @@
 		B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818F61C666CFB00B0CCA7 /* MonumentDetailViewController.m */; };
 		B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */; };
 		B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B43819A01C68B82800B0CCA7 /* ImageAttribute.m */; };
-		B43E560C1C83970C00FF1FEA /* ImageScrollerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B43E560B1C83970C00FF1FEA /* ImageScrollerViewController.m */; };
+		B446418E1C93513600E560E1 /* SplashTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B446418D1C93513600E560E1 /* SplashTextView.xib */; };
+		B44641911C93534E00E560E1 /* SplashTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44641901C93534E00E560E1 /* SplashTextView.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
+		B45A47C41C941B1200D7DE08 /* mapCallout.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A47C31C941B1200D7DE08 /* mapCallout.png */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
 		B46582B71BC4B3A800C57679 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B61BC4B3A800C57679 /* AppDelegate.m */; };
@@ -54,12 +57,17 @@
 		B46582FC1BC5613900C57679 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FB1BC5613900C57679 /* CoreLocation.framework */; };
 		B46582FE1BC5613F00C57679 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FD1BC5613F00C57679 /* MapKit.framework */; };
 		B4725A8F1C833E0A00614A61 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B4725A8E1C833E0A00614A61 /* UIView+Toast.m */; };
+		B47C095F1C8722B2001981B2 /* FetcherSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47C095E1C8722B2001981B2 /* FetcherSampleViewController.m */; };
+		B47C09621C8950E1001981B2 /* SKSConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = B47C09611C8950E1001981B2 /* SKSConfiguration.mm */; };
+		B47C09661C8A9D4D001981B2 /* AutoCompleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = B47C09651C8A9D4D001981B2 /* AutoCompleteView.m */; };
+		B47C09681C8A9D6D001981B2 /* AutoCompleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B47C09671C8A9D6D001981B2 /* AutoCompleteView.xib */; };
 		B47E60F11BC75C2300187C51 /* HomeViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B47E60F01BC75C2300187C51 /* HomeViewTableViewCell.m */; };
 		B486EC0C1C737E4700A9F0F4 /* TranslatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B486EC0B1C737E4700A9F0F4 /* TranslatorManager.m */; };
 		B48AE2FA1C6A538800FA5DFD /* DataAccessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE2F91C6A538800FA5DFD /* DataAccessManager.m */; };
 		B48AE2FE1C6A79E600FA5DFD /* GetInspiredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE2FD1C6A79E600FA5DFD /* GetInspiredViewController.m */; };
 		B48AE3131C6BB7AB00FA5DFD /* InitialSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */; };
 		B48AE3151C6BB7EA00FA5DFD /* splash_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */; };
+		B49A66EA1C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B49A66E91C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png */; };
 		B4AF73341C5D1AD20061A25E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73331C5D1AD20061A25E /* CoreGraphics.framework */; };
 		B4AF73361C5D1ADB0061A25E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73351C5D1ADB0061A25E /* UIKit.framework */; };
 		B4AF73381C5D1AE80061A25E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4AF73371C5D1AE80061A25E /* Foundation.framework */; };
@@ -98,6 +106,9 @@
 		B4F197611C6F6CF700343762 /* MonumentDetail1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F197601C6F6CF700343762 /* MonumentDetail1ViewController.m */; };
 		B4F197651C6F6FA000343762 /* ImageScrollerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F197641C6F6FA000343762 /* ImageScrollerTableViewCell.m */; };
 		B4F197681C6F6FDC00343762 /* DetailTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F197671C6F6FDC00343762 /* DetailTextViewTableViewCell.m */; };
+		B4F2C4711C8C26460002A10C /* EsselWorld1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4F2C4701C8C26460002A10C /* EsselWorld1.jpg */; };
+		B4F2C4731C8DFFD00002A10C /* Siri_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F2C4721C8DFFD00002A10C /* Siri_icon.png */; };
+		B4F2C4761C8E01C70002A10C /* TextToSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F2C4751C8E01C70002A10C /* TextToSpeech.m */; };
 		B4FAEB721BCA1883006E9C78 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB711BCA1883006E9C78 /* SplashViewController.m */; };
 		B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB7B1BCB40C6006E9C78 /* MenuTableViewController.m */; };
 		B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB821BCB4F5C006E9C78 /* SWRevealViewController.m */; };
@@ -123,6 +134,7 @@
 /* Begin PBXFileReference section */
 		0F193455596703917F8FEB9A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E8E4751433CCCC18437B3B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1451581816ECCCBA0BD0E4FF /* Pods.prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.prod.xcconfig; path = "Pods/Target Support Files/Pods/Pods.prod.xcconfig"; sourceTree = "<group>"; };
 		B40E40271C7F6EF2009ACD30 /* aboutUSCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = aboutUSCell.xib; sourceTree = "<group>"; };
 		B40E40291C7F72F6009ACD30 /* AboutUsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsTableViewCell.h; sourceTree = "<group>"; };
 		B40E402A1C7F72F6009ACD30 /* AboutUsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsTableViewCell.m; sourceTree = "<group>"; };
@@ -156,11 +168,11 @@
 		B411FDEF1C5E81E800BB96C7 /* LanguageDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageDS.m; sourceTree = "<group>"; };
 		B411FDF11C5E830600BB96C7 /* LanguageDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageDataManager.h; sourceTree = "<group>"; };
 		B411FDF21C5E830600BB96C7 /* LanguageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageDataManager.m; sourceTree = "<group>"; };
+		B41DFF541C8F073400622754 /* trotoiseFinal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trotoiseFinal.png; sourceTree = "<group>"; };
+		B41DFF561C8F631D00622754 /* googleSign2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = googleSign2.png; sourceTree = "<group>"; };
 		B432704F1C760AC2007DFCB8 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = Framework/SpeechKit.framework; sourceTree = "<group>"; };
 		B43270511C760AF4007DFCB8 /* SpeechTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechTranslator.h; sourceTree = "<group>"; };
 		B43270521C760AF4007DFCB8 /* SpeechTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechTranslator.m; sourceTree = "<group>"; };
-		B43270541C760B17007DFCB8 /* SKSConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSConfiguration.h; sourceTree = "<group>"; };
-		B43270551C760B17007DFCB8 /* SKSConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKSConfiguration.mm; sourceTree = "<group>"; };
 		B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInUserDS.h; sourceTree = "<group>"; };
 		B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInUserDS.m; sourceTree = "<group>"; };
 		B43818E31C60FA6E00B0CCA7 /* TortoisePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TortoisePrefixHeader.pch; sourceTree = "<group>"; };
@@ -178,9 +190,11 @@
 		B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ImageAttribute+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B438199F1C68B82800B0CCA7 /* ImageAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAttribute.h; sourceTree = "<group>"; };
 		B43819A01C68B82800B0CCA7 /* ImageAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAttribute.m; sourceTree = "<group>"; };
-		B43E560A1C83970C00FF1FEA /* ImageScrollerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollerViewController.h; sourceTree = "<group>"; };
-		B43E560B1C83970C00FF1FEA /* ImageScrollerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollerViewController.m; sourceTree = "<group>"; };
+		B446418D1C93513600E560E1 /* SplashTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashTextView.xib; sourceTree = "<group>"; };
+		B446418F1C93534E00E560E1 /* SplashTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashTextView.h; sourceTree = "<group>"; };
+		B44641901C93534E00E560E1 /* SplashTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashTextView.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B45A47C31C941B1200D7DE08 /* mapCallout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapCallout.png; sourceTree = "<group>"; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
 		B46582AF1BC4B3A800C57679 /* Trotoise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trotoise.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +222,13 @@
 		B46582FD1BC5613F00C57679 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B4725A8D1C833E0A00614A61 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		B4725A8E1C833E0A00614A61 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		B47C095D1C8722B2001981B2 /* FetcherSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetcherSampleViewController.h; sourceTree = "<group>"; };
+		B47C095E1C8722B2001981B2 /* FetcherSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetcherSampleViewController.m; sourceTree = "<group>"; };
+		B47C09601C8950E1001981B2 /* SKSConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSConfiguration.h; sourceTree = "<group>"; };
+		B47C09611C8950E1001981B2 /* SKSConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKSConfiguration.mm; sourceTree = "<group>"; };
+		B47C09641C8A9D4D001981B2 /* AutoCompleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCompleteView.h; sourceTree = "<group>"; };
+		B47C09651C8A9D4D001981B2 /* AutoCompleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCompleteView.m; sourceTree = "<group>"; };
+		B47C09671C8A9D6D001981B2 /* AutoCompleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompleteView.xib; sourceTree = "<group>"; };
 		B47E60EF1BC75C2300187C51 /* HomeViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewTableViewCell.h; sourceTree = "<group>"; };
 		B47E60F01BC75C2300187C51 /* HomeViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewTableViewCell.m; sourceTree = "<group>"; };
 		B486EC0A1C737E4700A9F0F4 /* TranslatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslatorManager.h; sourceTree = "<group>"; };
@@ -219,6 +240,7 @@
 		B48AE3111C6BB7AB00FA5DFD /* InitialSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialSplashViewController.h; sourceTree = "<group>"; };
 		B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialSplashViewController.m; sourceTree = "<group>"; };
 		B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash_logo.png; sourceTree = "<group>"; };
+		B49A66E91C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_hardware_keyboard_arrow_right.png; sourceTree = "<group>"; };
 		B4AF73331C5D1AD20061A25E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B4AF73351C5D1ADB0061A25E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B4AF73371C5D1AE80061A25E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -279,6 +301,10 @@
 		B4F197641C6F6FA000343762 /* ImageScrollerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollerTableViewCell.m; sourceTree = "<group>"; };
 		B4F197661C6F6FDC00343762 /* DetailTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTextViewTableViewCell.h; sourceTree = "<group>"; };
 		B4F197671C6F6FDC00343762 /* DetailTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTextViewTableViewCell.m; sourceTree = "<group>"; };
+		B4F2C4701C8C26460002A10C /* EsselWorld1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EsselWorld1.jpg; sourceTree = "<group>"; };
+		B4F2C4721C8DFFD00002A10C /* Siri_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Siri_icon.png; sourceTree = "<group>"; };
+		B4F2C4741C8E01C70002A10C /* TextToSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextToSpeech.h; sourceTree = "<group>"; };
+		B4F2C4751C8E01C70002A10C /* TextToSpeech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextToSpeech.m; sourceTree = "<group>"; };
 		B4FAEB701BCA1883006E9C78 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		B4FAEB711BCA1883006E9C78 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		B4FAEB7A1BCB40C6006E9C78 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
@@ -326,6 +352,7 @@
 			children = (
 				13E8E4751433CCCC18437B3B /* Pods.debug.xcconfig */,
 				CCFEDC6EBE52D3C51CAF5AE9 /* Pods.release.xcconfig */,
+				1451581816ECCCBA0BD0E4FF /* Pods.prod.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -375,6 +402,8 @@
 				B411FDE51C5E294300BB96C7 /* LanguageViewController.m */,
 				B4E683791C80D309000C4834 /* LanguagePopUpView.h */,
 				B4E6837A1C80D309000C4834 /* LanguagePopUpView.m */,
+				B47C095D1C8722B2001981B2 /* FetcherSampleViewController.h */,
+				B47C095E1C8722B2001981B2 /* FetcherSampleViewController.m */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -401,15 +430,6 @@
 			name = DataStructure;
 			sourceTree = "<group>";
 		};
-		B432704E1C7608C1007DFCB8 /* NuanceSpeechSDK */ = {
-			isa = PBXGroup;
-			children = (
-				B43270541C760B17007DFCB8 /* SKSConfiguration.h */,
-				B43270551C760B17007DFCB8 /* SKSConfiguration.mm */,
-			);
-			name = NuanceSpeechSDK;
-			sourceTree = "<group>";
-		};
 		B43818F41C666CC200B0CCA7 /* MonumentDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +442,16 @@
 				B4E6837D1C8113F6000C4834 /* FullScreenViewController.m */,
 			);
 			name = MonumentDetail;
+			sourceTree = "<group>";
+		};
+		B446418C1C93511400E560E1 /* TextView */ = {
+			isa = PBXGroup;
+			children = (
+				B446418D1C93513600E560E1 /* SplashTextView.xib */,
+				B446418F1C93534E00E560E1 /* SplashTextView.h */,
+				B44641901C93534E00E560E1 /* SplashTextView.m */,
+			);
+			name = TextView;
 			sourceTree = "<group>";
 		};
 		B45CA9A21C5F8A0B004DE600 /* SCFacebook */ = {
@@ -469,10 +499,16 @@
 				B46582EC1BC559C600C57679 /* Controllers */,
 				B46582B51BC4B3A800C57679 /* AppDelegate.h */,
 				B46582B61BC4B3A800C57679 /* AppDelegate.m */,
+				B45A47C31C941B1200D7DE08 /* mapCallout.png */,
+				B4F2C4701C8C26460002A10C /* EsselWorld1.jpg */,
+				B4F2C4721C8DFFD00002A10C /* Siri_icon.png */,
+				B41DFF541C8F073400622754 /* trotoiseFinal.png */,
+				B41DFF561C8F631D00622754 /* googleSign2.png */,
 				B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */,
 				B46582C11BC4B3A800C57679 /* Assets.xcassets */,
 				B46582BB1BC4B3A800C57679 /* Main.storyboard */,
 				B4B2D3BB1C5CA813002191EC /* tableViewCellBG.png */,
+				B49A66E91C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png */,
 				B46582C31BC4B3A800C57679 /* LaunchScreen.storyboard */,
 				B46582C61BC4B3A800C57679 /* Info.plist */,
 				B46582B21BC4B3A800C57679 /* Supporting Files */,
@@ -524,10 +560,11 @@
 		B46582ED1BC559D700C57679 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B47C09601C8950E1001981B2 /* SKSConfiguration.h */,
+				B47C09611C8950E1001981B2 /* SKSConfiguration.mm */,
 				B4725A8C1C833E0200614A61 /* Toast */,
 				B40E40301C7F9163009ACD30 /* DVSwitch */,
 				B40E402C1C7F7BB5009ACD30 /* TsLabel */,
-				B432704E1C7608C1007DFCB8 /* NuanceSpeechSDK */,
 				B4F197561C6E3F2000343762 /* MBHUDProgress */,
 				B45CA9A21C5F8A0B004DE600 /* SCFacebook */,
 				B4C394C81C5F28600007EE33 /* GoogleSignIn */,
@@ -607,6 +644,8 @@
 				B486EC0B1C737E4700A9F0F4 /* TranslatorManager.m */,
 				B43270511C760AF4007DFCB8 /* SpeechTranslator.h */,
 				B43270521C760AF4007DFCB8 /* SpeechTranslator.m */,
+				B4F2C4741C8E01C70002A10C /* TextToSpeech.h */,
+				B4F2C4751C8E01C70002A10C /* TextToSpeech.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -647,9 +686,20 @@
 			name = Toast;
 			sourceTree = "<group>";
 		};
+		B47C09631C8A9D1D001981B2 /* AutoCompleteView */ = {
+			isa = PBXGroup;
+			children = (
+				B47C09641C8A9D4D001981B2 /* AutoCompleteView.h */,
+				B47C09651C8A9D4D001981B2 /* AutoCompleteView.m */,
+				B47C09671C8A9D6D001981B2 /* AutoCompleteView.xib */,
+			);
+			name = AutoCompleteView;
+			sourceTree = "<group>";
+		};
 		B47E60ED1BC75BE800187C51 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				B47C09631C8A9D1D001981B2 /* AutoCompleteView */,
 				B4BE72D51C6DFE4F006139B4 /* MarkerView */,
 				B411FDCD1C5E09C300BB96C7 /* RadiusView */,
 				B47E60EE1BC75BFB00187C51 /* HMVCell */,
@@ -784,12 +834,11 @@
 		B4FAEB6F1BCA1833006E9C78 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				B446418C1C93511400E560E1 /* TextView */,
 				B4FAEB701BCA1883006E9C78 /* SplashViewController.h */,
 				B4FAEB711BCA1883006E9C78 /* SplashViewController.m */,
 				B48AE3111C6BB7AB00FA5DFD /* InitialSplashViewController.h */,
 				B48AE3121C6BB7AB00FA5DFD /* InitialSplashViewController.m */,
-				B43E560A1C83970C00FF1FEA /* ImageScrollerViewController.h */,
-				B43E560B1C83970C00FF1FEA /* ImageScrollerViewController.m */,
 			);
 			name = Splash;
 			sourceTree = "<group>";
@@ -937,25 +986,33 @@
 			files = (
 				B4B2D3B31C5C8B80002191EC /* Oswald-Regular.ttf in Resources */,
 				B4D219701C7C971F00054094 /* GoogleService-Info.plist in Resources */,
+				B49A66EA1C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png in Resources */,
 				B46582C51BC4B3A800C57679 /* LaunchScreen.storyboard in Resources */,
+				B4F2C4711C8C26460002A10C /* EsselWorld1.jpg in Resources */,
 				B4C394CA1C5F286C0007EE33 /* GoogleService-Info_old.plist in Resources */,
 				B4E683781C80CEE0000C4834 /* LanguagePopUp.xib in Resources */,
+				B41DFF571C8F631D00622754 /* googleSign2.png in Resources */,
 				B4B2D3B41C5C8B80002191EC /* Roboto-Bold.ttf in Resources */,
 				B4BE72E01C6E0F13006139B4 /* markerBG.png in Resources */,
 				B46582C21BC4B3A800C57679 /* Assets.xcassets in Resources */,
 				B4BE72DA1C6DFE82006139B4 /* CustomMarkerView.xib in Resources */,
+				B47C09681C8A9D6D001981B2 /* AutoCompleteView.xib in Resources */,
+				B41DFF551C8F073400622754 /* trotoiseFinal.png in Resources */,
 				B4B2D3B51C5C8B80002191EC /* Roboto-Italic.ttf in Resources */,
 				B46582E91BC4B3CC00C57679 /* Podfile in Resources */,
 				B4B2D3B71C5C8B80002191EC /* Roboto-Regular.ttf in Resources */,
 				B40E40281C7F6EF2009ACD30 /* aboutUSCell.xib in Resources */,
 				B411FDE91C5E3A8000BB96C7 /* LanguageTableView.xib in Resources */,
 				B4B2D3B61C5C8B80002191EC /* Roboto-Light.ttf in Resources */,
+				B45A47C41C941B1200D7DE08 /* mapCallout.png in Resources */,
 				B411FDCC1C5E03B200BB96C7 /* RadiusView.xib in Resources */,
 				B4B2D3B81C5C8B80002191EC /* RobotoCondensed-Regular.ttf in Resources */,
 				B4B2D3BA1C5C9FCA002191EC /* HMVCell.xib in Resources */,
+				B446418E1C93513600E560E1 /* SplashTextView.xib in Resources */,
 				B48AE3151C6BB7EA00FA5DFD /* splash_logo.png in Resources */,
 				B4B2D3BC1C5CA813002191EC /* tableViewCellBG.png in Resources */,
 				B46582BD1BC4B3A800C57679 /* Main.storyboard in Resources */,
+				B4F2C4731C8DFFD00002A10C /* Siri_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1014,6 +1071,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4F1975E1C6E492300343762 /* Utilities.m in Sources */,
+				B44641911C93534E00E560E1 /* SplashTextView.m in Sources */,
 				B411FDDA1C5E26B300BB96C7 /* Nuance.m in Sources */,
 				B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */,
 				B40E402F1C7F7C05009ACD30 /* TSLabel.m in Sources */,
@@ -1042,6 +1100,7 @@
 				B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */,
 				B4F197651C6F6FA000343762 /* ImageScrollerTableViewCell.m in Sources */,
 				B4AF733D1C5D59D40061A25E /* UIFont+Trotoise.m in Sources */,
+				B47C09661C8A9D4D001981B2 /* AutoCompleteView.m in Sources */,
 				B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */,
 				B43818F01C628D4500B0CCA7 /* Continent.m in Sources */,
 				B48AE3131C6BB7AB00FA5DFD /* InitialSplashViewController.m in Sources */,
@@ -1049,6 +1108,8 @@
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,
+				B4F2C4761C8E01C70002A10C /* TextToSpeech.m in Sources */,
+				B47C09621C8950E1001981B2 /* SKSConfiguration.mm in Sources */,
 				B48AE2FE1C6A79E600FA5DFD /* GetInspiredViewController.m in Sources */,
 				B4E6837E1C8113F6000C4834 /* FullScreenViewController.m in Sources */,
 				B411FDDB1C5E26B300BB96C7 /* Provider+CoreDataProperties.m in Sources */,
@@ -1059,6 +1120,7 @@
 				B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */,
 				B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */,
 				B4B815351BCB666F00C5E3BF /* MenuTableViewCell.m in Sources */,
+				B47C095F1C8722B2001981B2 /* FetcherSampleViewController.m in Sources */,
 				B411FDF01C5E81E800BB96C7 /* LanguageDS.m in Sources */,
 				B411FDD01C5E09E200BB96C7 /* RadiusView.m in Sources */,
 				B46582C01BC4B3A800C57679 /* Tortoise.xcdatamodeld in Sources */,
@@ -1071,11 +1133,9 @@
 				B4EE37E31C4AAC05009E8E3F /* Country+CoreDataProperties.m in Sources */,
 				B411FDDC1C5E26B300BB96C7 /* Provider.m in Sources */,
 				B4F197681C6F6FDC00343762 /* DetailTextViewTableViewCell.m in Sources */,
-				B43270561C760B17007DFCB8 /* SKSConfiguration.mm in Sources */,
 				B411FDD91C5E26B300BB96C7 /* Nuance+CoreDataProperties.m in Sources */,
 				B411FDE11C5E270400BB96C7 /* Language+CoreDataProperties.m in Sources */,
 				B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */,
-				B43E560C1C83970C00FF1FEA /* ImageScrollerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,7 +1207,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1170,8 +1230,9 @@
 				INSTALL_OWNER = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "8903c7f5-e901-451b-b80c-c00975c1e7f1";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1193,13 +1254,17 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PROD_NUANCE_KEY,
+					"Release=1",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1210,7 +1275,9 @@
 				INSTALL_OWNER = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "8903c7f5-e901-451b-b80c-c00975c1e7f1";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1222,7 +1289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1235,9 +1302,128 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Bolts\"",
+					"-l\"FBSDKCoreKit\"",
+					"-l\"FBSDKLoginKit\"",
+					"-l\"FBSDKShareKit\"",
+					"-l\"FGTranslator\"",
+					"-l\"GGLCore\"",
+					"-l\"GGLSignIn\"",
+					"-l\"GIPNSURL+FIFE\"",
+					"-l\"GSDK_Overload\"",
+					"-l\"GTMOAuth2_external\"",
+					"-l\"GTMOAuth2_internal\"",
+					"-l\"GTMSessionFetcher_core\"",
+					"-l\"GTMSessionFetcher_full\"",
+					"-l\"GTMStackTrace\"",
+					"-l\"GTM_AddressBook\"",
+					"-l\"GTM_DebugUtils\"",
+					"-l\"GTM_GTMURLBuilder\"",
+					"-l\"GTM_KVO\"",
+					"-l\"GTM_NSData+zlib\"",
+					"-l\"GTM_NSDictionary+URLArguments\"",
+					"-l\"GTM_NSScannerJSON\"",
+					"-l\"GTM_NSStringHTML\"",
+					"-l\"GTM_NSStringXML\"",
+					"-l\"GTM_Regex\"",
+					"-l\"GTM_RoundedRectPath\"",
+					"-l\"GTM_StringEncoding\"",
+					"-l\"GTM_SystemVersion\"",
+					"-l\"GTM_UIFont+LineHeight\"",
+					"-l\"GTM_core\"",
+					"-l\"GTM_iPhone\"",
+					"-l\"OpenInChrome\"",
+					"-l\"PINCache\"",
+					"-l\"ProtocolBuffers\"",
+					"-l\"SDWebImage\"",
+					"-l\"SignIn\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SpeechKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-force_load",
+					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
+					"-l\"c++\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "8903c7f5-e901-451b-b80c-c00975c1e7f1";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1248,7 +1434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1261,9 +1447,128 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Bolts\"",
+					"-l\"FBSDKCoreKit\"",
+					"-l\"FBSDKLoginKit\"",
+					"-l\"FBSDKShareKit\"",
+					"-l\"FGTranslator\"",
+					"-l\"GGLCore\"",
+					"-l\"GGLSignIn\"",
+					"-l\"GIPNSURL+FIFE\"",
+					"-l\"GSDK_Overload\"",
+					"-l\"GTMOAuth2_external\"",
+					"-l\"GTMOAuth2_internal\"",
+					"-l\"GTMSessionFetcher_core\"",
+					"-l\"GTMSessionFetcher_full\"",
+					"-l\"GTMStackTrace\"",
+					"-l\"GTM_AddressBook\"",
+					"-l\"GTM_DebugUtils\"",
+					"-l\"GTM_GTMURLBuilder\"",
+					"-l\"GTM_KVO\"",
+					"-l\"GTM_NSData+zlib\"",
+					"-l\"GTM_NSDictionary+URLArguments\"",
+					"-l\"GTM_NSScannerJSON\"",
+					"-l\"GTM_NSStringHTML\"",
+					"-l\"GTM_NSStringXML\"",
+					"-l\"GTM_Regex\"",
+					"-l\"GTM_RoundedRectPath\"",
+					"-l\"GTM_StringEncoding\"",
+					"-l\"GTM_SystemVersion\"",
+					"-l\"GTM_UIFont+LineHeight\"",
+					"-l\"GTM_core\"",
+					"-l\"GTM_iPhone\"",
+					"-l\"OpenInChrome\"",
+					"-l\"PINCache\"",
+					"-l\"ProtocolBuffers\"",
+					"-l\"SDWebImage\"",
+					"-l\"SignIn\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SpeechKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-force_load",
+					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
+					"-l\"c++\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "8903c7f5-e901-451b-b80c-c00975c1e7f1";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 			};
 			name = Release;
 		};
@@ -1294,10 +1599,12 @@
 		B46582E61BC4B3A800C57679 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				INFOPLIST_FILE = TortoiseUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.budhha.TortoiseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 				TEST_TARGET_NAME = Tortoise;
 				USES_XCTRUNNER = YES;
 			};
@@ -1306,14 +1613,237 @@
 		B46582E71BC4B3A800C57679 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
 				INFOPLIST_FILE = TortoiseUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.budhha.TortoiseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
 				TEST_TARGET_NAME = Tortoise;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
+		};
+		B4AD237F1C9AFC7D001A463B /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					PROD_NUANCE_KEY,
+					"PROD=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_GROUP = "";
+				INSTALL_OWNER = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = PROD;
+		};
+		B4AD23801C9AFC7D001A463B /* PROD */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1451581816ECCCBA0BD0E4FF /* Pods.prod.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Framework",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/TortoisePrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					PROD_NUANCE_KEY,
+				);
+				INFOPLIST_FILE = Tortoise/Info.plist;
+				INSTALL_GROUP = "";
+				INSTALL_OWNER = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Bolts\"",
+					"-l\"FBSDKCoreKit\"",
+					"-l\"FBSDKLoginKit\"",
+					"-l\"FBSDKShareKit\"",
+					"-l\"FGTranslator\"",
+					"-l\"GGLCore\"",
+					"-l\"GGLSignIn\"",
+					"-l\"GIPNSURL+FIFE\"",
+					"-l\"GSDK_Overload\"",
+					"-l\"GTMOAuth2_external\"",
+					"-l\"GTMOAuth2_internal\"",
+					"-l\"GTMSessionFetcher_core\"",
+					"-l\"GTMSessionFetcher_full\"",
+					"-l\"GTMStackTrace\"",
+					"-l\"GTM_AddressBook\"",
+					"-l\"GTM_DebugUtils\"",
+					"-l\"GTM_GTMURLBuilder\"",
+					"-l\"GTM_KVO\"",
+					"-l\"GTM_NSData+zlib\"",
+					"-l\"GTM_NSDictionary+URLArguments\"",
+					"-l\"GTM_NSScannerJSON\"",
+					"-l\"GTM_NSStringHTML\"",
+					"-l\"GTM_NSStringXML\"",
+					"-l\"GTM_Regex\"",
+					"-l\"GTM_RoundedRectPath\"",
+					"-l\"GTM_StringEncoding\"",
+					"-l\"GTM_SystemVersion\"",
+					"-l\"GTM_UIFont+LineHeight\"",
+					"-l\"GTM_core\"",
+					"-l\"GTM_iPhone\"",
+					"-l\"OpenInChrome\"",
+					"-l\"PINCache\"",
+					"-l\"ProtocolBuffers\"",
+					"-l\"SDWebImage\"",
+					"-l\"SignIn\"",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"stdc++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreBluetooth\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SpeechKit\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-force_load",
+					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
+					"-l\"c++\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
+				PRODUCT_NAME = Trotoise;
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+			};
+			name = PROD;
+		};
+		B4AD23811C9AFC7D001A463B /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TortoiseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.budhha.TortoiseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tortoise.app/Tortoise";
+			};
+			name = PROD;
+		};
+		B4AD23821C9AFC7D001A463B /* PROD */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sukhdeep  Bhogal (J46BN6K598)";
+				INFOPLIST_FILE = TortoiseUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.budhha.TortoiseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				TEST_TARGET_NAME = Tortoise;
+				USES_XCTRUNNER = YES;
+			};
+			name = PROD;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1323,6 +1853,7 @@
 			buildConfigurations = (
 				B46582DD1BC4B3A800C57679 /* Debug */,
 				B46582DE1BC4B3A800C57679 /* Release */,
+				B4AD237F1C9AFC7D001A463B /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1332,6 +1863,7 @@
 			buildConfigurations = (
 				B46582E01BC4B3A800C57679 /* Debug */,
 				B46582E11BC4B3A800C57679 /* Release */,
+				B4AD23801C9AFC7D001A463B /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1341,6 +1873,7 @@
 			buildConfigurations = (
 				B46582E31BC4B3A800C57679 /* Debug */,
 				B46582E41BC4B3A800C57679 /* Release */,
+				B4AD23811C9AFC7D001A463B /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1350,6 +1883,7 @@
 			buildConfigurations = (
 				B46582E61BC4B3A800C57679 /* Debug */,
 				B46582E71BC4B3A800C57679 /* Release */,
+				B4AD23821C9AFC7D001A463B /* PROD */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

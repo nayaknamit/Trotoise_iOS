@@ -12,6 +12,7 @@
 @interface SpeechTranslator ()<SKTransactionDelegate, SKAudioPlayerDelegate>
 @property (nonatomic,strong) SKSession* skSession;
 @property (nonatomic,strong) SKTransaction *skTransaction;
+@property (nonatomic,strong)SKAudio *audioPlayingCurrently;
 @end
 @implementation SpeechTranslator
 
@@ -50,13 +51,17 @@
     
     if (!_skTransaction) {
         // Start a TTS transaction
+////         NSDictionary* options = @{SKOptionsAutoPlayTTSKey:@(NO)};
     _skTransaction = [_skSession speakString:transitionText
                                     withLanguage:languageCode
                                         delegate:self];
-   
-//        _skTransaction = [_skSession speakString:transitionText withVoice:voiceName delegate:self];
-        
-       
+//
+
+//        NSDictionary* options = @{SKOptionsAutoPlayTTSKey:@(NO)};
+//        _skTransaction = [_skSession speakString:transitionText
+//                                                withVoice:@"Samantha"
+//                                                  options:options
+//                                                 delegate:self];
         
     } else {
         // Cancel the TTS transaction
@@ -69,18 +74,28 @@
 
 
 -(void)stopAudio{
-    
     [_skSession.audioPlayer stop];
+    if (_audioPlayingCurrently) {
+        
+        [_skSession.audioPlayer dequeue:_audioPlayingCurrently];
+    }
+    
 }
 #pragma mark - SKTransactionDelegate
 
+//- (void)transaction:(SKTransaction *)transaction didReceiveAudio:(SKAudio *)audio
+//{
+//    NSLog(@"didReceiveAudio");
+////    [_skSession.audioPlayer playAudio:audio];
+//
+////    [self resetTransaction];
+//
+//}
 - (void)transaction:(SKTransaction *)transaction didReceiveAudio:(SKAudio *)audio
 {
-    NSLog(@"didReceiveAudio");
-    
-//    [self resetTransaction];
+    _audioPlayingCurrently = audio;
+//    [_skSession.audioPlayer playAudio:audio];
 }
-
 - (void)transaction:(SKTransaction *)transaction didFinishWithSuggestion:(NSString *)suggestion
 {
     NSLog(@"didFinishWithSuggestion");
@@ -103,14 +118,15 @@
 - (void)audioPlayer:(SKAudioPlayer *)player willBeginPlaying:(SKAudio *)audio
 {
     NSLog(@"willBeginPlaying");
-    
+//    [_skSession.audioPlayer playAudio:audio];    
     // The TTS Audio will begin playing.
 }
 
 - (void)audioPlayer:(SKAudioPlayer *)player didFinishPlaying:(SKAudio *)audio
 {
     NSLog(@"didFinishPlaying");
-    
+
+
     // The TTS Audio has finished playing.
 }
 

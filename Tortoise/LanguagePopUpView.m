@@ -7,8 +7,11 @@
 //
 
 #import "LanguagePopUpView.h"
-#import "LanguageDS.h"
+#import "Language+CoreDataProperties.h"
+#import "Nuance+CoreDataProperties.h"
+#import "Provider+CoreDataProperties.h"
 #import "LoggedInUserDS.h"
+#import "LanguageDataManager.h"
 @interface LanguagePopUpView ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,weak) IBOutlet UITableView *tableView;
@@ -21,9 +24,9 @@
 @property (nonatomic,weak) IBOutlet UIImageView *audioImageView;
 @property (nonatomic,weak) IBOutlet UITableView *languageTableView;
 
-@property (nonatomic,strong) NSMutableArray *dataArra;
+@property (nonatomic,strong) NSArray *dataArra;
 
-@property (nonatomic,strong) LanguageDS *selectedLanguageDS;
+@property (nonatomic,strong) Language *selectedLanguageDS;
 
 -(IBAction)okButtonTapped:(id)sender;
 -(IBAction)cancelButtonTapped:(id)sender;
@@ -33,7 +36,13 @@
 
 -(IBAction)okButtonTapped:(id)sender{
 //     [Utilities addHUDForView:se];
-    
+  
+    if(_selectedLanguageDS == nil){
+        if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidCancelButonTappedWithLanguage:)]) {
+            [self.delegate languagePopUpViewDidCancelButonTappedWithLanguage:_selectedLanguageDS];
+        }
+        return;
+    }
     
     if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidOkButonTappedWithLanguage:)]) {
         [self.delegate languagePopUpViewDidOkButonTappedWithLanguage:_selectedLanguageDS];
@@ -53,9 +62,10 @@
 */
 -(void)setUpLanguagePopUpView{
     
-    self.dataArra = [NSMutableArray arrayWithArray:[APP_DELEGATE getLanguageDataArray]];
+    self.dataArra = [[LanguageDataManager sharedManager] getLanguageArrayFromDB];
     [self.tableView  reloadData];
-    
+    self.tableView.hidden = YES;
+
     [self setUpLanguageView];
     
 }
@@ -68,7 +78,7 @@
         
         [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
     }else{
-        [APP_DELEGATE setDefaultLanguage];
+//        [APP_DELEGATE setDefaultLanguage];
         loggedInUser = [APP_DELEGATE getLoggedInUserData];
         
         [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
@@ -92,18 +102,21 @@
         self.tableView.hidden = NO;
     } completion:nil];
 }
--(void)updateLanguageDetailsOnScreen:(LanguageDS *)languageDS{
+-(void)updateLanguageDetailsOnScreen:(Language *)languageDS{
     
     self.textImageView.image = [UIImage imageNamed:@"checkbox"];
     
     if(languageDS.nuanceRelationship !=nil){
+        NuanceDS *nDS = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
         self.speakerImageView.hidden = NO;
+        self.languageLabel.text = nDS.lang;
         self.audioImageView.image = [UIImage imageNamed:@"checkbox"];
     }else{
         self.speakerImageView.hidden = YES;
+         self.languageLabel.text = languageDS.name;
         self.audioImageView.image = [UIImage imageNamed:@"uncheck"];
     }
-    self.languageLabel.text = languageDS.name;
+   
 //    [APP_DELEGATE setSelectedLanguageData:languageDS];
     
     
@@ -132,8 +145,15 @@ return _dataArra.count;
     }
     
     LanguageDS * dataStructer;
+    
     dataStructer = [_dataArra objectAtIndex:indexPath.row];
-    cell.labelLanguage.text = dataStructer.name;
+        if (dataStructer.nuanceRelationship!=nil) {
+            
+            NuanceDS *nuanceDS = [[dataStructer.nuanceRelationship allObjects] objectAtIndex:0];
+            cell.labelLanguage.text = nuanceDS.lang;
+        }else{
+        cell.labelLanguage.text = dataStructer.name;
+    }
     if(dataStructer.nuanceRelationship!=nil){
         cell.speakerImageView.hidden = NO;
     }else{

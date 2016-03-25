@@ -7,10 +7,21 @@
 //
 
 #import "ImageScrollerTableViewCell.h"
-#import "MonumentListDS.h"
+#import "MonumentList+CoreDataProperties.h"
 #import "LanguageDS.h"
 #import "FullScreenViewController.h"
 #import "SpeechTranslator.h"
+#import "Language+CoreDataProperties.h"
+#import "ImageAttribute+CoreDataProperties.h"
+#import "Nuance+CoreDataProperties.h"
+#import "Provider+CoreDataProperties.h"
+@interface ImageScrollerTableViewCell(){
+    BOOL animate;
+    BOOL animationCompleting;
+    BOOL animationPending;
+    SpeechTranslator *translatorSpeech;
+}
+@end
 @implementation ImageScrollerTableViewCell
 
 - (void)awakeFromNib {
@@ -18,55 +29,133 @@
     _isSpeakerPlaying = NO;
 }
 
+-(void)initSpechTranslate {
+    if (translatorSpeech==nil) {
+        translatorSpeech = [SpeechTranslator sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopTranslatorSpeech) name:@"NOTIFY_STOP_AUDIO" object:nil];
+    }
+
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
 
+- (void) spinLogoWithOptions: (UIViewAnimationOptions) options {
+    NSTimeInterval fullSpinInterval = 1.0f;
+    [UIView animateWithDuration: fullSpinInterval / 4.0f
+                          delay: 0.0f
+                        options: options
+                     animations: ^{
+                         self.speakerBtn.transform = CGAffineTransformRotate(self.speakerBtn.transform, M_PI);
+                     }
+                     completion:^(BOOL finished) {
+                         // if flag still set, keep spinning with constant speed
+                         if (animate) {
+                             [self spinLogoWithOptions: UIViewAnimationOptionCurveLinear];
+                         } else if (animationPending) {
+                             // another spin has been requested, so start it right back up!
+                             animationPending = NO;
+                             animate = YES;
+                             [self spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState];
+                         } else if ((options & UIViewAnimationOptionCurveEaseOut) == 0) {
+                             // one last spin, with deceleration
+                             [self spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut];
+                         } else {
+                             animationCompleting = NO;
+                         }
+                     }];
+}
+
+- (void) stopLogoSpin {
+    animate = NO;
+    animationCompleting = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOTIFY_STOP_AUDIO" object:nil];
+}
+
+- (void) startLogoSpin {
+    if (!animate) {
+        if (animationCompleting) {
+            animationPending = YES;
+        } else {
+            animate = YES;
+            [self spinLogoWithOptions: UIViewAnimationOptionCurveEaseIn];
+        }
+    }
+}
 
 -(IBAction)speakerBtnTapped:(id)sender{
-    //    [[SpeechTranslator sharedInstance] speakString:self.monumentDetailObj.desc withVoice:@"" delegate:<#(id<SKTransactionDelegate>)#> ]
     
-    LanguageDS *languageDS = [APP_DELEGATE getLanguage];
+       [self initSpechTranslate ];
     if (!_isSpeakerPlaying) {
-        if([languageDS.nuanceRelationship allObjects].count!=0){
-            NuanceDS *nuanceDS = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
-            ProviderDS *providerDS = [[nuanceDS.provider allObjects] objectAtIndex:0];
-            [[SpeechTranslator sharedInstance] initiateTransistionForText:self.monumentDetailObj.desc withLanguageCode:nuanceDS.code6 withVoiceName:providerDS.voice];
-            //        [[SpeechTranslator sharedInstance] initiateTransistionForText:self.monumentDetailObj.desc withLanguageCode: withVoiceName:providerDS.voice];
+        [self startLogoSpin];
+        [self stopLogoSpin];
+            [_speakerBtn setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
+        if([_selectedLanguage.nuanceRelationship allObjects].count!=0){
+            Nuance *nuanceDS = [[_selectedLanguage.nuanceRelationship allObjects] objectAtIndex:0];
+            Provider *providerDS = (Provider *)[[nuanceDS.provider allObjects] objectAtIndex:0];
+            [translatorSpeech initiateTransistionForText:self.monumentDetailObj.desc withLanguageCode:nuanceDS.code6 withVoiceName:providerDS.voice];
             
         _isSpeakerPlaying = YES;
         }else{
-            _isSpeakerPlaying = NO;
-            UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Trotoise"
+              UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Trotoise"
                                                                message:@"Audio facility is not avaialable for current selected language."
                                                               delegate:nil cancelButtonTitle:@"OK"
                                                      otherButtonTitles:nil, nil];
             [alertView show];
+            [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
             
+            _isSpeakerPlaying = NO;
+            [self startLogoSpin];
+            [self stopLogoSpin];
         }
         
     }else{
+        [self startLogoSpin];
+        [self stopLogoSpin];
+        [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
+
+        
         _isSpeakerPlaying = NO;
-        [[SpeechTranslator sharedInstance] stopAudio];
+        [self stopTranslatorSpeech];
     }
+}
+-(void)stopTranslatorSpeech{
     
+    [translatorSpeech stopAudio];
+
+}
+
+- (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration rotations:(CGFloat)rotations repeat:(float)repeat;
+{
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * rotations * duration ];
+    rotationAnimation.duration = duration;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = repeat;
+    
+    [view.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 -(IBAction)mapDirectionButtonTapped:(id)sender{
     
     double lat = [self.monumentDetailObj.latitude doubleValue];
     double lon = [self.monumentDetailObj.longitude doubleValue];
     
-    //    if ([[UIApplication sharedApplication] canOpenURL:
-    //         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        if ([[UIApplication sharedApplication] canOpenURL:
+             [NSURL URLWithString:@"comgooglemaps://"]]) {
     NSString *str = [NSString stringWithFormat:@"comgooglemaps://?q=%@&center=%f,%f&zoom=12&views=traffic",self.monumentDetailObj.name,lat,lon];
     str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL * url = [NSURL URLWithString:str];
     [[UIApplication sharedApplication] openURL:url] ;
-    //    } else {
-    //        NSLog(@"Can't use comgooglemaps://");
-    //    }
+        } else {
+//            NSString *addressOnMap = @"cupertino";  //place name
+            NSString* addr = [NSString stringWithFormat:@"http://maps.apple.com/?ll=%f,%f",lat,lon];
+            NSURL* url = [[NSURL alloc] initWithString:[addr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [[UIApplication sharedApplication] openURL:url];
+                NSLog(@"Can't use comgooglemaps://");
+        }
     
     
 }
@@ -82,7 +171,7 @@
 //    self.mediaFocusManager.elasticAnimation = YES;
     __block CGFloat scrollViewWidth = [UIScreen mainScreen].bounds.size.width+10;
     __block CGFloat scrollViewHeight = 249;
-    NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes allObjects];
+    NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes array];
     if([imageSetArray count]>0){
         
 //        __weak ImageScrollerTableViewCell *weakSelf = self;
@@ -98,7 +187,7 @@
 
         
         [imageSetArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ImageAttributeDS * imageDS = (ImageAttributeDS *)obj;
+            ImageAttribute * imageDS = (ImageAttribute *)obj;
             
             
             CGRect frame;
@@ -174,8 +263,9 @@
             
             
             NSInteger index = imageView.tag-100;
-            NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes allObjects];
-            ImageAttributeDS * imageDS = (ImageAttributeDS *)[imageSetArray objectAtIndex:index];
+            NSArray *imageSetArray = [self.monumentDetailObj.imageAttributes array];
+            
+            ImageAttribute * imageDS = (ImageAttribute *)[imageSetArray objectAtIndex:index];
 //        FullScreenViewController *fullScreenVC = []
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             FullScreenViewController *fullScreenVC = [storyBoard instantiateViewControllerWithIdentifier:@"FullScreenViewController"];
@@ -186,75 +276,7 @@
         }
     }
 }
-#pragma mark - ASMediaFocusDelegate
-// Returns the view controller in which the focus controller is going to be added.
-// This can be any view controller, full screen or not.
-/*- (void)mediaFocusManagerWillAppear:(ASMediaFocusManager *)mediaFocusManager
-{
-  
-    if ([self.delegate respondsToSelector:@selector( mediaFocusManagerWillAppearForDelegate)]) {
-        
-        [self.delegate mediaFocusManagerWillAppearForDelegate];
-        
-    }
- 
-}
 
-- (void)mediaFocusManagerWillDisappear:(ASMediaFocusManager *)mediaFocusManager
-{
- 
-    [self.imageScrollerView updateConstraintsIfNeeded];
-    NSArray *childArra = [self.imageScrollerView subviews];
-    [childArra  enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if([obj isKindOfClass:[UIImageView class]]){
-            UIImageView *img = (UIImageView *)obj;
-            __block CGFloat scrollViewWidth = self.contentView.bounds.size.width;
-            __block CGFloat scrollViewHeight = 201;
-            img.frame  = CGRectMake(scrollViewWidth*idx, 0,scrollViewWidth, scrollViewHeight);
-            img.contentMode = UIViewContentModeScaleAspectFill;
-        }
-        
-    }];
-    
-    if([self.delegate respondsToSelector:@selector(mediaFocusManagerWillDisappear)]){
-        [self.delegate mediaFocusManagerWillDisappear];
-    }
-    
-}
-- (UIViewController *)parentViewControllerForMediaFocusManager:(ASMediaFocusManager *)mediaFocusManager
-{
-    if ([self.delegate respondsToSelector:@selector(parentViewControllerForMediaFocusManager)]) {
-        return [self.delegate parentViewControllerForMediaFocusManager];
-    }
-    
-    return nil;
-}
-
-// Returns the URL where the media (image or video) is stored. The URL may be local (file://) or distant (http://).
-- (NSURL *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager mediaURLForView:(UIView *)view
-{
-    NSInteger index;
-    NSURL *url;
-    
-    // Here, medias are accessed through their name stored in self.mediaNames
-    index = [self.imageViews indexOfObject:view];
-    
-    ImageAttributeDS *imageDS =  [[self.monumentDetailObj.imageAttributes allObjects] objectAtIndex:index];
-    url  = [NSURL URLWithString:imageDS.imageUrl];
-    
-    return url;
-}
-
-- (CGRect)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager finalFrameForView:(UIView *)view{
-    
-    return  [UIScreen mainScreen].bounds;
-}
-// Returns the title for this media view. Return nil if you don't want any title to appear.
-- (NSString *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager titleForView:(UIView *)view
-{
-    return @"";
-}
-*/
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 
 }

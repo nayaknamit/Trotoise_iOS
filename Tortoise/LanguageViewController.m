@@ -10,12 +10,14 @@
 #import "TTAPIHandler.h"
 #import "KLCPopup.h"
 #import "LanguageTableView.h"
-#import "LanguageDS.h"
+#import "Language+CoreDataProperties.h"
+#import "Nuance+CoreDataProperties.h"
 #import "LoggedInUserDS.h"
 #import "HomeViewController.h"
 #import "LanguageDataManager.h"
 #import "TranslatorManager.h"
 #import "DVSwitch.h"
+#import "SWRevealViewController.h"
 @interface LanguageViewController ()<LanguageTableViewDelegate>
 @property (nonatomic,strong) LanguageTableView *languageTableView;
 @property (nonatomic,strong) KLCPopup *klcPopView;
@@ -26,7 +28,7 @@
 @property (nonatomic,weak) IBOutlet UILabel *loggedInUserLbl;
 @property (nonatomic,weak) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) DVSwitch *switcher;
-
+@property (nonatomic)BOOL isLanugageTap;
 -(IBAction)continueButtonTapped:(id)sender;
 
 @end
@@ -39,6 +41,7 @@
     
     [self setUpLanguageView];
     [self setUpSwitchButton];
+    _isLanugageTap  = NO;
 }
 
 
@@ -80,7 +83,7 @@
         
         [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
     }else{
-        [APP_DELEGATE setDefaultLanguage];
+//        [APP_DELEGATE setDefaultLanguage];
         loggedInUser = [APP_DELEGATE getLoggedInUserData];
 
         [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
@@ -99,7 +102,7 @@
     self.languageTableView.delegate = self;
     _klcPopView = [KLCPopup popupWithContentView:self.languageTableView];
     
-    [self.languageTableView setUpLanguageData:[APP_DELEGATE getLanguageDataArray]];
+    [self.languageTableView setUpLanguageData];
     
     
     if(loggedInUser.imageUrl!=nil){
@@ -120,7 +123,7 @@
 -(void)setDefaultLanguage:(NSArray *)languageArr{
     
     [languageArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        LanguageDS *languageDs = (LanguageDS *)obj;
+        Language *languageDs = (Language *)obj;
         if ([languageDs.name isEqualToString:@"English (US)"]) {
             
             [self updateLanguageDetailsOnScreen:languageDs];
@@ -131,25 +134,29 @@
     }];
 }
 -(void)setProfileImageWithUrl:(NSURL *)url{
+    __weak LanguageViewController *weakSelf = self;
+
     
-    [self.profileImageView sd_setImageWithPreviousCachedImageWithURL:url placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    
+    [Utilities downloadImageWithURL:url completionBlock:^(BOOL succeeded, UIImage *image) {
         if (image)
         {
-            self.profileImageView.image = [Utilities makeRoundedImage:image radius:21];//image;
-//            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-//            self.profileImageView.clipsToBounds = YES;
-//            self.profileImageView.layer.borderWidth = 3.0f;
-//            self.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+            //            weakSelf.profileImageView.image = [Utilities makeRoundedImage:image radius:21];//image;
+            weakSelf.profileImageView.image = image;
+            weakSelf.profileImageView.layer.cornerRadius = weakSelf.profileImageView.frame.size.width / 2;
+            weakSelf.profileImageView.clipsToBounds = YES;
+            weakSelf.profileImageView.layer.borderWidth = 3.0f;
+            weakSelf.profileImageView.layer.borderColor = [UIColor whiteColor].CGColor;
             
             // do something with image
         }
         
     }];
+    
+
 }
 
--(void)updateLanguageDetailsOnScreen:(LanguageDS *)languageDS{
+-(void)updateLanguageDetailsOnScreen:(Language *)languageDS{
     
     self.textCheckBoxImageView.image = [UIImage imageNamed:@"checkbox"];
     
@@ -160,7 +167,19 @@
         self.speakrImageView.hidden = YES;
         self.audioCheckBoxImageView.image = [UIImage imageNamed:@"uncheck"];
     }
-    self.languageLabel.text = languageDS.name;
+    
+    
+    
+    
+        if (languageDS.nuanceRelationship!=nil) {
+            
+            Nuance *nuanceDS = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
+            self.languageLabel.text = nuanceDS.lang;
+        }else{
+            self.languageLabel.text = languageDS.name;
+    }
+    
+//    self.languageLabel.text = languageDS.name;
     [APP_DELEGATE setSelectedLanguageData:languageDS];
 
 
@@ -170,54 +189,67 @@
 -(void)onTranslationComplete:(NSNotification *)notification{
             APP_DELEGATE.isLanguageChange = YES;
     NSArray *aarr = (NSArray *)[notification object];
-    [APP_DELEGATE setCityMonumentListArray:aarr];
+//    [APP_DELEGATE setCityMonumentListArray:aarr];
     [Utilities hideHUDForView:self.view];
 
 }
 
--(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(LanguageDS *)data{
+-(void)languageTableView:(LanguageTableView *)languageTableView didSelectLanguageData:(Language *)data{
     
     [_klcPopView dismiss:YES];
-    LanguageDS *la = [APP_DELEGATE getLanguage];
 
     [self updateLanguageDetailsOnScreen:data];
 
     [APP_DELEGATE setSelectedLanguageData:data];
+    _isLanugageTap = YES;
+//    [Utilities addHUDForView:self.view];
+    [APP_DELEGATE setUserDefaultLanguageIsCached:YES];
     
-    [Utilities addHUDForView:self.view];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-    if([data.transCode isEqualToString:@"hi"]){
-       
-        CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate ];
-        NSString *lat = [NSString stringWithFormat:@"%f",coordinate.latitude ];
-        NSString *longitude = [NSString stringWithFormat:@"%f",coordinate.longitude ];
-
-        
-        [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"hi" withRequestType:
-         GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-             
-             [APP_DELEGATE setCityMonumentListArray:cityMonumentArra];
-             APP_DELEGATE.isLanguageChange = YES;
-
-              [Utilities hideHUDForView:self.view];
-             
-         }];
-        
-    }else{
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-
-
-        [[TranslatorManager sharedInstance] translateLanguage:[APP_DELEGATE getMonumentListArray] withSource:la.transCode withTarget:data.transCode withRequestSource:TR_TRANSLATE_REQUEST_SETTINGS];
-    }
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
+//    if([data.transCode isEqualToString:@"hi"]){
+//       
+//        CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate ];
+//        NSString *lat = [NSString stringWithFormat:@"%f",coordinate.latitude ];
+//        NSString *longitude = [NSString stringWithFormat:@"%f",coordinate.longitude ];
+//
+//        
+//        [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"hi" withRequestType:
+//         GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
+//             
+//             [APP_DELEGATE setCityMonumentListArray:cityMonumentArra];
+//             APP_DELEGATE.isLanguageChange = YES;
+//
+//              [Utilities hideHUDForView:self.view];
+//             
+//         }];
+//        
+//    }else{
+//        
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
+//
+//
+//        [[TranslatorManager sharedInstance] translateLanguage:[APP_DELEGATE getMonumentListArray] withSource:la.transCode withTarget:data.transCode withRequestSource:TR_TRANSLATE_REQUEST_SETTINGS];
+//    }
     
     
 
     
 }
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([[segue identifier] isEqualToString:@"segueHomePage"]) {
+        SWRevealViewController *vc = [segue destinationViewController];
+        [vc loadView];
+//        vc.currentTranslatorRequestType = TR_TRANSLATE_REQUEST_SETTINGS;
+        if (_isLanugageTap) {
+            
+                UINavigationController *navegationController = (UINavigationController *)vc.frontViewController;
+            HomeViewController * frontViewController = (HomeViewController *)navegationController.topViewController;
+       frontViewController.currentTranslatorRequestType = TR_TRANSLATE_REQUEST_SETTINGS;
+        }
+        
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dspose of any resources that can be recreated.

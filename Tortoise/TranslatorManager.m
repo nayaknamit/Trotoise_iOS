@@ -86,7 +86,8 @@
 -(void)translateLanguage1:(MonumentListDS *)objMonument withSource:(NSString *)source withTarget:(NSString *)target{
     
 //    @try {
-        NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@_%@_%@",objMonument.name,objMonument.desc,objMonument.shortDesc];
+        NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@_%@_%@",objMonument.name,[Utilities formattedStringForNewLineForString:objMonument.desc],[Utilities formattedStringForNewLineForString:objMonument.shortDesc]];
+    
         __weak TranslatorManager  *manager = self;
         
         [_translator translateText:formattedTranslateLanguage withSource:source target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {
@@ -202,7 +203,7 @@
 
 -(void)translateLanguageForMonumentObject:(MonumentListDS *)objMonument withSource:(NSString *)source withTarget:(NSString *)target{
     
-    NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@_%@_%@",objMonument.name,objMonument.desc,objMonument.shortDesc];
+    NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@_%@_%@",[Utilities formattedStringForNewLineForString:objMonument.name],[Utilities formattedStringForNewLineForString:objMonument.desc],[Utilities formattedStringForNewLineForString:objMonument.shortDesc]];
     __weak TranslatorManager  *manager = self;
     
     [_translator translateText:formattedTranslateLanguage withSource:source target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {

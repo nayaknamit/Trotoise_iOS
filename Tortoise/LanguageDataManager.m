@@ -13,6 +13,12 @@
 #import "Language.h"
 #import "Nuance.h"
 #import "Provider.h"
+@interface LanguageDataManager(){
+    
+    __block NSManagedObjectContext *context;
+    
+}
+@end
 @implementation LanguageDataManager
 
 
@@ -20,8 +26,7 @@
     
     static LanguageDataManager *sharedInstance = nil;
     static dispatch_once_t pred;
-    
-    if (sharedInstance) return sharedInstance;
+     if (sharedInstance) return sharedInstance;
     
     dispatch_once(&pred, ^{
         sharedInstance = [[LanguageDataManager alloc] init];
@@ -29,10 +34,17 @@
     
     return sharedInstance;
 }
+-(id)init{
+    
+    if (self=[super init]) {
+        context =   [[DataAccessManager sharedInstance]managedObjectContext];
 
+    }
+    return self;
+}
 -(BOOL)isLanguageDataExistInCoreData{
     
-    __block  NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+      NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
     if ([Language isDataExistwithContext:context]) {
         return true;
     }else{
@@ -40,129 +52,263 @@
     }
     return false;
 }
-
--(NSArray *)getParseAPIDataToLanguageDS:(NSArray *)arraData{
+-(NSArray *)getLanguageArrayFromDB{
     
-    __block NSMutableArray *arr = [NSMutableArray array];
-    __block  NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
     if ([Language isDataExistwithContext:context]) {
         NSArray * tempArra = [Language getLanguageDataFromContext:context];
-        
-        [tempArra enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            Language *languageObj = (Language *)obj;
-            LanguageDS *languageObject = [[LanguageDS alloc] init];
-            languageObject.name = languageObj.name;
-            languageObject.transCode = languageObj.transCode;
-            languageObject.lang = languageObj.lang;
-            //            languageObject.nuanceRelationship = languageObj.nuanceRelationship;
-            
-            NSArray *nuanceArra =[languageObj.nuanceRelationship allObjects];
-            
-            
-            if(nuanceArra.count >0){
-                __block NSMutableSet *nuanceSet1 = [[NSMutableSet alloc] init];
-                [nuanceArra enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx1, BOOL * _Nonnull stop1) {
-                    NuanceDS *naunceObj = [[NuanceDS alloc] init];
-                    Nuance *naunceDB = (Nuance *)obj1;
-                    naunceObj.code4 = naunceDB.code4; // [naunceDict objectForKey:@"code4"];
-                    naunceObj.code6 =naunceDB.code6;
-                    naunceObj.lang =naunceDB.lang;
-                    
-                    NSArray *providerArra = [naunceDB.provider allObjects];
-                    __block NSMutableSet *providerObjectSet = [[NSMutableSet alloc] init];
-                    
-                    if (providerArra.count >0) {
-                        [providerArra enumerateObjectsUsingBlock:^(id  _Nonnull obj2, NSUInteger idx2, BOOL * _Nonnull stop2) {
-                            
-                            Provider *providerDict = (Provider *)obj2;
-                            ProviderDS *providerObj = [[ProviderDS alloc] init];
-                            providerObj.voice = providerDict.voice; //[providerDict objectForKey:@"voice"];
-                            providerObj.type = providerDict.type;// [providerDict objectForKey:@"type"];
-                            [providerObjectSet addObject:providerObj];
-                            
-                        }];
-                        
-                        naunceObj.provider = providerObjectSet;
-                        
-                    }
-                    
-                    [nuanceSet1 addObject:naunceObj];
-                }];
-                languageObject.nuanceRelationship = nuanceSet1;
-            }
-            [arr addObject:languageObject];
-            
-            
-            
-            
-            
-        }];
+        return tempArra;
+    }
+    return nil;
+}
+-(Language *)getDefaultLanguageObject{
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Language" inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isDefaultLanguage == YES"];
+    
+    /* Tell the request that we want to read the
+     contents of the Person entity */
+    
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    NSError *requestError = nil;
+    /* And execute the fetch request on the context */
+    NSArray *languageLists =[context executeFetchRequest:fetchRequest error:&requestError];
+    
+    if (languageLists.count> 0 ) {
+        Language *lang = [languageLists lastObject];
+        return lang;
+    }
+    
+    
+    return nil;
+    
+}
+
+-(void)setDefaultLanguage:(DEFUALT_LANGUAGE_TYPE)defaultLanugageType{
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    NSDictionary *dict ;
+    if ([APP_DELEGATE getUserDefaultLanguageIsChached]) {
+        dict = [APP_DELEGATE getLocalCahceLangugeDict ];
         
     }else{
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:@"English",@"lg_name",@"English (US)",@"nuance", nil];
+    }
+    
+
+    switch (defaultLanugageType) {
+        case DEFAULT_LANGUAGE_WITH_NUANCE:
+        {
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
+            
+            NSEntityDescription *entity =[NSEntityDescription entityForName:@"Language" inManagedObjectContext:context];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@ AND Language.nuance.lang LIKE %@",[dict objectForKey:@"lg_name"],[dict objectForKey:@"nuance"]];
+            
+            /* Tell the request that we want to read the
+             contents of the Person entity */
+            
+            [fetchRequest setEntity:entity];
+            [fetchRequest setPredicate:predicate];
+            NSError *requestError = nil;
+            /* And execute the fetch request on the context */
+            NSArray *languageLists =[context executeFetchRequest:fetchRequest error:&requestError];
+            
+            if (languageLists.count> 0 ) {
+                Language *lang = [languageLists lastObject];
+                [lang setIsDefaultLanguage:[NSNumber numberWithBool:YES]];
+                NSError *error = nil;
+                if([context save:&error]){
+                    
+                }else{
+                    
+                    NSLog(@"Error In Inserting Data %@",[error description]);
+                    
+                }
+            }
+            
+            
+        }
+        break;
+        case DEFAULT_LANGUAGE_WITHOUT_NUANCE:
+        {
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            
+            
+            NSEntityDescription *entity =[NSEntityDescription entityForName:@"Language" inManagedObjectContext:context];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@",[dict objectForKey:@"lg_name"]];
+            
+            /* Tell the request that we want to read the
+             contents of the Person entity */
+            
+            [fetchRequest setEntity:entity];
+            [fetchRequest setPredicate:predicate];
+            NSError *requestError = nil;
+            /* And execute the fetch request on the context */
+            NSArray *languageLists =[context executeFetchRequest:fetchRequest error:&requestError];
+            
+            if (languageLists.count> 0 ) {
+                Language *lang = [languageLists lastObject];
+                [lang setIsDefaultLanguage:[NSNumber numberWithBool:YES]];
+                NSError *error = nil;
+                if([context save:&error]){
+                    
+                }else{
+                    
+                    NSLog(@"Error In Inserting Data %@",[error description]);
+                    
+                }
+            }
+        }
         
+        break;
+       
+    }
+    
+    
+}
+
+-(void)getParseAPIDataToLanguageDS:(NSArray *)arraData{
+    
+   
+    if ([Language isDataExistwithContext:context]) {
+        
+        }else{
         
         [arraData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
             NSDictionary *mainObj = (NSDictionary *)obj;
-            LanguageDS *languageObject = [[LanguageDS alloc] init];
-            languageObject.name = [mainObj objectForKey:@"name"];
-            languageObject.transCode = [mainObj objectForKey:@"transCode"];
-            languageObject.lang = [mainObj objectForKey:@"localeCode"];
+            
+            
+              Language *language = [NSEntityDescription insertNewObjectForEntityForName:@"Language" inManagedObjectContext:context];
+            
+            [language setValue:[mainObj objectForKey:@"name"] forKey:@"name"];
+            [language setValue:[mainObj objectForKey:@"transCode"] forKey:@"transCode"];
+            [language setValue:[mainObj objectForKey:@"localeCode"] forKey:@"localeCode"];
             
             
             NSArray *nuanceArra = [mainObj objectForKey:@"nuance"];
             
             if(nuanceArra.count >0){
-                __block NSMutableSet *nuanceSet1 = [[NSMutableSet alloc] init];
+                
+                
                 [nuanceArra enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx1, BOOL * _Nonnull stop1) {
-                    NuanceDS *naunceObj = [[NuanceDS alloc] init];
-                    NSDictionary *naunceDict = (NSDictionary *)obj1;
-                    naunceObj.code4 = [naunceDict objectForKey:@"code4"];
-                    naunceObj.code6 = [naunceDict objectForKey:@"code6"];
-                    naunceObj.lang = [naunceDict objectForKey:@"lang"];
+                     NSDictionary *naunceDict = (NSDictionary *)obj1;
+                    Nuance *nuanceObj = [NSEntityDescription insertNewObjectForEntityForName:@"Nuance" inManagedObjectContext:context];
+                    [nuanceObj setValue:[naunceDict objectForKey:@"code4"] forKey:@"code4"];
+                    [nuanceObj setValue:[naunceDict objectForKey:@"code6"] forKey:@"code6"];
+                    [nuanceObj setValue:[naunceDict objectForKey:@"lang"] forKey:@"lang"];
+
+                    
                     
                     NSArray *providerArra = [naunceDict objectForKey:@"provider"];
-                    __block NSMutableSet *providerObjectSet = [[NSMutableSet alloc] init];
                     
                     if (providerArra.count >0) {
                         [providerArra enumerateObjectsUsingBlock:^(id  _Nonnull obj2, NSUInteger idx2, BOOL * _Nonnull stop2) {
                             
                             NSDictionary *providerDict = (NSDictionary *)obj2;
-                            ProviderDS *providerObj = [[ProviderDS alloc] init];
-                            providerObj.voice = [providerDict objectForKey:@"voice"];
-                            providerObj.type = [providerDict objectForKey:@"type"];
-                            [providerObjectSet addObject:providerObj];
                             
+                              Provider *providerObj = [NSEntityDescription insertNewObjectForEntityForName:@"Provider" inManagedObjectContext:context];
+                            [providerObj setValue:[providerDict objectForKey:@"voice"] forKey:@"voice"];
+                            [providerObj setValue:[providerDict objectForKey:@"type"] forKey:@"type"];
+                            
+                            [nuanceObj addProviderObject:providerObj];
                         }];
                         
-                        naunceObj.provider = providerObjectSet;
                         
                     }
                     
-                    [nuanceSet1 addObject:naunceObj];
+                    [language addNuanceRelationshipObject:nuanceObj];
                 }];
-                languageObject.nuanceRelationship = nuanceSet1;
             }
-            [arr addObject:languageObject];
+
+            NSError * error = nil;
             
+            if([context save:&error]){
+                NSLog(@"Insert Product with Product ID %@",[language.name description]);
+                
+            }else{
+                
+                NSLog(@"Error In Inserting Data %@",[error description]);
+                
+            }
+
         }];
-        
-        [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj6, NSUInteger idx6, BOOL * _Nonnull stop6) {
             
-            LanguageDS *languageDS = (LanguageDS *)obj6;
-            
-            
-            [Language insertDataIntoBasket:languageDS withContextManagedObject:context];
-        }];
-        
+            [self setDefaultLanguage:DEFAULT_LANGUAGE_WITH_NUANCE];
     }
-    return arr;
+   
 }
 
 @end
 
 /*
+ [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj6, NSUInteger idx6, BOOL * _Nonnull stop6) {
+ 
+ LanguageDS *languageDS = (LanguageDS *)obj6;
+ 
+ 
+ [Language insertDataIntoBasket:languageDS withContextManagedObject:context];
+ }];
+ 
+ /**need to remove the code/  return tempArra;
+[tempArra enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    Language *languageObj = (Language *)obj;
+    LanguageDS *languageObject = [[LanguageDS alloc] init];
+    languageObject.name = languageObj.name;
+    languageObject.transCode = languageObj.transCode;
+    languageObject.lang = languageObj.localeCode;
+    //            languageObject.nuanceRelationship = languageObj.nuanceRelationship;
+    
+    NSArray *nuanceArra =[languageObj.nuanceRelationship allObjects];
+    
+    
+    if(nuanceArra.count >0){
+        __block NSMutableSet *nuanceSet1 = [[NSMutableSet alloc] init];
+        [nuanceArra enumerateObjectsUsingBlock:^(id  _Nonnull obj1, NSUInteger idx1, BOOL * _Nonnull stop1) {
+            NuanceDS *naunceObj = [[NuanceDS alloc] init];
+            Nuance *naunceDB = (Nuance *)obj1;
+            naunceObj.code4 = naunceDB.code4; // [naunceDict objectForKey:@"code4"];
+            naunceObj.code6 =naunceDB.code6;
+            naunceObj.lang =naunceDB.lang;
+            
+            NSArray *providerArra = [naunceDB.provider allObjects];
+            __block NSMutableSet *providerObjectSet = [[NSMutableSet alloc] init];
+            
+            if (providerArra.count >0) {
+                [providerArra enumerateObjectsUsingBlock:^(id  _Nonnull obj2, NSUInteger idx2, BOOL * _Nonnull stop2) {
+                    
+                    Provider *providerDict = (Provider *)obj2;
+                    ProviderDS *providerObj = [[ProviderDS alloc] init];
+                    providerObj.voice = providerDict.voice; //[providerDict objectForKey:@"voice"];
+                    providerObj.type = providerDict.type;// [providerDict objectForKey:@"type"];
+                    [providerObjectSet addObject:providerObj];
+                    
+                }];
+                
+                naunceObj.provider = providerObjectSet;
+                
+            }
+            
+            [nuanceSet1 addObject:naunceObj];
+        }];
+        languageObject.nuanceRelationship = nuanceSet1;
+    }
+    [arr addObject:languageObject];
+    
+    
+    
+    
+    
+}];
+
+/*
+
  "name": "Arabic",
  "transCode": "ar",
  "localeCode": "ar",

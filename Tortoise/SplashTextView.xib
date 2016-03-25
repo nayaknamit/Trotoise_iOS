@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Roboto-Italic.ttf">
+            <string>Roboto-Italic</string>
+        </mutableArray>
+        <mutableArray key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SplashTextView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfU-Uu-XPA">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="oQD-nk-6w2">
+                            <variation key="heightClass=regular-widthClass=compact" constant="40"/>
+                        </constraint>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="oQD-nk-6w2"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="oQD-nk-6w2"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBQ-GP-zeD">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="yZR-wB-sZX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="10"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="yZR-wB-sZX"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="yZR-wB-sZX"/>
+                        </mask>
+                    </variation>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="BfU-Uu-XPA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="43" id="3uq-nO-1tf"/>
+                <constraint firstItem="zBQ-GP-zeD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="43" id="Dga-9E-j3n"/>
+                <constraint firstAttribute="trailing" secondItem="zBQ-GP-zeD" secondAttribute="trailing" constant="42" id="E5q-be-ghN"/>
+                <constraint firstItem="BfU-Uu-XPA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="31" id="RrZ-PE-xUz">
+                    <variation key="heightClass=regular-widthClass=compact" constant="15"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="BfU-Uu-XPA" secondAttribute="trailing" constant="42" id="iAO-ht-dCA"/>
+                <constraint firstItem="zBQ-GP-zeD" firstAttribute="top" secondItem="BfU-Uu-XPA" secondAttribute="bottom" constant="13" id="naW-OX-3ea">
+                    <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                </constraint>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="BfU-Uu-XPA"/>
+                    <exclude reference="zBQ-GP-zeD"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="3uq-nO-1tf"/>
+                    <exclude reference="RrZ-PE-xUz"/>
+                    <exclude reference="iAO-ht-dCA"/>
+                    <exclude reference="Dga-9E-j3n"/>
+                    <exclude reference="E5q-be-ghN"/>
+                    <exclude reference="naW-OX-3ea"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="BfU-Uu-XPA"/>
+                    <include reference="zBQ-GP-zeD"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="3uq-nO-1tf"/>
+                    <include reference="RrZ-PE-xUz"/>
+                    <include reference="iAO-ht-dCA"/>
+                    <include reference="Dga-9E-j3n"/>
+                    <include reference="E5q-be-ghN"/>
+                    <include reference="naW-OX-3ea"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="descLabel" destination="zBQ-GP-zeD" id="SdW-As-UBT"/>
+                <outlet property="titleLabel" destination="BfU-Uu-XPA" id="jwD-uc-xkr"/>
+            </connections>
+        </view>
+    </objects>
+</document>

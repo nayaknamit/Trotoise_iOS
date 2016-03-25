@@ -12,8 +12,8 @@
 @protocol LanguagePopUpViewDelegate <NSObject>
 @optional
 
--(void)languagePopUpViewDidOkButonTappedWithLanguage:(LanguageDS *)languageObject;
--(void)languagePopUpViewDidCancelButonTappedWithLanguage:(LanguageDS *)languageObject;
+-(void)languagePopUpViewDidOkButonTappedWithLanguage:(Language *)languageObject;
+-(void)languagePopUpViewDidCancelButonTappedWithLanguage:(Language *)languageObject;
 
 @end
 @interface LanguagePopUpView : UIView

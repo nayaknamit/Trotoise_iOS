@@ -21,8 +21,8 @@ typedef enum {
     
 }REQUEST_TYPE;
 
-typedef void (^TTCityMonumentListResponse)( NSArray * cityMonumentArra, NSError *error);
-typedef void (^TTLanguageMappingResponse)( NSArray * languageMappingArra, NSError *error);
+typedef void (^TTCityMonumentListResponse)( BOOL isResultSuccess, NSError *error);
+typedef void (^TTLanguageMappingResponse)( BOOL isLanguageSetup, NSError *error);
 typedef void (^TTMonumentDetailResponse)( NSDictionary * cityMonumentDict, NSError *error);
 
 @interface TTAPIHandler : NSObject

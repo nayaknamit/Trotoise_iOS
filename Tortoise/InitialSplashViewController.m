@@ -109,66 +109,53 @@ static dispatch_once_t predicate;
     
         NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
         NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
-//    [[TTAPIHandler sharedWorker] getMonumentListByRange:@"28.467504" withLongitude:@"77.059479" withrad:radiusValue withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-//        _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
-//        [self.tableView reloadData];
-//        [self mapSetUpWithLatitude:location.coordinate.latitude withLongitude:location.coordinate.longitude];
-//        
-//        _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
-//        
-//    }];
-    
-//    if(TARGET_OS_SIMULATOR){
-//        
-//        lat = @"28.467504";
-//        longitude = @"77.059479";
-//    }
    
     dispatch_once(&predicate, ^{
         //your code here
         
+        __weak InitialSplashViewController *weakRef = self;
         [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"en" withRequestType:
-         GET_MONUMENT_LIST_BY_RANGE responseHandler:^(NSArray *cityMonumentArra, NSError *error) {
-             
+         GET_MONUMENT_LIST_BY_RANGE responseHandler:^(BOOL isResultSuccess, NSError *error) {
+            
              if (error!=nil) {
-                 [self.navigationController.view makeToast:@"Unable to load Monuments List."
+                 [weakRef.navigationController.view makeToast:@"Unable to load Monuments List."
                                                   duration:1.0
                                                   position:CSToastPositionCenter];
              }else{
+                 if (isResultSuccess) {
+//                     APP_DELEGATE.defaultCityMonumentList = [NSMutableArray arrayWithArray:cityMonumentArra];
+                     
+                 }
                  
-                 [APP_DELEGATE setCityMonumentListArray:cityMonumentArra];
-                 
-                 APP_DELEGATE.defaultCityMonumentList = [NSMutableArray arrayWithArray:cityMonumentArra];
                  if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
-                     [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(NSArray *languageMappingArra, NSError *error) {
+                     [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(BOOL isSuccess, NSError *error) {
                          
+                         if (isSuccess) {
+                             [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+                                 if (error != nil) {
+                                     NSLog(@"Current Place error %@", [error localizedDescription]);
+                                     return;
+                                 }
+                                 GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
+                                 
+                                 GMSPlace *place = likelihood.place;
+                                 NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
+                                 NSLog(@"Current Place address %@", place.formattedAddress);
+                                 NSLog(@"Current Place attributions %@", place.attributions);
+                                 NSLog(@"Current PlaceID %@", place.placeID);
+                                 
+                                 
+                                 [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+                                 isCloseAnimation = YES;
+                                 
+                                 
+                             }];
+                         }
                          
-                         [APP_DELEGATE setLanguageDataArray:languageMappingArra];
-                         
-                         [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
-                             if (error != nil) {
-                                 NSLog(@"Current Place error %@", [error localizedDescription]);
-                                 return;
-                             }
-                             GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
-                             
-                             GMSPlace *place = likelihood.place;
-                             NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
-                             NSLog(@"Current Place address %@", place.formattedAddress);
-                             NSLog(@"Current Place attributions %@", place.attributions);
-                             NSLog(@"Current PlaceID %@", place.placeID);
-                             
-                             
-                             [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
-                             isCloseAnimation = YES;
-
-                             
-                         }];
                      }];
                  }else{
-                     NSArray *languageArr = [[LanguageDataManager sharedManager] getParseAPIDataToLanguageDS:nil];
+                    
                      
-                     [APP_DELEGATE setLanguageDataArray:languageArr];
                      [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
                          if (error != nil) {
                              NSLog(@"Current Place error %@", [error localizedDescription]);
@@ -247,23 +234,23 @@ static dispatch_once_t predicate;
 
 -(void)animateSplashScreen{
     
-    
+    __weak InitialSplashViewController *weakRef = self;
     [UIView animateWithDuration:3 animations:^{
         
-        _imageView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width / 2)-(150/2), _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
+        weakRef.imageView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width / 2)-(150/2), weakRef.imageView.frame.origin.y,weakRef.imageView.frame.size.width,weakRef.imageView.frame.size.height);
         
         
     } completion:^(BOOL finished) {
         if(isCloseAnimation){
            
          
-            [self performSelector:@selector(animate) withObject:nil afterDelay:3.0];
+            [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
            
             
         }else{
-            _imageView.frame = CGRectMake(-200, _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
+            weakRef.imageView.frame = CGRectMake(-200, weakRef.imageView.frame.origin.y,weakRef.imageView.frame.size.width,weakRef.imageView.frame.size.height);
 
-            [self animateSplashScreen];
+            [weakRef animateSplashScreen];
 
         }
         
@@ -271,19 +258,21 @@ static dispatch_once_t predicate;
     
 }
 -(void)animate{
+    __weak InitialSplashViewController *weakRef = self;
+
     
     [UIView animateWithDuration:5 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _leadConstraint.constant = -6;
-        [_textImageView updateConstraintsIfNeeded];
+        weakRef.leadConstraint.constant = -6;
+        [weakRef.textImageView updateConstraintsIfNeeded];
 
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:4 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _trailConstraint.constant = -28;
-            [_storiesLogoLbl updateConstraintsIfNeeded];
+            weakRef.trailConstraint.constant = -28;
+            [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
 
             
         } completion:^(BOOL finished) {
-            [self openSplashViewController];
+            [weakRef openSplashViewController];
 
         }];
     }];

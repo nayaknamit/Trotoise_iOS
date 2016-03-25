@@ -10,4 +10,5 @@
 
 @interface DetailTextViewTableViewCell : UITableViewCell
 @property (nonatomic,weak) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic,weak) IBOutlet UITextView *desTextView;
 @end

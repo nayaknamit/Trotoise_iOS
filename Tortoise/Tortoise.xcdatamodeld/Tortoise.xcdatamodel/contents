@@ -5,13 +5,13 @@
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="citymonumentrelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MonumentList" spotlightIndexingEnabled="YES" storedInTruthFile="YES" syncable="YES"/>
+        <relationship name="citymonumentrelationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MonumentList" spotlightIndexingEnabled="YES" storedInTruthFile="YES" syncable="YES"/>
     </entity>
     <entity name="Continent" representedClassName="Continent" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="countryList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Country" syncable="YES"/>
+        <relationship name="countryList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Country" syncable="YES"/>
     </entity>
     <entity name="Country" representedClassName="Country" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -19,13 +19,14 @@
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="citylist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CityMonument" syncable="YES"/>
+        <relationship name="citylist" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CityMonument" syncable="YES"/>
     </entity>
     <entity name="ImageAttribute" representedClassName="ImageAttribute" syncable="YES">
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Language" representedClassName="Language" syncable="YES">
-        <attribute name="lang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDefaultLanguage" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="localeCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="transCode" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="nuanceRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nuance" syncable="YES"/>
@@ -39,7 +40,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="imageAttributes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ImageAttribute" syncable="YES"/>
+        <relationship name="imageAttributes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ImageAttribute" syncable="YES"/>
     </entity>
     <entity name="Nuance" representedClassName="Nuance" syncable="YES">
         <attribute name="code4" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,7 +57,7 @@
         <element name="Continent" positionX="-54" positionY="72" width="128" height="105"/>
         <element name="Country" positionX="-63" positionY="72" width="128" height="135"/>
         <element name="ImageAttribute" positionX="-45" positionY="81" width="128" height="60"/>
-        <element name="Language" positionX="-63" positionY="72" width="128" height="105"/>
+        <element name="Language" positionX="-63" positionY="72" width="128" height="120"/>
         <element name="MonumentList" positionX="-54" positionY="18" width="128" height="180"/>
         <element name="Nuance" positionX="-54" positionY="81" width="128" height="105"/>
         <element name="Provider" positionX="-45" positionY="90" width="128" height="75"/>

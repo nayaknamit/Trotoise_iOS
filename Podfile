@@ -6,6 +6,5 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'SDWebImage', '~>3.7'
-pod 'ASMediaFocusManager'
 pod 'FGTranslator'
-
+pod 'SpeechKit'

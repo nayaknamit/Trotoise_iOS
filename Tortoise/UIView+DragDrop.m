@@ -174,9 +174,9 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
         newX = self.center.x;
         newY = self.center.y;
         
-        if (mode == UIViewDragDropModeNormal || mode == UIViewDragDropModeRestrictY) newY += trans.y;
-        if (mode == UIViewDragDropModeNormal || mode == UIViewDragDropModeRestrictX) newX += trans.x;
-        
+//        if (mode == UIViewDragDropModeNormal || mode == UIViewDragDropModeRestrictY) newY += trans.y;
+//        if (mode == UIViewDragDropModeNormal || mode == UIViewDragDropModeRestrictX) newX += trans.x;
+//        
         
         NSDictionary *stageTopPos = objc_getAssociatedObject(self, &_stageTopPoint);
         
@@ -239,9 +239,9 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
     
     // if the drag is over, check if we were dropped on a dropview
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        BOOL goBack = NO;
+//        BOOL goBack = NO;
         if ( [delegate respondsToSelector:@selector(viewShouldReturnToStartingPosition:)] ) {
-            goBack = [delegate viewShouldReturnToStartingPosition:self];
+            [delegate viewShouldReturnToStartingPosition:self];
         }
         
 //

@@ -14,4 +14,6 @@
 +(void)hideHUDForView:(id)view;
 +(UIImage *)makeRoundedImage:(UIImage *) image
                       radius: (float) radius;
++(NSString *)formattedStringForNewLineForString:(NSString *)_string;
++ (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "GetInspiredViewController.h"
-
+#import "SplashTextView.h"
 @interface GetInspiredViewController ()
 {
     
@@ -32,6 +32,7 @@
 }
 #pragma mark -
 #pragma mark - SplashScreen Methods
+
 -(void)setSplashScreen{
     
     self.scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -53,54 +54,34 @@
         imageViewOne.translatesAutoresizingMaskIntoConstraints = YES;
         imageViewOne.image = [UIImage imageNamed:imageNameString];
         imageViewOne.autoresizesSubviews = YES;
-        UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(10,[UIScreen mainScreen].bounds.size.height/2+40,imageViewOne.frame.size.width-10,70)];
-        lblTitle.numberOfLines = 3;
         
-        lblTitle.textAlignment = NSTextAlignmentCenter;
-        [lblTitle setFont:[UIFont TrotoiseFontCondensedRegular:14]];
+        
+        
+        
         NSDictionary *textDict = [[APP_DELEGATE getSplashTextArray] objectAtIndex:counter];
+
         
         
-        //        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
-        [lblTitle setText:[textDict objectForKey:@"title"]];
-        
-        //        lblTitle.backgroundColor = [UIColor blackColor];
-        lblTitle.textColor = [UIColor darkGrayColor];
-        lblTitle.translatesAutoresizingMaskIntoConstraints = YES;
-        lblTitle.autoresizesSubviews = YES;
-        
-        UILabel *lblDes = [[UILabel alloc] initWithFrame:CGRectMake(0,lblTitle.frame.origin.y+lblTitle.frame.size.height-35,imageViewOne.frame.size.width,70)];
-        lblDes.numberOfLines = 3;
-        
-        lblDes.textAlignment = NSTextAlignmentCenter;
-        [lblDes setFont:[UIFont TrotoiseFontLightItalic:12]];
-        //        lblTitle.text = @"We never run out of stories to tell. You \n never run out of places to see.";
-        [lblDes setText:[textDict objectForKey:@"desc"]];
-        //        lblTitle.backgroundColor = [UIColor blackColor];
-        lblDes.textColor = [UIColor darkGrayColor];
-        lblDes.translatesAutoresizingMaskIntoConstraints = YES;
-        lblDes.autoresizesSubviews = YES;
         
         [view addSubview:imageViewOne];
-        [view insertSubview:lblTitle aboveSubview:imageViewOne];
         
-        [view insertSubview:lblDes aboveSubview:imageViewOne];
-        //        [imageViewOne insertSubview:lblTitle atIndex:100];
+        SplashTextView *splashTextView = (SplashTextView *)[[[NSBundle mainBundle] loadNibNamed:@"SplashTextView" owner:self options:nil] objectAtIndex:0];
         
+        splashTextView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height/2+20, [UIScreen mainScreen].bounds.size.width, 100);
         
-        //        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"RadiusView" owner:self options:nil];
-        //      ImageScrollerViewController *imageVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageScrollerViewController"];
+        splashTextView.titleLabel.text =[textDict objectForKey:@"title"];
+        splashTextView.descLabel.text = [textDict objectForKey:@"desc"];
         
-        //      imageVC.titleText = @"Helloo Namit Nayak We never run out of stories to tell. You \n never run out of places to see.";
-        //        imageVC.imageNameString = imageNameString;
-        //
-        //        imageVC.view.frame = CGRectMake(scrollViewWidth*counter, -20,scrollViewWidth, scrollViewHeight+20);
+        [view insertSubview:splashTextView aboveSubview:imageViewOne];
         
         counter++;
         [self.scrollView addSubview:view];
         
     }
-       self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height);
+    
+    
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * [self.splashImageArra count], self.scrollView.frame.size.height-20);
     
     
     self.scrollView.delegate = self;
