@@ -16,11 +16,14 @@ enum
     TR_TRANSLATE_REQUEST_HOME = 2,
    TR_TRANSLATE_REQUEST_DETAIL = 3
 };
-@class MonumentListDS;
+@class MonumentList,MonumentListDS;
 @interface TranslatorManager : NSObject
 
 +(id)sharedInstance;
 
 -(void)translateLanguageForMonumentObject:(MonumentListDS *)objMonument withSource:(NSString *)source withTarget:(NSString *)target;
--(void)translateLanguage:(NSArray *)monumentListDSObjArra withSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType;
+//-(void)translateLanguage:(NSArray *)monumentListDSObjArra withSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType;
+
+-(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj;
+
 @end

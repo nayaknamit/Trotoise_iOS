@@ -23,7 +23,7 @@ typedef enum {
 
 typedef void (^TTCityMonumentListResponse)( BOOL isResultSuccess, NSError *error);
 typedef void (^TTLanguageMappingResponse)( BOOL isLanguageSetup, NSError *error);
-typedef void (^TTMonumentDetailResponse)( NSDictionary * cityMonumentDict, NSError *error);
+typedef void (^TTMonumentDetailResponse)( id obj , NSError *error);
 
 @interface TTAPIHandler : NSObject
 
@@ -40,6 +40,6 @@ typedef void (^TTMonumentDetailResponse)( NSDictionary * cityMonumentDict, NSErr
 -(void)getLanguageMappingwithRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTLanguageMappingResponse)responseHandler;
 - (void)getMonumentListByRange:(NSString*)latitude withLongitude:(NSString*)longitude withrad:(NSString *)rad withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler;
 -(void)getMonumentDetailByMonumentID:(NSString *)monumentID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTMonumentDetailResponse)responseHandler;
-
+-(void)getMonumentDetailByMonumentID:(NSString *)monumentID withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTMonumentDetailResponse)responseHandler;
 
 @end

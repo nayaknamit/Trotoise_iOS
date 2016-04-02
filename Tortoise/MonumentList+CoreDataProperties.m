@@ -2,7 +2,7 @@
 //  MonumentList+CoreDataProperties.m
 //  Tortoise
 //
-//  Created by Namit Nayak on 2/8/16.
+//  Created by Namit Nayak on 3/26/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,6 +21,9 @@
 @dynamic name;
 @dynamic shortDesc;
 @dynamic thumbnail;
+@dynamic conv_name;
+@dynamic conv_desc;
+@dynamic conv_shortDesc;
 @dynamic imageAttributes;
 
 @end

@@ -18,11 +18,11 @@
 #import "TTAPIHandler.h"
 #import "TranslatorManager.h"
 #import "SpeechTranslator.h"
-
+#import "MonumentListDS.h"
 #import "SKSConfiguration.h"
 #import <SpeechKit/SpeechKit.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import "LanguageDataManager.h"
 #import "MonumentDataManager.h"
 static NSString* const CellIdentifier = @"DetailTextView";
 
@@ -34,8 +34,6 @@ static NSString* const CellIdentifier = @"DetailTextView";
     SKSession* _skSession;
     SKTransaction *_skTransaction;
 }
-
-
 
 @property (nonatomic,strong) LanguagePopUpView *languagePopView;
 @property (nonatomic,strong) KLCPopup *klcPopLanguageView;
@@ -68,10 +66,12 @@ static NSString* const CellIdentifier = @"DetailTextView";
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpNavigationBar];
     [self setUpLanguagePopUp];
+    [self setMonumentDsObject:self.monumentDetailObj];
     AVAudioSession *avSession = [AVAudioSession sharedInstance];
     [avSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     [avSession setActive:YES error:nil];
@@ -82,22 +82,16 @@ static NSString* const CellIdentifier = @"DetailTextView";
     _skSession = [[SKSession alloc] initWithURL:[NSURL URLWithString:SKSServerUrl] appToken:SKSAppKey];
 
     self.imageViews = [NSMutableArray array];
-//    self.tableView.rowHeight = UITableViewAutomaticDimension;
-//
     self.tableView.estimatedRowHeight = 440;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     [self.tableView setNeedsLayout];
     [self.tableView layoutIfNeeded ];
-//    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
-//    [self.tableView setNeedsLayout];
-//    [self.tableView layoutIfNeeded ];
     
 }
 - (void)didReceiveMemoryWarning {
@@ -118,24 +112,9 @@ static NSString* const CellIdentifier = @"DetailTextView";
     if(indexPath.row ==0){
         return 240;
     }
-//    else if(indexPath.row ==1){
-////        static DetailTextViewTableViewCell *cell = nil;
-////        static dispatch_once_t onceToken;
-////        
-////        dispatch_once(&onceToken, ^{
-////            cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-////        });
-////        
-////        [self setUpCell:cell atIndexPath:indexPath];
-////        
-////        return [self calculateHeightForConfiguredSizingCell:cell];
-//        return UITableViewAutomaticDimension;
-//    }
      return UITableViewAutomaticDimension;
     return 0;
 }
-
-// Default is 1 if not implemented
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@" indexPath %@",[indexPath description]);
@@ -144,7 +123,7 @@ static NSString* const CellIdentifier = @"DetailTextView";
     if (indexPath.row == 0) {
         NSString *CellIdentifier1 = @"ImageScroller";
          ImageScrollerTableViewCell *  imageSceollrCell = (ImageScrollerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier1 forIndexPath:indexPath];
-        imageSceollrCell.monumentDetailObj =  self.monumentDetailObj;
+        imageSceollrCell.monumentDetailObj =  self.monumentDetailDsObj;
         imageSceollrCell.selectedLanguage = _selectedLanguageFromGlobe;
         [imageSceollrCell setUpScrollViewImages];
         imageSceollrCell.delegate = self;
@@ -163,8 +142,8 @@ static NSString* const CellIdentifier = @"DetailTextView";
 }
 - (void)setUpCell:(DetailTextViewTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 //    cell.descriptionLabel.text = self.monumentDetailObj.desc;
-    cell.desTextView.text = self.monumentDetailObj.desc;
-    NSArray *ss = [self.monumentDetailObj.desc componentsSeparatedByString:@"\\n"];
+    cell.desTextView.text = self.monumentDetailDsObj.desc;
+    NSArray *ss = [self.monumentDetailDsObj.desc componentsSeparatedByString:@"\\n"];
     NSMutableString *string = [NSMutableString stringWithFormat:@""];
     for (NSString *a in ss){
         [string appendString:[NSString stringWithFormat:@"%@ \n",a]];
@@ -198,24 +177,23 @@ static NSString* const CellIdentifier = @"DetailTextView";
     NSShadow* shadow = [NSShadow new];
     shadow.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.title = @"TROTOISE";
-    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
     if (_selectedLanguageFromGlobe ==nil) {
-     _selectedLanguageFromGlobe =   loggedInUser.selectedLanguageDS;
+        _selectedLanguageFromGlobe = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
+
     }
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                      [UIColor whiteColor], NSForegroundColorAttributeName,
                                                                      shadow, NSShadowAttributeName,
-                                                                     [UIFont TrotoiseFontCondensedRegular:24], NSFontAttributeName, nil]];
-    
+                                                                     [UIFont TrotoiseFontOswaldRegular:22], NSFontAttributeName, nil]];
     
     customButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateNormal];
 //    [customButton setTitle:@"En" forState:UIControlStateNormal];
     NSString *languageLocale = [_selectedLanguageFromGlobe.localeCode capitalizedString];
-    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateNormal];
+    [customButton setTitle:[NSString stringWithFormat:@" %@",languageLocale] forState:UIControlStateNormal];
     
-    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateHighlighted];
+//    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateHighlighted];
 
     [customButton.titleLabel setFont:[UIFont TrotoiseFontCondensedRegular:16]];
     [customButton sizeToFit];
@@ -230,39 +208,6 @@ static NSString* const CellIdentifier = @"DetailTextView";
     //    [self.navigationController presentViewController:languageVC animated:YES completion:nil];
     [_klcPopLanguageView show];
 }
-#pragma ImageScrollerTableViewCellDelegate METHODS
-
--(void)mediaFocusManagerWillAppearForDelegate{
-    self.statusBarHidden = YES;
-    if([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-    {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
-    
-}
--(void)mediaFocusManagerWillDisappear{
-    
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-
-}
-
--(UIViewController *)parentViewControllerForMediaFocusManager{
-    
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    return self;
-}
-
-
-
-/*
- #pragma mark - Navigation
- 
-  In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  Get the new view controller using [segue destinationViewController].
-  Pass the selected object to the new view controller.
- }
- */
 
 #pragma mark -
 #pragma mark LanguagePopView Delegate
@@ -277,39 +222,37 @@ static NSString* const CellIdentifier = @"DetailTextView";
     
     
 }
+
+-(NSString *)getLanguageLocale{
+    NSString * defaultLanguageLocale = @"en";
+    if ([_selectedLanguageFromGlobe.transCode isEqualToString:@"hi"]) {
+        defaultLanguageLocale = @"hi";
+    }
+    return defaultLanguageLocale;
+}
 -(void)languagePopUpViewDidOkButonTappedWithLanguage:(Language *)languageObject{
     [_klcPopLanguageView dismiss:YES];
     [Utilities addHUDForView:self.view];
     _selectedLanguageFromGlobe = languageObject;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-    if([languageObject.transCode isEqualToString:@"hi"]){
-        
-        CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate ];
-        NSString *lat = [NSString stringWithFormat:@"%f",coordinate.latitude ];
-        NSString *longitude = [NSString stringWithFormat:@"%f",coordinate.longitude ];
-        
+    
         __weak MonumentDetail1ViewController *weakSelf = self;
+        [[TTAPIHandler sharedWorker] getMonumentDetailByMonumentID:[self.monumentDetailDsObj.monumentID stringValue] withLanguageLocale:[self getLanguageLocale] withRequestType:GET_MONUMENT_DETAIL_BY_MONUMENTID withResponseHandler:^(id obj, NSError *error) {
+           
+            
+            if (![[self getLanguageLocale] isEqualToString:@"hi"]) {
+                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:TR_TRANSLATE_REQUEST_DETAIL withMonumentObj:(MonumentListDS *)obj];
+            }else{
+                
+                 weakSelf.monumentDetailDsObj = (MonumentListDS *)obj;
+                [weakSelf.tableView reloadData];
+                [Utilities hideHUDForView:weakSelf.view];
+                [weakSelf setGlobeLanguage:languageObject];
+            }
+        
+        }];
 
-        [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"hi" withRequestType:
-         GET_MONUMENT_LIST_BY_RANGE responseHandler:^(BOOL isResultSuccess, NSError *error) {
-             
-             weakSelf.monumentDetailObj = (MonumentList *)[[MonumentDataManager sharedManager] getMonumentListDetailObjectForID:weakSelf.monumentDetailObj.id];
-             [weakSelf.tableView reloadData];
-
-             [Utilities hideHUDForView:self.view];
-             [weakSelf setGlobeLanguage:languageObject];
-         }];
-        
-    }else{
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-//        [[TranslatorManager sharedInstance] translateLanguageForMonumentObject:self.monumentDetailObj withSource:la.transCode withTarget:languageObject.transCode];
-        [[TranslatorManager sharedInstance] translateLanguage:[NSArray arrayWithObjects:self.monumentDetailObj, nil]withSource:@"en" withTarget:languageObject.transCode withRequestSource:TR_TRANSLATE_REQUEST_DETAIL];
-        
-    }
-    
-    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -322,18 +265,8 @@ static NSString* const CellIdentifier = @"DetailTextView";
 -(void)onTranslationComplete:(NSNotification *)notification{
     
     NSArray *aarr = (NSArray *)[notification object];
-//    [APP_DELEGATE setCityMonumentListArray:aarr];
-    __weak MonumentDetail1ViewController *weakSelf = self;
-    [aarr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        MonumentListDS *objMonument = (MonumentListDS *)obj;
-       
-//        if ([objMonument.monumentID integerValue] == [weakSelf.monumentDetailObj.monumentID integerValue]) {
-//            weakSelf.monumentDetailObj = objMonument;
-//            *stop = YES;
-//            return ;
-//        }
-        
-    }];
+    self.monumentDetailDsObj = (MonumentListDS *)[aarr lastObject];
+    
     [self.tableView reloadData];
     [self setGlobeLanguage:_selectedLanguageFromGlobe];
     [Utilities hideHUDForView:self.view];
@@ -342,15 +275,36 @@ static NSString* const CellIdentifier = @"DetailTextView";
 }
 
 
--(void)setGlobeLanguage:(LanguageDS *)languageDS{
+-(void)setGlobeLanguage:(Language *)languageDS{
     
     
     NSString *languageLocale = [_selectedLanguageFromGlobe.localeCode capitalizedString];
-    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateNormal];
+    [customButton setTitle:[NSString stringWithFormat:@" %@",languageLocale] forState:UIControlStateNormal];
     
-    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateHighlighted];
+//    [customButton setTitle:[NSString stringWithFormat:@"%@",languageLocale] forState:UIControlStateHighlighted];
+    [customButton.titleLabel setFont:[UIFont TrotoiseFontCondensedRegular:16]];
+    [customButton sizeToFit];
+
+}
+-(void)setMonumentDsObject:(MonumentList *)monumentList{
+    self.monumentDetailDsObj = [[MonumentListDS alloc] init];
+    
+    self.monumentDetailDsObj.name = monumentList.name;
+    self.monumentDetailDsObj.desc = monumentList.desc;
+    self.monumentDetailDsObj.shortDesc = monumentList.shortDesc;
+    self.monumentDetailDsObj.addInfo  = monumentList.addInfo;
+    self.monumentDetailDsObj.latitude = monumentList.latitude;
+    self.monumentDetailDsObj.longitude = monumentList.longitude;
+    self.monumentDetailDsObj.monumentID = monumentList.id;
+    self.monumentDetailDsObj.thumbnail = monumentList.thumbnail;
+    self.monumentDetailDsObj.imageAttributes = (NSSet *)monumentList.imageAttributes;
+    
     
 }
 
+#pragma 
+- (UIViewController *)parentViewControllerForFullScreenManager{
+    return self;
+}
 
 @end

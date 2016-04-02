@@ -45,9 +45,12 @@
     }
     
     if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidOkButonTappedWithLanguage:)]) {
+//        [self setDefaultLanguageinDB];
+        
         [self.delegate languagePopUpViewDidOkButonTappedWithLanguage:_selectedLanguageDS];
     }
 }
+
 -(IBAction)cancelButtonTapped:(id)sender{
     if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidCancelButonTappedWithLanguage:)]) {
         [self.delegate languagePopUpViewDidCancelButonTappedWithLanguage:_selectedLanguageDS];
@@ -72,19 +75,21 @@
 
 -(void)setUpLanguageView{
     
-    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
     
-    if(loggedInUser.selectedLanguageDS){
-        
-        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-    }else{
-//        [APP_DELEGATE setDefaultLanguage];
-        loggedInUser = [APP_DELEGATE getLoggedInUserData];
-        
-        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-        
-    }
-    
+    [self updateLanguageDetailsOnScreen:[[LanguageDataManager sharedManager] getDefaultLanguageObject]];
+//    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
+//    
+//    if(loggedInUser.selectedLanguageDS){
+//        
+//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
+//    }else{
+////        [APP_DELEGATE setDefaultLanguage];
+//        loggedInUser = [APP_DELEGATE getLoggedInUserData];
+//        
+//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
+//        
+//    }
+//    
     
     
     UITapGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
@@ -106,8 +111,8 @@
     
     self.textImageView.image = [UIImage imageNamed:@"checkbox"];
     
-    if(languageDS.nuanceRelationship !=nil){
-        NuanceDS *nDS = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
+    if(languageDS.nuanceRelationship !=nil && languageDS.nuanceRelationship.allObjects.count >0){
+        Nuance *nDS = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
         self.speakerImageView.hidden = NO;
         self.languageLabel.text = nDS.lang;
         self.audioImageView.image = [UIImage imageNamed:@"checkbox"];
@@ -144,21 +149,21 @@ return _dataArra.count;
         cell = (LanguagePopupViewCell *)[arr objectAtIndex:1];
     }
     
-    LanguageDS * dataStructer;
+    Language * dataStructer;
     
     dataStructer = [_dataArra objectAtIndex:indexPath.row];
-        if (dataStructer.nuanceRelationship!=nil) {
-            
-            NuanceDS *nuanceDS = [[dataStructer.nuanceRelationship allObjects] objectAtIndex:0];
-            cell.labelLanguage.text = nuanceDS.lang;
-        }else{
-        cell.labelLanguage.text = dataStructer.name;
-    }
-    if(dataStructer.nuanceRelationship!=nil){
+    if (dataStructer.nuanceRelationship.allObjects.count > 0) {
+        NSLog(@"%@",dataStructer.name);
+        
+        
+        Nuance *nuanceDS = [[dataStructer.nuanceRelationship allObjects] objectAtIndex:0];
+        cell.labelLanguage.text = nuanceDS.lang;
         cell.speakerImageView.hidden = NO;
     }else{
+        cell.labelLanguage.text = dataStructer.name;
         cell.speakerImageView.hidden = YES;
     }
+
     
     
     return cell;

@@ -41,6 +41,7 @@
 -(void)setUserDefaultLanguageIsCached:(BOOL)isCached;
 -(BOOL)getUserDefaultLanguageIsChached;
 -(NSDictionary *)getLocalCahceLangugeDict;
+-(void)setInitialDefaultLanguage;
 -(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textAr;
 @end
 

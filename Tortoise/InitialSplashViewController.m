@@ -121,15 +121,15 @@ static dispatch_once_t predicate;
                  [weakRef.navigationController.view makeToast:@"Unable to load Monuments List."
                                                   duration:1.0
                                                   position:CSToastPositionCenter];
+                 [self openSplashViewController];
+
+                 
              }else{
-                 if (isResultSuccess) {
-//                     APP_DELEGATE.defaultCityMonumentList = [NSMutableArray arrayWithArray:cityMonumentArra];
-                     
-                 }
+                
                  
                  if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
                      [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(BOOL isSuccess, NSError *error) {
-                         
+                         [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
                          if (isSuccess) {
                              [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
                                  if (error != nil) {
@@ -148,14 +148,16 @@ static dispatch_once_t predicate;
                                  [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
                                  isCloseAnimation = YES;
                                  
-                                 
+                                [self openSplashViewController];
                              }];
+                         }else{
+                             [self openSplashViewController];
                          }
                          
                      }];
                  }else{
                     
-                     
+                        [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
                      [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
                          if (error != nil) {
                              NSLog(@"Current Place error %@", [error localizedDescription]);
@@ -173,7 +175,7 @@ static dispatch_once_t predicate;
                          [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
                          isCloseAnimation = YES;
 
-                         
+                         [self openSplashViewController];
                      }];
                      
                      
@@ -190,6 +192,12 @@ static dispatch_once_t predicate;
     });
     
 
+    
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error{
     
     
 }
@@ -241,18 +249,50 @@ static dispatch_once_t predicate;
         
         
     } completion:^(BOOL finished) {
+
+        weakRef.leadConstraint.constant = -6;
+        [weakRef.textImageView updateConstraintsIfNeeded];
+        
+        [UIView animateWithDuration:20 delay:2.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            
+            [weakRef.textImageView layoutIfNeeded];
+        } completion:^(BOOL finished) {
+//            weakRef.trailConstraint.constant = -28;
+//            [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
+            
+            [UIView animateWithDuration:10 delay:5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                weakRef.trailConstraint.constant = -18;
+                [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
+                
+                
+            } completion:^(BOOL finished) {
+//                [weakRef openSplashViewController];
+                
+            }];
+        }];
+        
+        
+        
+        
+        //           [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
+      
+        
+        
+        /*
         if(isCloseAnimation){
            
          
             [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
            
             
-        }else{
+        }
+         */
+        /*else{
             weakRef.imageView.frame = CGRectMake(-200, weakRef.imageView.frame.origin.y,weakRef.imageView.frame.size.width,weakRef.imageView.frame.size.height);
 
             [weakRef animateSplashScreen];
 
-        }
+        }*/
         
     }];
     

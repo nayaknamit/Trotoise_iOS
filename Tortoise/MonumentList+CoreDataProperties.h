@@ -2,7 +2,7 @@
 //  MonumentList+CoreDataProperties.h
 //  Tortoise
 //
-//  Created by Namit Nayak on 2/8/16.
+//  Created by Namit Nayak on 3/26/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *shortDesc;
 @property (nullable, nonatomic, retain) NSString *thumbnail;
+@property (nullable, nonatomic, retain) NSString *conv_name;
+@property (nullable, nonatomic, retain) NSString *conv_desc;
+@property (nullable, nonatomic, retain) NSString *conv_shortDesc;
 @property (nullable, nonatomic, retain) NSOrderedSet<ImageAttribute *> *imageAttributes;
 
 @end

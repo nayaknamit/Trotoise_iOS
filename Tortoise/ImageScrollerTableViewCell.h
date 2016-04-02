@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MonumentList;
+@class MonumentListDS;
 @protocol ImageScrollerTableViewCellDelegate;
 
 @interface ImageScrollerTableViewCell : UITableViewCell <UIGestureRecognizerDelegate>
@@ -21,7 +21,7 @@
 @property (nonatomic,weak) IBOutlet UIPageControl *pageControl;
 @property (nonatomic,strong)__block NSMutableArray *imageViews;
 @property (nonatomic) BOOL isSpeakerPlaying;
-@property (nonatomic,strong) MonumentList * monumentDetailObj;
+@property (nonatomic,strong) MonumentListDS * monumentDetailObj;
 @property (nonatomic,assign) id<ImageScrollerTableViewCellDelegate> delegate;
 @property (nonatomic,strong) Language *selectedLanguage;
 -(IBAction)mapDirectionButtonTapped:(id)sender;
@@ -34,7 +34,7 @@
 
 
 @protocol ImageScrollerTableViewCellDelegate <NSObject>
-- (UIViewController *)parentViewControllerForMediaFocusManager;
+- (UIViewController *)parentViewControllerForFullScreenManager;
 
 @optional
 

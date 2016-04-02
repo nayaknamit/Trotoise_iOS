@@ -9,9 +9,10 @@
 #import "TTAPIHandler.h"
 #import "AFNetworking.h"
 #import "LanguageDataManager.h"
+#import "MonumentListDS.h"
 #import "MonumentDataManager.h"
 static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
-static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services/Monument.asmx/";
+static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
 static NSString *const TTAPIHandlerExtendBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
 //http://52.16.49.213/Trotoise.Services_new/Monument.asmx/GetLanguageList
 //static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
@@ -239,17 +240,12 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     [operation start];
 }
 
--(void)getMonumentDetailByMonumentID:(NSString *)monumentID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTMonumentDetailResponse)responseHandler{
+-(void)getMonumentDetailByMonumentID:(NSString *)monumentID withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTMonumentDetailResponse)responseHandler{
     NSString *aPath = @"GetMonumentDetail";
     
-    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:monumentID,@"id" , nil];
-    
-   
-    
-    
+    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:monumentID,@"id",locale,@"lang" , nil];
     
     NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerBaseURL,aPath];
-    
     
     self.httpClient = baseURL;
     
@@ -259,19 +255,20 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     
     [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
-
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        
-        responseHandler([self processJSONResponse:responseObject forRequest:requestType],nil);
+        MonumentListDS *ss = [self processJSONResponse:responseObject forRequest:requestType];
+        responseHandler(ss,nil);
         
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         responseHandler(nil, error);
     }];
+    
     
     
     
@@ -309,6 +306,12 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
                 }
             }
             return nil;
+        }
+    }else if(request == GET_MONUMENT_DETAIL_BY_MONUMENTID){
+        if ([JSON isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *resultDict = [JSON objectForKey:@"data"];
+            MonumentListDS *mm = [[MonumentDataManager sharedManager] createMonumentDSObjectForMonumentDetailRequest:resultDict];
+            return mm;
         }
     }
     return nil;

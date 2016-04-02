@@ -37,10 +37,11 @@
     
     ///GOOGLE SIGN IN IMPLEMENTATION
     NSError* configureError;
-//    [[GGLContext sharedInstance] configureWithError: &configureError];
+    [[GGLContext sharedInstance] configureWithError: &configureError];
     NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
     
     [GIDSignIn sharedInstance].delegate = self;
+//    [GIDSignIn sharedInstance].clientID = 
     if ([ self getUserDefaultLanguageIsChached ]) {
         NSLog(@"aa");
         NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"languageCache"] description]);
@@ -418,7 +419,7 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     [self setUserDefaultLanguageIsCached:YES];
-    if (languageDS.nuanceRelationship) {
+    if (languageDS.nuanceRelationship.allObjects.count>0) {
         Nuance *naunceDs = [[languageDS.nuanceRelationship allObjects] objectAtIndex:0];
         [dict setObject:naunceDs.lang forKey:@"nuance"];
     }

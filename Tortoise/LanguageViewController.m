@@ -207,8 +207,17 @@
     [APP_DELEGATE setSelectedLanguageData:data];
     _isLanugageTap = YES;
 //    [Utilities addHUDForView:self.view];
-    [APP_DELEGATE setUserDefaultLanguageIsCached:YES];
+    if (data.nuanceRelationship.allObjects.count >0) {
+        
+        Nuance *naunce = [[data.nuanceRelationship allObjects] objectAtIndex:0];
     
+        [[LanguageDataManager sharedManager] setDefaultLanguage:DEFAULT_LANGUAGE_WITH_NUANCE withLanguageDict:[NSDictionary dictionaryWithObjectsAndKeys:data.name,@"lg_name",naunce.lang,@"nuance", nil]];
+    }else{
+        
+        [[LanguageDataManager sharedManager] setDefaultLanguage:DEFAULT_LANGUAGE_WITHOUT_NUANCE  withLanguageDict:[NSDictionary dictionaryWithObjectsAndKeys:data.name,@"lg_name", nil]];
+    }
+    [APP_DELEGATE setUserDefaultLanguageIsCached:YES];
+
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
 //    if([data.transCode isEqualToString:@"hi"]){
 //       

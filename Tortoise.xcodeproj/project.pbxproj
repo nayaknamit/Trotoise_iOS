@@ -88,6 +88,7 @@
 		B4BE72DA1C6DFE82006139B4 /* CustomMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4BE72D91C6DFE82006139B4 /* CustomMarkerView.xib */; };
 		B4BE72E01C6E0F13006139B4 /* markerBG.png in Resources */ = {isa = PBXBuildFile; fileRef = B4BE72DF1C6E0F13006139B4 /* markerBG.png */; };
 		B4C394CA1C5F286C0007EE33 /* GoogleService-Info_old.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4C394C91C5F286C0007EE33 /* GoogleService-Info_old.plist */; };
+		B4C644231CAC301000D73007 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C644221CAC301000D73007 /* Reachability.m */; };
 		B4D0D6D21BD08EAA00B828EF /* MonumentCityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D0D6D11BD08EAA00B828EF /* MonumentCityRequest.m */; };
 		B4D219701C7C971F00054094 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4D2196F1C7C971F00054094 /* GoogleService-Info.plist */; };
 		B4D219741C7CA36600054094 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4D219731C7CA36600054094 /* AboutUsViewController.m */; };
@@ -267,6 +268,8 @@
 		B4BE72D91C6DFE82006139B4 /* CustomMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMarkerView.xib; sourceTree = "<group>"; };
 		B4BE72DF1C6E0F13006139B4 /* markerBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = markerBG.png; sourceTree = "<group>"; };
 		B4C394C91C5F286C0007EE33 /* GoogleService-Info_old.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_old.plist"; sourceTree = "<group>"; };
+		B4C644211CAC301000D73007 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		B4C644221CAC301000D73007 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		B4D0D6D01BD08EAA00B828EF /* MonumentCityRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentCityRequest.h; sourceTree = "<group>"; };
 		B4D0D6D11BD08EAA00B828EF /* MonumentCityRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentCityRequest.m; sourceTree = "<group>"; };
 		B4D2196F1C7C971F00054094 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 		B46582ED1BC559D700C57679 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B4C644211CAC301000D73007 /* Reachability.h */,
+				B4C644221CAC301000D73007 /* Reachability.m */,
 				B47C09601C8950E1001981B2 /* SKSConfiguration.h */,
 				B47C09611C8950E1001981B2 /* SKSConfiguration.mm */,
 				B4725A8C1C833E0200614A61 /* Toast */,
@@ -1135,6 +1140,7 @@
 				B4F197681C6F6FDC00343762 /* DetailTextViewTableViewCell.m in Sources */,
 				B411FDD91C5E26B300BB96C7 /* Nuance+CoreDataProperties.m in Sources */,
 				B411FDE11C5E270400BB96C7 /* Language+CoreDataProperties.m in Sources */,
+				B4C644231CAC301000D73007 /* Reachability.m in Sources */,
 				B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1230,9 +1236,9 @@
 				INSTALL_OWNER = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1275,9 +1281,9 @@
 				INSTALL_OWNER = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1423,7 +1429,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1568,7 +1574,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 			};
 			name = Release;
 		};
@@ -1662,9 +1668,9 @@
 				INSTALL_OWNER = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1815,7 +1821,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "c34fb7b6-1b8b-4f85-8127-4900475e1f45";
+				PROVISIONING_PROFILE = "fdc1afe1-8409-4ecb-a30f-0b1eb71a7373";
 			};
 			name = PROD;
 		};

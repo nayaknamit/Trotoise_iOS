@@ -87,17 +87,30 @@
     
 }
 
--(void)setDefaultLanguage:(DEFUALT_LANGUAGE_TYPE)defaultLanugageType{
+-(void)resetDefaultLanugageIfAny{
     NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
-    NSDictionary *dict ;
-    if ([APP_DELEGATE getUserDefaultLanguageIsChached]) {
-        dict = [APP_DELEGATE getLocalCahceLangugeDict ];
-        
-    }else{
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:@"English",@"lg_name",@"English (US)",@"nuance", nil];
+    NSError *error1 = nil;
+    
+    Language *langObj = [self getDefaultLanguageObject];
+    if (langObj) {
+        [langObj setIsDefaultLanguage:[NSNumber numberWithBool:NO]];
+        if([context save:&error1]){
+            
+        }else{
+            
+            NSLog(@"Error In Inserting Data %@",[error1 description]);
+            
+        }
     }
     
-
+}
+-(void)setDefaultLanguage:(DEFUALT_LANGUAGE_TYPE)defaultLanugageType withLanguageDict:(NSDictionary *)dict {
+   
+    
+    [self resetDefaultLanugageIfAny];
+    
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    
     switch (defaultLanugageType) {
         case DEFAULT_LANGUAGE_WITH_NUANCE:
         {
@@ -240,11 +253,30 @@
 
         }];
             
-            [self setDefaultLanguage:DEFAULT_LANGUAGE_WITH_NUANCE];
+            
+            
+           
     }
-   
+    
 }
 
+-(void)setInitialDefaultLanguage{
+    if ([APP_DELEGATE getUserDefaultLanguageIsChached]) {
+        //        dict = ;
+        
+        NSDictionary * dict = [APP_DELEGATE getLocalCahceLangugeDict];
+        
+        if ([dict objectForKey:@"nuance"]!= nil) {
+            [self setDefaultLanguage:DEFAULT_LANGUAGE_WITH_NUANCE withLanguageDict:dict];
+        }else{
+            [self setDefaultLanguage:DEFAULT_LANGUAGE_WITHOUT_NUANCE withLanguageDict:dict];
+        }
+        
+    }else{
+        [self setDefaultLanguage:DEFAULT_LANGUAGE_WITH_NUANCE withLanguageDict:[NSDictionary dictionaryWithObjectsAndKeys:@"English",@"lg_name",@"English (US)",@"nuance", nil]];
+    }
+
+}
 @end
 
 /*

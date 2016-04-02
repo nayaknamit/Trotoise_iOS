@@ -35,13 +35,49 @@
 }
 
 
--(void)flushMonumentList{
+
+-(BOOL)updateMonumentRecord:(NSArray *)arrayObject withMonumentID:(NSNumber *)monumentID{
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"MonumentList" inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id=%d",monumentID.integerValue];
+    
+    /* Tell the request that we want to read the
+     contents of the Person entity */
+    
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    NSError *requestError = nil;
+    /* And execute the fetch request on the context */
+    NSArray *monumentLists =[context executeFetchRequest:fetchRequest error:&requestError];
+    
+    if (monumentLists.count> 0 ) {
+        MonumentList *monumentObj = (MonumentList *)[monumentLists lastObject];
+        [monumentObj setValue:[arrayObject objectAtIndex:0] forKey:@"name"];
+        [monumentObj setValue:[arrayObject objectAtIndex:1] forKey:@"desc"];
+        [monumentObj setValue:[arrayObject objectAtIndex:2] forKey:@"shortDesc"];
+        
+        NSError *error = nil;
+        if ([context save:&error]) {
+            return true;
+        }else{
+            NSLog(@"Error On Update %@",[error description]);
+        }
+    }
+    
+    
+    
+    return false;
+}
+-(void)flushMonumentList:(NSString *)entityName{
       NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     
-    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Continent" inManagedObjectContext:context];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:entityName inManagedObjectContext:context];
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@",[dict objectForKey:@"lg_name"]];
     
     /* Tell the request that we want to read the
@@ -58,6 +94,12 @@
             [context deleteObject:contient];
         }
         
+    }
+    NSError *error = nil;
+    if ([context save:&error]) {
+       
+    }else{
+        NSLog(@"Error Deleteing Object %@",[error description]);
     }
     
 
@@ -117,7 +159,10 @@
     __block  NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
     __block BOOL isResultSaved = NO;
     if (arraData.count>0) {
-        [self flushMonumentList];
+        [self flushMonumentList:@"Continent"];
+        [self flushMonumentList:@"Country"];
+        [self flushMonumentList:@"CityMonument"];
+        [self flushMonumentList:@"MonumentList"];
     }
     [arraData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -177,8 +222,8 @@
                                 [monumentListDS setValue:[monumentDict objectForKey:@"name"] forKey:@"name"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"lat"] forKey:@"latitude"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"lng"] forKey:@"longitude"];
-                                 [monumentListDS setValue:[monumentDict objectForKey:@"shortDesc"] forKey:@"shortDesc"];
-                                 [monumentListDS setValue:[monumentDict objectForKey:@"desc"] forKey:@"desc"];
+                                 [monumentListDS setValue:[self checkForNULL:[monumentDict objectForKey:@"shortDesc"]] forKey:@"shortDesc"];
+                                 [monumentListDS setValue:[self checkForNULL:[monumentDict objectForKey:@"desc"]] forKey:@"desc"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"thumbnail"] forKey:@"thumbnail"];
                                  [monumentListDS setValue:[NSNumber numberWithInteger:[[monumentDict objectForKey:@"id"] integerValue]] forKey:@"id"];
                                 
@@ -226,9 +271,44 @@
     
     return isResultSaved;
 }
+-(NSString *)checkForNULL:(id)dictValue{
+    NSString *val=@"";
+    if(dictValue != [NSNull null] ){
+        val = dictValue;
+    }
+    return val;
+}
+
+
+-(MonumentListDS *)createMonumentDSObjectForMonumentDetailRequest:(NSDictionary *)dict{
+    MonumentListDS *monumentDSObj  = [[MonumentListDS alloc] init];
+    
+    monumentDSObj.name = [dict objectForKey:@"name"];
+    monumentDSObj.monumentID = [dict objectForKey:@"id"];
+    monumentDSObj.latitude = [dict objectForKey:@"lat"];
+    monumentDSObj.longitude = [dict objectForKey:@"lng"];
+    monumentDSObj.shortDesc = [dict objectForKey:@"shortDesc"];
+    monumentDSObj.desc = [dict objectForKey:@"desc"];
+    monumentDSObj.addInfo = [dict objectForKey:@"addInfo"];
+    monumentDSObj.thumbnail = [dict objectForKey:@"thumbnail"];
+    NSArray *arrImages = [dict objectForKey:@"arrImages"];
+    
+    if (arrImages.count >0) {
+    
+        [arrImages enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            ImageAttributeDS *arrImageObj = [[ImageAttributeDS alloc] init];
+            arrImageObj.imageUrl = (NSString *)obj;
+            [monumentDSObj.imageAttributes addObject:arrImageObj];
+            
+        }];
+        
+        
+    }
+    
+    return monumentDSObj;
+}
 
 @end
-
 /*
  -(NSArray *)getParseAPIDataToLanguageDS:(NSArray *)arraData withCustomizeData:(BOOL)isCustomzie{
  __block NSMutableArray *monumentMainArra = [NSMutableArray array];

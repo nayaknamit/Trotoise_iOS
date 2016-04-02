@@ -9,6 +9,7 @@
 #import "ImageScrollerTableViewCell.h"
 #import "MonumentList+CoreDataProperties.h"
 #import "LanguageDS.h"
+#import "MonumentListDS.h"
 #import "FullScreenViewController.h"
 #import "SpeechTranslator.h"
 #import "Language+CoreDataProperties.h"
@@ -171,7 +172,7 @@
 //    self.mediaFocusManager.elasticAnimation = YES;
     __block CGFloat scrollViewWidth = [UIScreen mainScreen].bounds.size.width+10;
     __block CGFloat scrollViewHeight = 249;
-    NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes array];
+    NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes allObjects];
     if([imageSetArray count]>0){
         
 //        __weak ImageScrollerTableViewCell *weakSelf = self;
@@ -263,7 +264,7 @@
             
             
             NSInteger index = imageView.tag-100;
-            NSArray *imageSetArray = [self.monumentDetailObj.imageAttributes array];
+            NSArray *imageSetArray = [self.monumentDetailObj.imageAttributes allObjects];
             
             ImageAttribute * imageDS = (ImageAttribute *)[imageSetArray objectAtIndex:index];
 //        FullScreenViewController *fullScreenVC = []
@@ -271,7 +272,10 @@
             FullScreenViewController *fullScreenVC = [storyBoard instantiateViewControllerWithIdentifier:@"FullScreenViewController"];
             
             fullScreenVC.imageUrl = imageDS.imageUrl;
-            [[self.delegate parentViewControllerForMediaFocusManager].navigationController presentViewController:fullScreenVC animated:YES completion:nil];
+            if ([self.delegate respondsToSelector:@selector(parentViewControllerForFullScreenManager)]) {
+                [[self.delegate parentViewControllerForFullScreenManager].navigationController presentViewController:fullScreenVC animated:YES completion:nil];
+                
+            }
             
         }
     }

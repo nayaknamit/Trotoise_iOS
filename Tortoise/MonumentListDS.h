@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString *desc;
 @property (nonatomic, retain) NSString *addInfo;
 @property (nonatomic, retain) NSString *thumbnail;
-@property (nonatomic, retain) NSSet *imageAttributes;
+@property (nonatomic, retain) NSMutableSet *imageAttributes;
 
 @end
 

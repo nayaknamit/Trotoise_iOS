@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-@class MonumentList;
+@class MonumentList,MonumentListDS;
 @interface MonumentDataManager : NSObject
 +(id)sharedManager;
 -(BOOL)getParseAPIDataToMonumentDS:(NSArray *)arraData withCustomizeData:(BOOL)isCustomzie;
 -(void)flushMonumentList;
 -(NSArray *)getMonumentListArra;
 -(MonumentList *)getMonumentListDetailObjectForID:(NSNumber *)monumentID;
+-(BOOL)updateMonumentRecord:(NSArray *)arrayObject withMonumentID:(NSNumber *)monumentID;
+-(MonumentListDS *)createMonumentDSObjectForMonumentDetailRequest:(NSDictionary *)dict;
 @end
