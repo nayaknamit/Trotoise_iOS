@@ -230,19 +230,27 @@ static NSString* const CellIdentifier = @"DetailTextView";
     }
     return defaultLanguageLocale;
 }
+
 -(void)languagePopUpViewDidOkButonTappedWithLanguage:(Language *)languageObject{
     [_klcPopLanguageView dismiss:YES];
-    [Utilities addHUDForView:self.view];
+//    [Utilities addHUDForView:self.view];
+
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _selectedLanguageFromGlobe = languageObject;
-    
+    [hud.label setFont:[UIFont TrotoiseFontLightRegular:12.0]];
+    hud.label.numberOfLines = 2;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
     
         __weak MonumentDetail1ViewController *weakSelf = self;
         [[TTAPIHandler sharedWorker] getMonumentDetailByMonumentID:[self.monumentDetailDsObj.monumentID stringValue] withLanguageLocale:[self getLanguageLocale] withRequestType:GET_MONUMENT_DETAIL_BY_MONUMENTID withResponseHandler:^(id obj, NSError *error) {
            
             
+            
             if (![[self getLanguageLocale] isEqualToString:@"hi"]) {
-                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:TR_TRANSLATE_REQUEST_DETAIL withMonumentObj:(MonumentListDS *)obj];
+                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:TR_TRANSLATE_REQUEST_DETAIL withMonumentObj:(MonumentListDS *)obj withLoaderHandler:^(NSString *text) {
+                    hud.label.text = text;
+                }];
+            
             }else{
                 
                  weakSelf.monumentDetailDsObj = (MonumentListDS *)obj;

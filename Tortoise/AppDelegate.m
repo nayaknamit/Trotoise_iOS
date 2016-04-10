@@ -21,6 +21,9 @@
 @property (nonatomic) CLLocationCoordinate2D locationCoordinate;
 @property (nonatomic,strong)NSString *currentLocationAddress;
 @property (nonatomic,strong) NSMutableArray *  splashTextArra;
+@property (nonatomic) Reachability *internetReachability;
+
+@property (nonatomic) BOOL isNetworkAvailable;
 @end
 
 @implementation AppDelegate
@@ -72,11 +75,63 @@
                              didFinishLaunchingWithOptions:launchOptions];
     
    
-    // Override point for customization after application launch.
-//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-//    float height =  screenBounds.size.height;
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
     
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    [self updateInterfaceWithReachability:self.internetReachability];
+
     return YES;
+}
+
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass:[Reachability class]]);
+    [self updateInterfaceWithReachability:curReach];
+}
+
+
+- (void)updateInterfaceWithReachability:(Reachability *)reachability
+{
+    if (reachability == self.internetReachability)
+    {
+        NetworkStatus netStatus = [reachability currentReachabilityStatus];
+        BOOL connectionRequired = [reachability connectionRequired];
+        
+        switch (netStatus)
+        {
+            case NotReachable:        {
+                connectionRequired = NO;
+                _isNetworkAvailable = NO;
+                break;
+            }
+                
+            case ReachableViaWWAN:        {
+                
+                break;
+            }
+            case ReachableViaWiFi:        {
+                _isNetworkAvailable = YES;
+                break;
+            }
+        }
+        
+        
+        
+    }
+    
+}
+
+
+-(BOOL)isNetworkAvailable{
+    if  (!_isNetworkAvailable) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Available" message:ERROR_NETWORK_MESSAGE delegate:self cancelButtonTitle:@"Cancel O" otherButtonTitles:@"Settings",nil];
+        [alertView show];
+    }else {
+        
+    }
+    return _isNetworkAvailable;
 }
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
@@ -212,29 +267,40 @@ withError:(NSError *)error {
  }
  
  */
--(void)checkForNetworkServiceEnabled{
+-(void)checkForLocationServiceEnabled{
     if(!_isLocationEnabled){
    
-        UIAlertView* curr2=[[UIAlertView alloc] initWithTitle:@"Trotoise does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
-        curr2.tag=121;
-        [curr2 show];
+        [self showLocationErrorAlert];
 
     }
 }
 
-
+-(void)showLocationErrorAlert{
+    UIAlertView* curr2=[[UIAlertView alloc] initWithTitle:@"Trotoise Location Services Disabled" message:@"Please enable your device Location Service to locate monuments near you." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+    curr2.tag=121;
+    [curr2 show];
+}
 
 
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"buttonIndex:%ld",(long)buttonIndex);
-            //code for opening settings app in iOS 8
-    if (buttonIndex == 0) {
+    if (alertView.tag == 121) {
+        if (buttonIndex == 0) {
+            
+        }else{
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    } else {
+        if (buttonIndex == 1) {
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+
+        }
         
-    }else{
-        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
     }
+            //code for opening settings app in iOS 8
+   
     
     
 }

@@ -16,8 +16,10 @@ enum
     TR_TRANSLATE_REQUEST_HOME = 2,
    TR_TRANSLATE_REQUEST_DETAIL = 3
 };
+
 @class MonumentList,MonumentListDS;
 @interface TranslatorManager : NSObject
+typedef void (^HUDTextChange)(NSString *text);
 
 +(id)sharedInstance;
 
@@ -25,5 +27,8 @@ enum
 //-(void)translateLanguage:(NSArray *)monumentListDSObjArra withSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType;
 
 -(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj;
+
+
+-(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj withLoaderHandler:(HUDTextChange)handler;
 
 @end

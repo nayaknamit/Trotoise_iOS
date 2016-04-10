@@ -11,14 +11,41 @@
 @implementation Utilities
 +(void)addHUDForView:(id)view{
     
-    [MBProgressHUD showHUDAddedTo:view animated:YES];
+        [MBProgressHUD showHUDAddedTo:view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         // Do something...
         
     });
 //    MBProgressHUD *mbHID = [[MBProgressHUD alloc] init];
 //    [mbHID set]
+  
 }
++(void)addHUDSearchMonumentForView:(id)view{
+    
+   MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    [hud.label setFont:[UIFont TrotoiseFontLightRegular:12.0]];
+    hud.label.numberOfLines = 2;
+    hud.label.text = @"Please wait, \nSearching monuments...";
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        
+    });
+    //    MBProgressHUD *mbHID = [[MBProgressHUD alloc] init];
+    //    [mbHID set]
+    
+}
+//+(MBProgressHUD *)addHUDForView:(id)view withTextChangeCallBack:(HUDTextChange)textChangeHandler{
+//    MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:view animated:YES];
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//        // Do something...
+////        hud.label.text = 
+//    });
+//    //    MBProgressHUD *mbHID = [[MBProgressHUD alloc] init];
+//    //    [mbHID set]
+//    return hud;
+//
+//}
 
 +(void)hideHUDForView:(id)view{
     

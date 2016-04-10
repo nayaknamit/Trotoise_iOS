@@ -10,10 +10,14 @@
 
 @interface Utilities : NSObject
 
+
 +(void)addHUDForView:(id)view;
+//+(MBProgressHUD *)addHUDForView:(id)view withTextChangeCallBack:(HUDTextChange)textChangeHandler;
+
 +(void)hideHUDForView:(id)view;
 +(UIImage *)makeRoundedImage:(UIImage *) image
                       radius: (float) radius;
++(void)addHUDSearchMonumentForView:(id)view;
 +(NSString *)formattedStringForNewLineForString:(NSString *)_string;
 + (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock;
 @end

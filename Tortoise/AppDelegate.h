@@ -8,6 +8,8 @@
 #import <Google/SignIn.h>
 #import <CoreLocation/CoreLocation.h>
 #import "LoggedInUserDS.h"
+#import "Reachability.h"
+
 @class LoggedInUserDS, Language, CLLocationManager;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>
 
@@ -20,6 +22,7 @@
 @property (nonatomic,strong)NSMutableArray *defaultCityMonumentList;
 @property (nonatomic) BOOL isLanguageChange;
 @property (nonatomic) BOOL isLocationEnabled;
+
 -(LoggedInUserDS *)getLoggedInUserData;
 -(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook;
 - (void)saveContext;
@@ -43,7 +46,9 @@
 -(BOOL)getUserDefaultLanguageIsChached;
 -(NSDictionary *)getLocalCahceLangugeDict;
 -(void)setInitialDefaultLanguage;
--(void)checkForNetworkServiceEnabled;
+-(void)checkForLocationServiceEnabled;
+-(BOOL)isNetworkAvailable;
+-(void)showLocationErrorAlert;
 -(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textAr;
 @end
 

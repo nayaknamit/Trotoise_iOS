@@ -32,10 +32,20 @@
 
 -(void)initSpechTranslate {
     if (translatorSpeech==nil) {
+        
+        
         translatorSpeech = [SpeechTranslator sharedInstance];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopTranslatorSpeech) name:@"NOTIFY_STOP_AUDIO" object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeStopIcon) name:@"TRANSACTION_RECIEVED" object:nil];
+        
     }
 
+}
+-(void)changeStopIcon{
+    [self stopLogoSpin];
+    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+    
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -72,7 +82,7 @@
 - (void) stopLogoSpin {
     animate = NO;
     animationCompleting = YES;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOTIFY_STOP_AUDIO" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOTIFY_STOP_AUDIO" object:nil];
 }
 
 - (void) startLogoSpin {
@@ -88,11 +98,11 @@
 
 -(IBAction)speakerBtnTapped:(id)sender{
     
-       [self initSpechTranslate ];
+       [self initSpechTranslate];
     if (!_isSpeakerPlaying) {
+        [_speakerBtn setImage:[UIImage imageNamed:@"ic_action_cached.png"] forState:UIControlStateNormal];
         [self startLogoSpin];
-        [self stopLogoSpin];
-            [_speakerBtn setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
+        
         if([_selectedLanguage.nuanceRelationship allObjects].count!=0){
             Nuance *nuanceDS = [[_selectedLanguage.nuanceRelationship allObjects] objectAtIndex:0];
             Provider *providerDS = (Provider *)[[nuanceDS.provider allObjects] objectAtIndex:0];
@@ -113,8 +123,8 @@
         }
         
     }else{
-        [self startLogoSpin];
-        [self stopLogoSpin];
+        //[self startLogoSpin];
+        //[self stopLogoSpin];
         [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
 
         
@@ -123,9 +133,12 @@
     }
 }
 -(void)stopTranslatorSpeech{
-    
-    [translatorSpeech stopAudio];
+    if (translatorSpeech){
+        [translatorSpeech stopAudio];
+        [SpeechTranslator setSharedInstance:nil];
+        translatorSpeech = nil;
 
+    }
 }
 
 - (void) runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration rotations:(CGFloat)rotations repeat:(float)repeat;
@@ -165,11 +178,7 @@
 
     self.placeLabel.text = self.monumentDetailObj.name;
     
-    //self.mediaFocusManager = [[ASMediaFocusManager alloc] init];
-//    self.mediaFocusManager.delegate = self;
-//    self.mediaFocusManager.zoomEnabled = YES;
-    //    [self.mediaFocusManager ]
-//    self.mediaFocusManager.elasticAnimation = YES;
+
     __block CGFloat scrollViewWidth = [UIScreen mainScreen].bounds.size.width+10;
     __block CGFloat scrollViewHeight = 249;
     NSArray *imageSetArray =  [self.monumentDetailObj.imageAttributes allObjects];
@@ -202,23 +211,29 @@
             
             imageView.translatesAutoresizingMaskIntoConstraints = YES;
             imageView.autoresizesSubviews = YES;
+            
             [Utilities addHUDForView:imageView];
-//            UITapGestureRecognizer *tapGestuerRecognize = [[UITapGestureRecognizer alloc] initWithTarget:weakSelf action:@selector(imageScrollerTapGesture:)];
-//            tapGestuerRecognize.delegate = self;
-//            [tapGestuerRecognize setNumberOfTapsRequired:1.0];
-//            [tapGestuerRecognize setNumberOfTouchesRequired:1.0];
-//            tapGestuerRecognize.cancelsTouchesInView = NO;
-//             [imageView addGestureRecognizer:tapGestuerRecognize];
+           
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             
+            if (![APP_DELEGATE isNetworkAvailable]) {
+                [Utilities hideHUDForView:imageView];
+                UIImage *image =[UIImage imageNamed:@"splash_logo.png"];
+                imageView.image =image;
+                imageView.frame = CGRectMake(self.imageScrollerView.frame.size.width/2, self.imageScrollerView.frame.size.height/2, 100,100 );
+                imageView.alpha = 0.5;
+                
+                [self.imageScrollerView addSubview:imageView];
+                return ;
+                
+            }
             [manager downloadImageWithURL: [NSURL URLWithString:imageDS.imageUrl]
                                   options:0
                                  progress:^(NSInteger receivedSize, NSInteger expectedSize)
              {
                  // progression tracking code
              }
-                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
-             {
+            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                  if (image)
                  {
                      imageView.image = image;
@@ -226,6 +241,11 @@
                     
 
                      // do something with image
+                 }else {
+                     [Utilities hideHUDForView:imageView];
+                     
+                     imageView.image = [UIImage imageNamed:@"splash_logo.png"];
+                     imageView.alpha = 0.5;
                  }
              }];
             

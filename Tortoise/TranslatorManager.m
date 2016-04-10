@@ -28,6 +28,7 @@
 @property (nonatomic,strong) NSMutableArray *translateKey;
 @property (nonatomic)   __block NSInteger translateCounter;
 @property (nonatomic)    NSInteger translateKeyCounter;
+@property (copy) HUDTextChange hudTextHandler;
 @end
 
 @implementation TranslatorManager
@@ -59,11 +60,15 @@
         _translatorSplashTextArra = [NSMutableArray array];
         
         _translateKey = [NSMutableArray array];
+        [_translateKey addObject:SPECH_TRANSLATION_KEY_ONE];
         [_translateKey addObject:SPECH_TRANSLATION_KEY_TWO];
         [_translateKey addObject:SPECH_TRANSLATION_KEY_THREE];
         [_translateKey addObject:SPECH_TRANSLATION_KEY_FOUR];
         [_translateKey addObject:SPECH_TRANSLATION_KEY_FIVE];
         [_translateKey addObject:SPECH_TRANSLATION_KEY_SIX];
+        [_translateKey addObject:SPECH_TRANSLATION_KEY_SEVEN];
+        [_translateKey addObject:SPECH_TRANSLATION_KEY_EIGHT];
+        [_translateKey addObject:SPECH_TRANSLATION_KEY_NINE];
         
         _translateCounter  =0;
         _translateKeyCounter = 0;
@@ -108,7 +113,10 @@
                
                  MonumentList *monumentObj  = [_sourceArra objectAtIndex:_counter];
                 [[MonumentDataManager sharedManager] updateMonumentRecord:divisonArray withMonumentID:monumentObj.id];
-                    _counter++;
+                self.hudTextHandler([NSString stringWithFormat:@"%@ %ld/%lu.",MSG_MONUMENT_TRANSLATE,(long)_counter,(unsigned long)_sourceArra.count]);
+                _counter++;
+                
+                
                 if(_counter != _count){
                     
                     [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.001];
@@ -198,14 +206,20 @@
     
     NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@ _ %@ _ %@",[Utilities formattedStringForNewLineForString:objMonument.name],[Utilities formattedStringForNewLineForString:objMonument.desc],[Utilities formattedStringForNewLineForString:objMonument.shortDesc]];
 //    __weak TranslatorManager  *manager = self;
-    
+    self.hudTextHandler([NSString stringWithFormat:@"%@ 0/1.",MSG_MONUMENT_TRANSLATE]);
+
     [_translator translateText:formattedTranslateLanguage withSource:source target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {
         NSLog(@"Conversion ");
         if (translated==nil) {
-            
+            [self inititalizeTranslator];
+            [self translateLanguageForMonumentObject:objMonument withSource:source withTarget:target];
+            return ;
         }
+        self.hudTextHandler([NSString stringWithFormat:@"%@ 1/1.",MSG_MONUMENT_TRANSLATE]);
         
         NSArray *divisonArray = [translated componentsSeparatedByString:@"_"];
+        
+        
         MonumentListDS *objMon = [[MonumentListDS alloc] init];
         objMon.name = [divisonArray objectAtIndex:0];
         objMon.desc  = [divisonArray objectAtIndex:1];
@@ -216,7 +230,9 @@
         objMon.longitude  = objMonument.longitude;
         objMon.monumentID= objMonument.monumentID;
         objMon.thumbnail = objMonument.thumbnail;
-
+        
+        
+        
         [FGTranslator flushCache];
         [FGTranslator flushCredentials];
         [[NSNotificationCenter defaultCenter] postNotificationName:GA_TRANSLATE_DONE object:[NSArray arrayWithObject:objMon]];
@@ -235,7 +251,47 @@
     [self translateLanguage1:[_sourceArra objectAtIndex:_counter] withSource:_sourceResource withTarget:_targetResource];
 }
 
--(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj{
+
+
+-(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj withLoaderHandler:(HUDTextChange)handler{
+    
+    _translateRequestVia = requestType;
+    self.hudTextHandler = handler;
+    _sourceArra = [[MonumentDataManager sharedManager] getMonumentListArra];
+    
+    switch (requestType) {
+        case TR_TRANSLATE_REQUEST_DETAIL:
+        {
+            
+            [self initiateRequestForDetialPageTranslationForTarget:target withSource:source withMonumentObject:monumentObj];
+            
+            
+        }
+            break;
+        default:
+            
+        {
+            
+            _count = [_sourceArra count];
+            
+            
+            _counter = 0;
+            _sourceResource = source;
+            _targetResource = target;
+            
+            [self inititalizeTranslator];
+            
+            [self translateLanguage1:[_sourceArra objectAtIndex:_counter] withSource:source withTarget:target];
+        }
+            break;
+    }
+    
+    
+    
+    
+
+}
+-(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj {
  
     _translateRequestVia = requestType;
 
@@ -255,22 +311,6 @@
         {
             
             _count = [_sourceArra count];
-            
-//            if([target isEqualToString:@"en"] && [source isEqualToString:@"en"]){
-//                
-//                [FGTranslator flushCache];
-//                [FGTranslator flushCredentials];
-//                [[NSUserDefaults standardUserDefaults] setBool:NO
-//                                                        forKey:@"isLanguageCache"];
-//
-//                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"languageCache"];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:GA_TRANSLATE_DONE object:_sourceArra];
-//                _translatorArray = nil;
-//                _sourceArra = nil;
-//                
-//                
-//                return;
-//            }
             
             
             _counter = 0;

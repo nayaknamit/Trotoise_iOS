@@ -16,23 +16,33 @@
 @end
 @implementation SpeechTranslator
 
+static SpeechTranslator *sharedInstance = nil;
+static dispatch_once_t once_token = 0;
 
 +(id)sharedInstance{
+
+//    static dispatch_once_t pred;
+//    if (sharedInstance) return sharedInstance;
     
-    static SpeechTranslator *sharedInstance = nil;
-    static dispatch_once_t pred;
-    
-    if (sharedInstance) return sharedInstance;
-    
-    dispatch_once(&pred, ^{
-        sharedInstance = [[SpeechTranslator alloc] init];
+    dispatch_once(&once_token, ^{
+        if (sharedInstance == nil) {
+            sharedInstance = [[SpeechTranslator alloc] init];
+        }
+       
     });
     
     return sharedInstance;
 }
+
++(void)setSharedInstance:(SpeechTranslator *)instance {
+    once_token = 0; // resets the once_token so dispatch_once will run again
+    sharedInstance = instance;
+}
+
 -(id)init{
     if (self = [super init]) {
          _skTransaction = nil;
+        _skSession  = nil;
         _skSession = [[SKSession alloc] initWithURL:[NSURL URLWithString:SKSServerUrl] appToken:SKSAppKey];
         
         if (!_skSession) {
@@ -50,19 +60,10 @@
 -(void)initiateTransistionForText:(NSString *)transitionText withLanguageCode:(NSString *)languageCode withVoiceName:(NSString *)voiceName{
     
     if (!_skTransaction) {
-        // Start a TTS transaction
-////         NSDictionary* options = @{SKOptionsAutoPlayTTSKey:@(NO)};
-    _skTransaction = [_skSession speakString:transitionText
+     _skTransaction = [_skSession speakString:transitionText
                                     withLanguage:languageCode
                                         delegate:self];
-//
 
-//        NSDictionary* options = @{SKOptionsAutoPlayTTSKey:@(NO)};
-//        _skTransaction = [_skSession speakString:transitionText
-//                                                withVoice:@"Samantha"
-//                                                  options:options
-//                                                 delegate:self];
-        
     } else {
         // Cancel the TTS transaction
         [_skTransaction cancel];
@@ -74,11 +75,30 @@
 
 
 -(void)stopAudio{
+
+    [_skTransaction cancel];
     [_skSession.audioPlayer stop];
-    if (_audioPlayingCurrently) {
+    [self resetTransaction];
+    //    [_skSession.audioPlayer ]
+        if (_audioPlayingCurrently) {
+        
         
         [_skSession.audioPlayer dequeue:_audioPlayingCurrently];
+//[_skSession.audioPlayer]
     }
+//    if (_skSession !=nil) {
+//        if (_skTransaction !=nil) {
+//            
+//            [_skTransaction cancel];
+//            if ((_skTransaction !=nil) || (_skTransaction != NULL)) {
+//            
+//                
+////                _skSession = nil;
+//
+//            }
+//            
+//        }
+//    }
     
 }
 #pragma mark - SKTransactionDelegate
@@ -95,6 +115,9 @@
 {
     _audioPlayingCurrently = audio;
 //    [_skSession.audioPlayer playAudio:audio];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED" object:nil];
+
 }
 - (void)transaction:(SKTransaction *)transaction didFinishWithSuggestion:(NSString *)suggestion
 {
@@ -120,13 +143,14 @@
     NSLog(@"willBeginPlaying");
 //    [_skSession.audioPlayer playAudio:audio];    
     // The TTS Audio will begin playing.
+
 }
 
 - (void)audioPlayer:(SKAudioPlayer *)player didFinishPlaying:(SKAudio *)audio
 {
     NSLog(@"didFinishPlaying");
 
-
+    [player stop];
     // The TTS Audio has finished playing.
 }
 

@@ -63,33 +63,36 @@
 #define SPLASH_TEXT_DESC_FIVE @"Choose from offline or online mode. Miss nothing."
 
 
+#define ERROR_NETWORK_MESSAGE @"You are seems to be offline. Please enable your Data services or connect to a WIFI network."
+
+#define TRANSLATION_FAIL_MESSAGE @"Something went wrong, Trotoise at work. Please Retry or Cancel to try after some time."
+
+#define SPECH_TRANSLATION_KEY_ONE  @"AIzaSyBh3D0vDSk88NpRrNM3NNmdiQYrJVdi598"
 
 
+#define SPECH_TRANSLATION_KEY_TWO  @"AIzaSyDX-rbD8xd1nYm-aCuUu9eQGhpdsiI71ak"
 
-
-#define SPECH_TRANSLATION_KEY_ONE  @"AIzaSyDehuJKtWI5sZ5GyKgoKve5nUx7q5OZghU"
-
-
-#define SPECH_TRANSLATION_KEY_TWO  @"AIzaSyBh3D0vDSk88NpRrNM3NNmdiQYrJVdi598"
-
-#define SPECH_TRANSLATION_KEY_THREE  @"AIzaSyDX-rbD8xd1nYm-aCuUu9eQGhpdsiI71ak"
+#define SPECH_TRANSLATION_KEY_THREE  @"AIzaSyCLaQtWl0orjsqIpC4XPN-qJBmsOzVBShY"
 
 
 #define SPECH_TRANSLATION_KEY_FOUR  @"AIzaSyCm9MvpkLZX2sOhJceGrhcnGwFzWUHBrIs"
 
 
-#define SPECH_TRANSLATION_KEY_FIVE  @"AIzaSyCOcQtB8z7sH9CfQ5et3jbLq9Y6Lp5U9Bs"
+#define SPECH_TRANSLATION_KEY_FIVE  @"AIzaSyDehuJKtWI5sZ5GyKgoKve5nUx7q5OZghU"
 
 
-#define SPECH_TRANSLATION_KEY_SIX @"AIzaSyCPQY_AEzFPOxd0Tk1DyN4nKbysG-f8ewg"
+#define SPECH_TRANSLATION_KEY_SIX @"AIzaSyCOcQtB8z7sH9CfQ5et3jbLq9Y6Lp5U9Bs"
 
 
-#define SPECH_TRANSLATION_KEY_SEVEN  @"AIzaSyBOa6slZeirTuwyvhX_0f7V0cUO0pxhxXk"
+#define SPECH_TRANSLATION_KEY_SEVEN  @"AIzaSyCPQY_AEzFPOxd0Tk1DyN4nKbysG-f8ewg"
 
 
-#define SPECH_TRANSLATION_KEY_EIGHT  @"AIzaSyANAG4m9alStWvRG2CVgTg3DW2e3vJR5hg"
+#define SPECH_TRANSLATION_KEY_EIGHT  @"AIzaSyBOa6slZeirTuwyvhX_0f7V0cUO0pxhxXk"
+
+#define SPECH_TRANSLATION_KEY_NINE @"AIzaSyANAG4m9alStWvRG2CVgTg3DW2e3vJR5hg"
 
 
+#define MSG_MONUMENT_TRANSLATE @"Please wait, \n Loading Monuments....."
 
 #define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

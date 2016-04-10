@@ -40,4 +40,5 @@
 
 -(void)mediaFocusManagerWillAppearForDelegate;
 -(void)mediaFocusManagerWillDisappear;
+
 @end

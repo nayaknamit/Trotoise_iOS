@@ -37,6 +37,10 @@
 -(IBAction)okButtonTapped:(id)sender{
 //     [Utilities addHUDForView:se];
   
+    if (![APP_DELEGATE isNetworkAvailable]) {
+      
+        return;
+    }
     if(_selectedLanguageDS == nil){
         if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidCancelButonTappedWithLanguage:)]) {
             [self.delegate languagePopUpViewDidCancelButonTappedWithLanguage:_selectedLanguageDS];

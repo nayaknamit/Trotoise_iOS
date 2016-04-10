@@ -260,9 +260,15 @@
             [self requestForCurrentLocation];
             
         }else if  ([CLLocationManager authorizationStatus]== kCLAuthorizationStatusDenied){
-            [self.navigationController.view makeToast:@"Location Service is disabled due to which Trotoise will not be able to load the monument list. Please enable location service from settings."
-                                             duration:4.0
-                                             position:CSToastPositionCenter];
+          
+            
+//            
+//            [self.navigationController.view makeToast:@"Location Service is disabled due to which Trotoise will not be able to load the monument list. Please enable location service from settings."
+//                                             duration:4.0
+//                                             position:CSToastPositionCenter];
+            
+            [APP_DELEGATE showLocationErrorAlert];
+            
             APP_DELEGATE.isLocationEnabled = NO;
             _dataArra =nil;
              _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ mi range.",(unsigned long)0,radiusValue];
@@ -405,7 +411,7 @@
         weakSelf.homeViewLocation = [[CLLocation alloc] initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
         
         //Adding HUD View
-        [Utilities addHUDForView:weakSelf.view];
+        [Utilities addHUDSearchMonumentForView:weakSelf.view];
         //NEED TO CALL WEBSERVICE
         
         [weakSelf callMonumentAPIForLocation];
@@ -852,7 +858,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     //NEED TO CALL WEBSERVICE
     
     //ADDING HUD
-    [Utilities addHUDForView:self.view];
+    [Utilities addHUDSearchMonumentForView:self.view];
     
     [self callMonumentAPIForLocation];
     
@@ -919,14 +925,16 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
         //TO DO : Call language change monumentlist for location
         
         //Adding HUD View
-        [Utilities addHUDForView:self.view];
+        [Utilities addHUDSearchMonumentForView:self.view];
         //NEED TO CALL WEBSERVICE
         [self callMonumentAPIForLocation];
         
     }else {//if(![languageObject.transCode isEqualToString:@"en"] && ![languageObject.transCode isEqualToString:@"hi"]){
         
         
-        [Utilities addHUDForView:self.view];
+        
+      MBProgressHUD *hud =  [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+       
         NSString *lat = [NSString stringWithFormat:@"%f",self.homeViewLocation.coordinate.latitude ];
         NSString *longitude = [NSString stringWithFormat:@"%f",self.homeViewLocation.coordinate.longitude ];
         
@@ -947,19 +955,24 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
                 
-                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
+//                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
+
+                [hud.label setFont:[UIFont TrotoiseFontLightRegular:12.0]];
+                hud.label.numberOfLines = 2;
+                 [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil withLoaderHandler:^(NSString *text) {
+                     NSLog(@"Text Counter %@",text);
+                     hud.label.text = text;
+                        
+                     
+                     
+                 }];
                 
             }
         }];
         
         
     }
-    //    else{
-    //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-    //
-    //        [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
-    //
-    //    }
+   
 }
 -(void)languagePopUpViewDidCancelButonTappedWithLanguage:(Language *)languageObject{
     
@@ -1098,7 +1111,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     
     __weak HomeViewController *weakSelf = self;
     [[GMSPlacesClient sharedClient] lookUpPlaceID:prediction.placeID callback:^(GMSPlace * _Nullable result, NSError * _Nullable error) {
-        [Utilities addHUDForView:weakSelf.view];
+        [Utilities addHUDSearchMonumentForView:weakSelf.view];
         if (error!=nil) {
             [Utilities hideHUDForView:weakSelf.view];
         }else{

@@ -15,4 +15,5 @@
 -(void)initiateTransistionForText:(NSString *)transitionText withLanguageCode:(NSString *)languageCode withVoiceName:(NSString *)voiceName;
 
 -(void)stopAudio;
++(void)setSharedInstance:(SpeechTranslator *)instance;
 @end

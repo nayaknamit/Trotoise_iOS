@@ -118,6 +118,7 @@ static dispatch_once_t predicate;
          GET_MONUMENT_LIST_BY_RANGE responseHandler:^(BOOL isResultSuccess, NSError *error) {
              
              if (error!=nil) {
+                 
                  [weakRef.navigationController.view makeToast:@"Unable to load Monuments List."
                                                      duration:1.0
                                                      position:CSToastPositionCenter];
@@ -199,7 +200,7 @@ static dispatch_once_t predicate;
     
     APP_DELEGATE.isLocationEnabled = NO;
     [self setUpLanguageCall];
-    [APP_DELEGATE checkForNetworkServiceEnabled];
+    [APP_DELEGATE checkForLocationServiceEnabled];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

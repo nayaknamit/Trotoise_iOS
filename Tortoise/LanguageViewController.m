@@ -82,17 +82,6 @@
     
     [self updateLanguageDetailsOnScreen:[[LanguageDataManager sharedManager] getDefaultLanguageObject]];
 
-//    
-//    if(loggedInUser.selectedLanguageDS){
-//        
-//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-//    }else{
-////        [APP_DELEGATE setDefaultLanguage];
-//        loggedInUser = [APP_DELEGATE getLoggedInUserData];
-//
-//        [self updateLanguageDetailsOnScreen:loggedInUser.selectedLanguageDS];
-//
-//    }
     
     
     

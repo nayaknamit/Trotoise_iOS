@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jh9-83-oEE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jh9-83-oEE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -316,8 +316,7 @@
                                                 <variation key="widthClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="255" y="53" width="114" height="15"/>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="255" y="53" width="118" height="15"/>
+                                                <variation key="heightClass=regular-widthClass=compact">
                                                     <mask key="constraints">
                                                         <include reference="Vcl-rY-4nh"/>
                                                     </mask>
@@ -2869,9 +2868,6 @@ preferred language of communication</string>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMU-RL-C95">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="249"/>
-                                                    </variation>
                                                     <connections>
                                                         <outlet property="delegate" destination="db9-a4-DkP" id="uXH-IG-m29"/>
                                                     </connections>
@@ -2890,8 +2886,7 @@ preferred language of communication</string>
                                                             <exclude reference="ZkI-zj-6Pb"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="160" y="30" width="61" height="37"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="Fku-Ce-HAv"/>
                                                             <include reference="ZkI-zj-6Pb"/>
@@ -2916,8 +2911,7 @@ preferred language of communication</string>
                                                                     <exclude reference="9Xm-Zz-rmz"/>
                                                                 </mask>
                                                             </variation>
-                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="8" y="-3" width="206" height="30"/>
+                                                            <variation key="heightClass=regular-widthClass=compact">
                                                                 <mask key="constraints">
                                                                     <include reference="9Xm-Zz-rmz"/>
                                                                 </mask>
@@ -2973,8 +2967,7 @@ preferred language of communication</string>
                                                             <exclude reference="7ze-K5-RK3"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="0.0" y="189" width="240" height="55"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="subviews">
                                                             <include reference="1WH-89-ouR"/>
                                                             <include reference="2Gu-Tc-G7G"/>
@@ -3002,8 +2995,7 @@ preferred language of communication</string>
                                                             <exclude reference="peI-Ec-ilf"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="177" y="202" width="40" height="40"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="dwI-lB-duU"/>
                                                             <include reference="peI-Ec-ilf"/>
@@ -3019,15 +3011,14 @@ preferred language of communication</string>
                                                         <constraint firstAttribute="height" constant="40" id="prN-Cu-BoH"/>
                                                         <constraint firstAttribute="width" constant="40" id="rA8-XE-sS6"/>
                                                     </constraints>
-                                                    <state key="normal" image="playSound"/>
+                                                    <state key="normal" image="ic_speaker_play.png"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="prN-Cu-BoH"/>
                                                             <exclude reference="rA8-XE-sS6"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="130" y="203" width="40" height="40"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <include reference="prN-Cu-BoH"/>
                                                             <include reference="rA8-XE-sS6"/>
@@ -3146,9 +3137,8 @@ preferred language of communication</string>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <variation key="heightClass=regular-widthClass=compact">
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12"/>
-                                                        <rect key="frame" x="13" y="0.0" width="214" height="350"/>
                                                     </variation>
                                                 </textView>
                                             </subviews>
@@ -3258,7 +3248,7 @@ preferred language of communication</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUs-uD-MM9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2923.5" y="581.25"/>
+            <point key="canvasLocation" x="3228" y="591"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hEJ-kc-wVV">
@@ -3297,9 +3287,9 @@ preferred language of communication</string>
         <image name="ic_offline" width="120" height="120"/>
         <image name="ic_slideshow" width="72" height="72"/>
         <image name="ic_speaker" width="48" height="48"/>
+        <image name="ic_speaker_play.png" width="42" height="42"/>
         <image name="logout" width="32" height="41"/>
         <image name="personIcon" width="160" height="168"/>
-        <image name="playSound" width="44" height="44"/>
         <image name="radii" width="120" height="120"/>
         <image name="screenOrientation" width="94" height="92"/>
         <image name="speakerIcon" width="120" height="110"/>

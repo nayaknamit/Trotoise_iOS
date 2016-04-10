@@ -43,6 +43,9 @@
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45A47C41C941B1200D7DE08 /* mapCallout.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A47C31C941B1200D7DE08 /* mapCallout.png */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
+		B46442961CBA6F63004F3123 /* ic_action_cached.png in Resources */ = {isa = PBXBuildFile; fileRef = B46442931CBA6F63004F3123 /* ic_action_cached.png */; };
+		B46442971CBA6F63004F3123 /* ic_speaker_play.png in Resources */ = {isa = PBXBuildFile; fileRef = B46442941CBA6F63004F3123 /* ic_speaker_play.png */; };
+		B46442981CBA6F63004F3123 /* ic_speaker_stop.png in Resources */ = {isa = PBXBuildFile; fileRef = B46442951CBA6F63004F3123 /* ic_speaker_stop.png */; };
 		B46582B41BC4B3A800C57679 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B31BC4B3A800C57679 /* main.m */; };
 		B46582B71BC4B3A800C57679 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B61BC4B3A800C57679 /* AppDelegate.m */; };
 		B46582BA1BC4B3A800C57679 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582B91BC4B3A800C57679 /* HomeViewController.m */; };
@@ -198,6 +201,9 @@
 		B45A47C31C941B1200D7DE08 /* mapCallout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapCallout.png; sourceTree = "<group>"; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
 		B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFacebook.m; sourceTree = "<group>"; };
+		B46442931CBA6F63004F3123 /* ic_action_cached.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_action_cached.png; sourceTree = "<group>"; };
+		B46442941CBA6F63004F3123 /* ic_speaker_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speaker_play.png; sourceTree = "<group>"; };
+		B46442951CBA6F63004F3123 /* ic_speaker_stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_speaker_stop.png; sourceTree = "<group>"; };
 		B46582AF1BC4B3A800C57679 /* Trotoise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trotoise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B46582B31BC4B3A800C57679 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B46582B51BC4B3A800C57679 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -508,6 +514,9 @@
 				B41DFF541C8F073400622754 /* trotoiseFinal.png */,
 				B41DFF561C8F631D00622754 /* googleSign2.png */,
 				B48AE3141C6BB7EA00FA5DFD /* splash_logo.png */,
+				B46442931CBA6F63004F3123 /* ic_action_cached.png */,
+				B46442941CBA6F63004F3123 /* ic_speaker_play.png */,
+				B46442951CBA6F63004F3123 /* ic_speaker_stop.png */,
 				B46582C11BC4B3A800C57679 /* Assets.xcassets */,
 				B46582BB1BC4B3A800C57679 /* Main.storyboard */,
 				B4B2D3BB1C5CA813002191EC /* tableViewCellBG.png */,
@@ -990,10 +999,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4B2D3B31C5C8B80002191EC /* Oswald-Regular.ttf in Resources */,
+				B46442981CBA6F63004F3123 /* ic_speaker_stop.png in Resources */,
 				B4D219701C7C971F00054094 /* GoogleService-Info.plist in Resources */,
 				B49A66EA1C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png in Resources */,
 				B46582C51BC4B3A800C57679 /* LaunchScreen.storyboard in Resources */,
 				B4F2C4711C8C26460002A10C /* EsselWorld1.jpg in Resources */,
+				B46442961CBA6F63004F3123 /* ic_action_cached.png in Resources */,
 				B4C394CA1C5F286C0007EE33 /* GoogleService-Info_old.plist in Resources */,
 				B4E683781C80CEE0000C4834 /* LanguagePopUp.xib in Resources */,
 				B41DFF571C8F631D00622754 /* googleSign2.png in Resources */,
@@ -1005,6 +1016,7 @@
 				B41DFF551C8F073400622754 /* trotoiseFinal.png in Resources */,
 				B4B2D3B51C5C8B80002191EC /* Roboto-Italic.ttf in Resources */,
 				B46582E91BC4B3CC00C57679 /* Podfile in Resources */,
+				B46442971CBA6F63004F3123 /* ic_speaker_play.png in Resources */,
 				B4B2D3B71C5C8B80002191EC /* Roboto-Regular.ttf in Resources */,
 				B40E40281C7F6EF2009ACD30 /* aboutUSCell.xib in Resources */,
 				B411FDE91C5E3A8000BB96C7 /* LanguageTableView.xib in Resources */,
