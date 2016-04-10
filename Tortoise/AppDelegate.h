@@ -19,6 +19,7 @@
 @property (nonatomic,strong)CLLocationManager *locationManager;
 @property (nonatomic,strong)NSMutableArray *defaultCityMonumentList;
 @property (nonatomic) BOOL isLanguageChange;
+@property (nonatomic) BOOL isLocationEnabled;
 -(LoggedInUserDS *)getLoggedInUserData;
 -(void)setLoggedInUserData:(NSDictionary *)userDict isFacebookData:(BOOL)isFacebook;
 - (void)saveContext;
@@ -42,6 +43,7 @@
 -(BOOL)getUserDefaultLanguageIsChached;
 -(NSDictionary *)getLocalCahceLangugeDict;
 -(void)setInitialDefaultLanguage;
+-(void)checkForNetworkServiceEnabled;
 -(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textAr;
 @end
 

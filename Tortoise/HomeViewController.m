@@ -33,7 +33,7 @@
 #import "MonumentDataManager.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-@interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate,GMSAutocompleteViewControllerDelegate,TextToSpeechDelegate,GMSAutocompleteFetcherDelegate,LanguagePopUpViewDelegate,UISearchBarDelegate>
+@interface HomeViewController ()<CLLocationManagerDelegate,GMSMapViewDelegate, RadiusViewDelegate,TextToSpeechDelegate,GMSAutocompleteFetcherDelegate,LanguagePopUpViewDelegate,UISearchBarDelegate>
 {
     BOOL drawForOnce;
     NSString *radiusValue;
@@ -83,7 +83,7 @@
 @implementation HomeViewController
 
 -(IBAction)micButtonTapped:(id)sender{
-   
+    
     
     if ([self.selectedLanguageFromGlobe.nuanceRelationship allObjects].count>0) {
         Nuance *nuanceDS = [[self.selectedLanguageFromGlobe.nuanceRelationship allObjects] objectAtIndex:0];
@@ -107,7 +107,7 @@
                   }];
         
     }
-
+    
 }
 
 #pragma mark -
@@ -117,7 +117,7 @@
     _searchBar.text = string;
     [_searchBar becomeFirstResponder];
     [_fetcher sourceTextHasChanged:string];
-
+    
 }
 
 
@@ -127,7 +127,7 @@
     
     [super viewDidAppear:animated];
     [self setUpNavigationBar];
-
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -143,8 +143,8 @@
     [self setAutoSearchHiddenViewState:YES];
     
     UITapGestureRecognizer *recg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoSearchTapBg:)];
-
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doMyLayoutStuff:) name:UIApplicationWillEnterForegroundNotification object:nil];
     recg.numberOfTapsRequired = 1;
     
     [self.viewForSearchBarDown addGestureRecognizer:recg];
@@ -155,7 +155,7 @@
 -(void)setAutoSearchHiddenViewState:(BOOL)_hidden{
     
     _viewForSearchBarDown.hidden = _hidden;
-
+    
     
 }
 -(void)autoSearchTapBg:(UIGestureRecognizer *)recog{
@@ -175,7 +175,7 @@
     }
     
     [self initiateLanguageRequest:_selectedLanguageFromGlobe];
-
+    
 }
 
 -(void)swipeNotifcationFromMenu:(id)notification{
@@ -195,13 +195,13 @@
     NSLog(@"%d",[APP_DELEGATE getUserDefaultLanguageIsChached]);
     if  ([APP_DELEGATE getUserDefaultLanguageIsChached] && (_currentTranslatorRequestType ==TR_TRANSLATE_REQUEST_SETTINGS ||_currentTranslatorRequestType ==TR_TRANSLATE_REQUEST_NONE))
         
-   {
-       APP_DELEGATE.isLanguageChange = NO;
-       [self startTranslationOnMonumentList];
-   }
+    {
+        APP_DELEGATE.isLanguageChange = NO;
+        [self startTranslationOnMonumentList];
+    }
     
     
-
+    
 }
 -(NSArray *)getDataArra{
     
@@ -235,40 +235,82 @@
     
     _searchBar.text = [APP_DELEGATE getCurrentLocationAddress];
     
-
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+    
+    //    [_mapContainerView removeObserver:self forKeyPath:@"myLocation"];
+    
+}
 
-//    [_mapContainerView removeObserver:self forKeyPath:@"myLocation"];
+-(void)doMyLayoutStuff:(NSNotification *)notify{
+    
+    if ([CLLocationManager authorizationStatus]!= kCLAuthorizationStatusDenied) {
+        APP_DELEGATE.isLocationEnabled = YES;
+        
+    }else if  ([CLLocationManager authorizationStatus]== kCLAuthorizationStatusDenied){
+        APP_DELEGATE.isLocationEnabled = NO;
+        
+    }
+    if (!APP_DELEGATE.isLocationEnabled) {
+        if ([CLLocationManager authorizationStatus]!= kCLAuthorizationStatusDenied) {
+            APP_DELEGATE.isLocationEnabled = YES;
+            [self requestForCurrentLocation];
+            
+        }else if  ([CLLocationManager authorizationStatus]== kCLAuthorizationStatusDenied){
+            [self.navigationController.view makeToast:@"Location Service is disabled due to which Trotoise will not be able to load the monument list. Please enable location service from settings."
+                                             duration:4.0
+                                             position:CSToastPositionCenter];
+            APP_DELEGATE.isLocationEnabled = NO;
+            _dataArra =nil;
+             _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ mi range.",(unsigned long)0,radiusValue];
+            _searchBar.text = @"";
+            [self.tableView reloadData];
+            [self.mapContainerView clearsContextBeforeDrawing];
+            [self.mapContainerView clear];
+            
+        }
+    }else{
+        if (_dataArra == nil) {
+            [self requestForCurrentLocation];
 
+        }
+    }
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
+    if (!APP_DELEGATE.isLocationEnabled) {
+        if ([CLLocationManager authorizationStatus]!= kCLAuthorizationStatusDenied) {
+            APP_DELEGATE.isLocationEnabled = YES;
+            [self requestForCurrentLocation];
+            
+        }else if  ([CLLocationManager authorizationStatus]== kCLAuthorizationStatusDenied){
+            [self.navigationController.view makeToast:@"Location Service is disabled due to which Trotoise will not be able to load the monument list. Please enable location service from settings."
+                                             duration:4.0
+                                             position:CSToastPositionCenter];
+            APP_DELEGATE.isLocationEnabled = NO;
+            
+        }
+    }
     [_mainView setBOOLMidHeightSet:NO];
     [self setGlobeLanguage];
-//    if(APP_DELEGATE.isLanguageChange){
-//        if(self.dataArra !=nil){
-//            self.dataArra = nil;
-//        }
-//        self.dataArra = [NSMutableArray arrayWithArray:[APP_DELEGATE getMonumentListArray]];
-//        [self.tableView reloadData];
-//        APP_DELEGATE.isLanguageChange = NO;
-//    }
-
+    
+    
 }
 -(void)setUpDraggableView{
-//    [_mainView ]
+    //    [_mainView ]
     [_mainView makeDraggable];
     [_mainView setDelegate:(id)self];
     [_mainView setDragMode:UIViewDragDropModeRestrictY];
     [_mainView setStageTopPoint:self.mapContainerView.frame.origin];
     initialFrameRect = _mainView.frame;
     [_mainView setInitialFramePoint:_mainView.frame ];
-
+    
 }
 -(void)setUpNavigationBar{
     
@@ -283,7 +325,7 @@
     
     
     Language *defaultLang = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
-
+    
     customButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateNormal];
     //    [customButton setTitle:@"En" forState:UIControlStateNormal];
@@ -293,12 +335,12 @@
     
     [customButton.titleLabel setFont:[UIFont TrotoiseFontCondensedRegular:16]];
     [customButton sizeToFit];
-//    [customButton.titleLabel sizeToFit];
+    //    [customButton.titleLabel sizeToFit];
     [customButton addTarget:self action:@selector(customLanguageButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* customBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customButton];
-//    customBarButtonItem.customView.frame = CGRectMake(customBarButtonItem.customView.frame.origin.x, customBarButtonItem.customView.frame.origin.y, 150, customBarButtonItem.customView.frame.size.height);
+    //    customBarButtonItem.customView.frame = CGRectMake(customBarButtonItem.customView.frame.origin.x, customBarButtonItem.customView.frame.origin.y, 150, customBarButtonItem.customView.frame.size.height);
     self.navigationItem.rightBarButtonItem = customBarButtonItem;
-
+    
     
     _barButton.target = self.revealViewController;
     _barButton.action = @selector(revealToggle:);
@@ -319,9 +361,9 @@
     
 }
 -(void)customLanguageButtonTapped:(id)sender{
-// LanguageViewController *languageVC =   [self.storyboard instantiateViewControllerWithIdentifier:@"LanguageViewController"];
-//  
-//    [self.navigationController presentViewController:languageVC animated:YES completion:nil];
+    // LanguageViewController *languageVC =   [self.storyboard instantiateViewControllerWithIdentifier:@"LanguageViewController"];
+    //
+    //    [self.navigationController presentViewController:languageVC animated:YES completion:nil];
     [_klcPopLanguageView show];
 }
 -(IBAction)radiusBtnTapped:(id)sender{
@@ -332,20 +374,20 @@
     
     if(btn.tag ==1002)
     {
-//        [self setUpAutoComplete];
+        //        [self setUpAutoComplete];
         
     }else{
         
         [self requestForCurrentLocation];
-
+        
     }
-
+    
 }
 
 -(void)requestForCurrentLocation{
     
     __weak HomeViewController *weakSelf = self;
-
+    
     [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
         if (error != nil) {
             NSLog(@"Current Place error %@", [error localizedDescription]);
@@ -373,7 +415,7 @@
 -(NSString *)getLanguageLocale{
     NSString * defaultLanguageLocale = @"en";
     if ([_selectedLanguageFromGlobe.transCode isEqualToString:@"hi"]) {
-         defaultLanguageLocale = @"hi";
+        defaultLanguageLocale = @"hi";
     }
     return defaultLanguageLocale;
 }
@@ -382,17 +424,17 @@
     NSString *lat = [NSString stringWithFormat:@"%f",self.homeViewLocation.coordinate.latitude ];
     NSString *longitude = [NSString stringWithFormat:@"%f",self.homeViewLocation.coordinate.longitude ];
     
-        __weak HomeViewController *weakSelf = self;
+    __weak HomeViewController *weakSelf = self;
     
     [self mapLocationMoveForLocation];
     [[TTAPIHandler sharedWorker] getMonumentListByRange:lat  withLongitude:longitude withrad:radiusValue withLanguageLocale:[self getLanguageLocale]  withRequestType:GET_MONUMENT_LIST_BY_RANGE responseHandler:^(BOOL isResultSuccess, NSError *error) {
         if (error!=nil) {
             
-           
+            
             [weakSelf.navigationController.view makeToast:@"Unable to load Monuments List."
-                                             duration:1.0
-                                             position:CSToastPositionCenter];
-           
+                                                 duration:1.0
+                                                 position:CSToastPositionCenter];
+            
             weakSelf.dataArra = nil;
             [weakSelf.tableView reloadData];
             TRRANGETYPE range = [APP_DELEGATE getRangeType];
@@ -413,18 +455,18 @@
                 _dataArra = [[MonumentDataManager sharedManager] getMonumentListArra];
             }
             
-//            _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
-//            APP_DELEGATE.defaultCityMonumentList = _dataArra;
+            //            _dataArra =  [NSMutableArray arrayWithArray:cityMonumentArra];
+            //            APP_DELEGATE.defaultCityMonumentList = _dataArra;
             
             if (![_selectedLanguageFromGlobe.transCode isEqualToString:@"hi"] && ![_selectedLanguageFromGlobe.transCode isEqualToString:@"en"] && ( [APP_DELEGATE getUserDefaultLanguageIsChached] || _currentTranslatorRequestType == TR_TRANSLATE_REQUEST_HOME || _currentTranslatorRequestType == TR_TRANSLATE_REQUEST_SETTINGS )) {
                 
                 [Utilities hideHUDForView:weakSelf.view];
-
-                    [weakSelf startTranslationOnMonumentList];
+                
+                [weakSelf startTranslationOnMonumentList];
                 return ;
             }else{
                 [Utilities hideHUDForView:weakSelf.view];
-
+                
                 [weakSelf.tableView reloadData];
                 drawForOnce = NO;
                 
@@ -442,26 +484,26 @@
             }
             
         }
-       
-//        _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
+        
+        //        _lblDistanceRequired.text = [NSString stringWithFormat:@"%lu monuments found in %@ km range.",(unsigned long)_dataArra.count,radiusValue];
         
         [Utilities hideHUDForView:weakSelf.view];
     }];
 }
 -(void)setUpRadiusPopUp{
     NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"RadiusView" owner:self options:nil];
-
+    
     self.radiusView = (RadiusView *)[arr objectAtIndex:0];
-   
+    
     self.radiusView.frame = CGRectMake(self.radiusView.frame.origin.x, self.radiusView.frame.origin.y, 297.0f, 163.0f);
     self.radiusView.titleLbl.text = SCAN_MONUMENT_KM;
     TRRANGETYPE rangeType = [APP_DELEGATE getRangeType];
     if (rangeType == TRRANGE_MILETYPE) {
         self.radiusView.titleLbl.text = SCAN_MONUMENT_MILE;
-  
+        
     }
     self.radiusView.delegate = self;
-   _klcPopView = [KLCPopup popupWithContentView:self.radiusView];
+    _klcPopView = [KLCPopup popupWithContentView:self.radiusView];
     
 }
 
@@ -480,19 +522,19 @@
         circle = [GMSCircle circleWithPosition:self.homeViewLocation.coordinate
                                         radius:1000*radiusInteger];
         
-    UIColor *color =  UIColorFromRGB(0x3bb3c2);
+        UIColor *color =  UIColorFromRGB(0x3bb3c2);
         circle.fillColor = [color colorWithAlphaComponent:0.2];
         circle.strokeColor = UIColorFromRGB(0x3bb3c2);
         circle.strokeWidth = 0;
         
-    
+        
     }else{
         [self setCirclePosition:self.homeViewLocation.coordinate];
         [self setCircleRadius:radiusInteger];
         
     }
     circle.map = _mapContainerView;
- }
+}
 -(void)setCirclePosition:(CLLocationCoordinate2D)coordinate{
     
     if (circle!=nil) {
@@ -502,22 +544,22 @@
 }
 -(void)setCircleRadius:(NSInteger)radius{
     if (circle != nil) {
-//        this.circle.setRadius(radius * METERS_TO_KMS * 1.05);
+        //        this.circle.setRadius(radius * METERS_TO_KMS * 1.05);
         TRRANGETYPE range = [APP_DELEGATE getRangeType];
         float radiusInt = [radiusValue floatValue];
         if (range == TRRANGE_MILETYPE) {
             radiusInt = radiusInt * 1.6;
         }
         [circle setRadius:(1000*radiusInt*1.05)];
-                           
- 
+        
+        
     }
 }
 
 -(void)zoomToFitGoogleMap{
     
     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:self.homeViewLocation.coordinate coordinate:self.homeViewLocation.coordinate];
-
+    
     [_mapContainerView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:3]];
     
 }
@@ -529,7 +571,7 @@
     
     [_mapContainerView clear];
     circle = NULL;
-//    [_mapContainerView.clearsContextBeforeDrawing
+    //    [_mapContainerView.clearsContextBeforeDrawing
 }
 
 -(void)mapLocationMoveForLocation{
@@ -544,7 +586,7 @@
     [_mapContainerView setCamera:cameraPosition];
     GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:self.homeViewLocation.coordinate coordinate:self.homeViewLocation.coordinate];
     
-
+    
     if ([radiusValue integerValue]<100) {
         [_mapContainerView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:120]];
         [_mapContainerView animateWithCameraUpdate:[GMSCameraUpdate zoomTo:9]];
@@ -555,24 +597,24 @@
         
         
     }
-
+    
 }
 
 -(void)mapSetUpWithLatitude:(CLLocationDegrees)_latitude withLongitude:(CLLocationDegrees)_longitude{
     @try {
-//        [self resetMapView];
+        //        [self resetMapView];
         
         
-//        _mapContainerView.clearsContextBeforeDrawing = YES;
+        //        _mapContainerView.clearsContextBeforeDrawing = YES;
         MonumentList *obj = (MonumentList *)[_dataArra lastObject];
         double latitude = [obj.latitude doubleValue];
         double longitude = [obj.longitude doubleValue];
         
-//        GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:_latitude
-//                                                                        longitude:_longitude
-//                                                                             zoom:1];
-//        _mapContainerView.delegate = self;
-//        [_mapContainerView setCamera:cameraPosition];
+        //        GMSCameraPosition *cameraPosition = [GMSCameraPosition cameraWithLatitude:_latitude
+        //                                                                        longitude:_longitude
+        //                                                                             zoom:1];
+        //        _mapContainerView.delegate = self;
+        //        [_mapContainerView setCamera:cameraPosition];
         //  [_mapContainerView animateToLocation:]
         CLLocationCoordinate2D coord;
         coord.latitude = latitude;
@@ -613,7 +655,7 @@
         [self drawCircleOnMap];
         
         
-
+        
     }
     @catch (NSException *exception) {
         
@@ -621,16 +663,16 @@
     }
     @finally {
         
-
+        
     }
     
-
-
+    
+    
 }
 
 - (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
     
-
+    
     _customMarkerView =  [[[NSBundle mainBundle] loadNibNamed:@"CustomMarkerView" owner:self options:nil] objectAtIndex:0];
     MonumentList *mds = (MonumentList *)marker.userData;
     _customMarkerView.titleLbl.text =mds.name;
@@ -643,12 +685,12 @@
                                                             longitude:[mds.longitude doubleValue]
                                                                  zoom:13];
     [_mapContainerView setCamera:sydney];
-
-//    CLLocationCoordinate2D coord;
-//    coord.latitude =[mds.latitude doubleValue];
-//    coord.longitude = [mds.longitude doubleValue];
-//    [_mapContainerView animateToLocation:coord];
-
+    
+    //    CLLocationCoordinate2D coord;
+    //    coord.latitude =[mds.latitude doubleValue];
+    //    coord.longitude = [mds.longitude doubleValue];
+    //    [_mapContainerView animateToLocation:coord];
+    
     return _customMarkerView;
 }
 - (void)mapView:(GMSMapView *)mapView
@@ -658,15 +700,15 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     // NSInteger row = indexPath.section;
     monumentDetailVC.monumentDetailObj = (MonumentList *)marker.userData;
     monumentDetailVC.selectedLanguageFromGlobe = _selectedLanguageFromGlobe;
-
+    
     [self.navigationController pushViewController:monumentDetailVC animated:YES];
     
 }
 
 
 - (void)mapView:(GMSMapView *)mapView didCloseInfoWindowOfMarker:(GMSMarker *)marker{
-//    TRRANGE_MILETYPE
-//    CLLocationCoordinate2D locationCord = [APP_DELEGATE getCurrentLocationCoordinate];
+    //    TRRANGE_MILETYPE
+    //    CLLocationCoordinate2D locationCord = [APP_DELEGATE getCurrentLocationCoordinate];
     GMSCameraPosition *sydney = [GMSCameraPosition cameraWithLatitude:self.homeViewLocation.coordinate.latitude
                                                             longitude:self.homeViewLocation.coordinate.longitude
                                                                  zoom:9.5];
@@ -679,7 +721,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
                         change:(NSDictionary *)change
 
                        context:(void *)context {
-
+    
     NSLog(@"Change in Dic %@",[change description]);
     
 }
@@ -705,7 +747,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
         
     }else{
         self.dynamicTVHeight.constant = height-self.searchContainerView.frame.size.height-12;
-
+        
     }
     
     //    self.dynamicTVHeight.multiplier = [NSNumber num]0.5;
@@ -716,9 +758,9 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 
 -(void)sendUpdatedHeightForTableView:(CGFloat)height{
     
-
     
-//    [self.tableView setNeedsDisplay];
+    
+    //    [self.tableView setNeedsDisplay];
     
 }
 
@@ -730,7 +772,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - CLLOCATION MANAGER INITIALIATION 
+#pragma mark - CLLOCATION MANAGER INITIALIATION
 
 
 #pragma mark - UITableViewDataSource protocol methods
@@ -748,7 +790,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     
     HomeViewTableViewCell *cell = (HomeViewTableViewCell *)[tableView dequeueReusableCellWithIdentifier:ident];
     if (cell == nil) {
-       NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"HMVCell" owner:self options:nil];
+        NSArray *arr = [[NSBundle mainBundle] loadNibNamed:@"HMVCell" owner:self options:nil];
         cell = (HomeViewTableViewCell *)[arr objectAtIndex:0];
     }
     
@@ -761,12 +803,12 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     
     SDWebImageManager *manager = [SDWebImageManager sharedManager];
     [manager downloadImageWithURL:[NSURL URLWithString:duck.thumbnail]
-                     options:0
-                    progress:^(NSInteger receivedSize, NSInteger expectedSize)
+                          options:0
+                         progress:^(NSInteger receivedSize, NSInteger expectedSize)
      {
          // progression tracking code
      }
-                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
      {
          if (image)
          {
@@ -774,8 +816,8 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
              // do something with image
          }
      }];
-//    cell.placeImageView.image = [UIImage imageNamed:@"paris.png"];
-[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    //    cell.placeImageView.image = [UIImage imageNamed:@"paris.png"];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
@@ -786,8 +828,8 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-   MonumentDetail1ViewController *monumentDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MonumentDetail1ViewController"];
-   // NSInteger row = indexPath.section;
+    MonumentDetail1ViewController *monumentDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MonumentDetail1ViewController"];
+    // NSInteger row = indexPath.section;
     monumentDetailVC.monumentDetailObj = (MonumentList *)[_dataArra objectAtIndex:indexPath.section];
     monumentDetailVC.selectedLanguageFromGlobe = _selectedLanguageFromGlobe;
     monumentDetailVC.homeViewLocation = _homeViewLocation;
@@ -802,11 +844,11 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 -(void)radiusViewDidOkButonTappedWithSliderValue:(CGFloat)sliderValue{
     NSLog(@"Radius View Ok Button Pressed slider Value %0.f",sliderValue);
     radiusValue = [NSString stringWithFormat:@"%0.f",sliderValue];
-
-//    CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate];
-//    
-//    CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-//    
+    
+    //    CLLocationCoordinate2D coordinate = [APP_DELEGATE getCurrentLocationCoordinate];
+    //
+    //    CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    //
     //NEED TO CALL WEBSERVICE
     
     //ADDING HUD
@@ -816,12 +858,12 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     
     
     [_klcPopView dismiss:YES];
-
+    
     
 }
 -(void)radiusViewDidCancelButonTappedWithSliderValue:(CGFloat)sliderValue{
     [_klcPopView dismiss:YES];
-
+    
 }
 
 #pragma mark -
@@ -902,26 +944,26 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
                 
             }
             else{
-           
+                
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
                 
                 [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
-            
+                
             }
         }];
         
         
     }
-//    else{
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
-//        
-//        [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
-//        
-//    }
+    //    else{
+    //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
+    //
+    //        [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
+    //
+    //    }
 }
 -(void)languagePopUpViewDidCancelButonTappedWithLanguage:(Language *)languageObject{
     
-      [_klcPopLanguageView dismiss:YES];
+    [_klcPopLanguageView dismiss:YES];
 }
 -(void)setGlobeLanguage{
     
@@ -936,12 +978,12 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 }
 -(void)onTranslationComplete:(NSNotification *)notification{
     
-//    [APP_DELEGATE setCityMonumentListArray:aarr];
+    //    [APP_DELEGATE setCityMonumentListArray:aarr];
     
-//    [self setGlobeLanguage];
+    //    [self setGlobeLanguage];
     [Utilities hideHUDForView:self.view];
-  [self setUpMapData];
-//    [self setUpInitialData];
+    [self setUpMapData];
+    //    [self setUpInitialData];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
@@ -960,7 +1002,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     self.autoCompleteView.delegate = self;
     _klcPopAutoCompleteView = [KLCPopup popupWithContentView:self.autoCompleteView];
     _klcPopAutoCompleteView.maskType = KLCPopupMaskTypeNone;
-
+    
     
 }
 -(void)setUpAutoCompleteFetcher{
@@ -985,21 +1027,21 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 }
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar                     // called when text starts editing
 {
-       [self setAutoSearchHiddenViewState:NO];
+    [self setAutoSearchHiddenViewState:NO];
     [self animateTextField:searchBar up:YES];
-
+    
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar                      // called when text ends editing
 {
-       [self setAutoSearchHiddenViewState:YES];
+    [self setAutoSearchHiddenViewState:YES];
     [self animateTextField:searchBar up:NO];
-
+    
     
 }
 - (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar{
     
     [searchBar resignFirstResponder];
-
+    
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
@@ -1007,13 +1049,13 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
- 
+    
     
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-
-        [_fetcher sourceTextHasChanged:searchText];
+    
+    [_fetcher sourceTextHasChanged:searchText];
 }
 -(void)animateTextField:(UISearchBar*)textField up:(BOOL)up
 {
@@ -1036,27 +1078,27 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     }
     
     if (predictions.count>0) {
-    [_klcPopAutoCompleteView showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutAboveCenter)];
+        [_klcPopAutoCompleteView showWithLayout:KLCPopupLayoutMake(KLCPopupHorizontalLayoutCenter, KLCPopupVerticalLayoutAboveCenter)];
         
-    [self.autoCompleteView setUpData:predictions];
+        [self.autoCompleteView setUpData:predictions];
     }else{
         
         [_klcPopAutoCompleteView dismiss:YES];
     }
     
-
+    
     NSLog(@"%@", resultsStr);
 }
 
 -(void)onAutoCompleteResultSelect:(GMSAutocompletePrediction *)prediction{
     [_searchBar resignFirstResponder];
-
+    
     [_klcPopAutoCompleteView dismiss:YES];
     
     
-            __weak HomeViewController *weakSelf = self;
+    __weak HomeViewController *weakSelf = self;
     [[GMSPlacesClient sharedClient] lookUpPlaceID:prediction.placeID callback:^(GMSPlace * _Nullable result, NSError * _Nullable error) {
-         [Utilities addHUDForView:weakSelf.view];
+        [Utilities addHUDForView:weakSelf.view];
         if (error!=nil) {
             [Utilities hideHUDForView:weakSelf.view];
         }else{
@@ -1070,7 +1112,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
                 
                 //    CLLocation* location;// = place.coordinate;
                 weakSelf.homeViewLocation = [[CLLocation alloc] initWithLatitude:result.coordinate.latitude longitude:result.coordinate.longitude];
-               
+                
                 [weakSelf callMonumentAPIForLocation];
                 isUseExtra = NO;
                 

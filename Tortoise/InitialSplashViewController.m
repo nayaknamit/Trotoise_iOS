@@ -21,7 +21,7 @@
 #import "LanguageDataManager.h"
 @interface InitialSplashViewController ()<CLLocationManagerDelegate>
 {
-
+    
     BOOL isOpenOnce;
     BOOL isCloseAnimation;
     CGFloat textImageLogoX;
@@ -37,15 +37,15 @@ static dispatch_once_t predicate;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"splash_logo.png"]];
+    //    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"splash_logo.png"]];
     
     
-//    imageView.center = self.view.center;
+    //    imageView.center = self.view.center;
     
     storiesLogoX = _storiesLogoLbl.frame.origin.x;
-     textImageLogoX = _leadConstraint.constant;
+    textImageLogoX = _leadConstraint.constant;
     _imageView.frame = CGRectMake(-200, _imageView.frame.origin.y,_imageView.frame.size.width,_imageView.frame.size.height);
-//    _textImageView.frame = CGRectMake(-500, _textImageView.frame.origin.y, _textImageView.frame.size.width, _textImageView.frame.size.height);
+    //    _textImageView.frame = CGRectMake(-500, _textImageView.frame.origin.y, _textImageView.frame.size.width, _textImageView.frame.size.height);
     
     _storiesLogoLbl.frame = CGRectMake(self.view.frame.size.width+200, _storiesLogoLbl.frame.origin.y, _storiesLogoLbl.frame.size.width, _storiesLogoLbl.frame.size.height);
     
@@ -70,7 +70,7 @@ static dispatch_once_t predicate;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-[[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];    
+    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 }
 
 -(void)setUpLocationManager{
@@ -98,88 +98,36 @@ static dispatch_once_t predicate;
     
     CLLocation* location = [locations lastObject];
     [APP_DELEGATE.locationManager stopUpdatingLocation];
-//    CLLocation *newLocation = locations.lastObject;
-//    
-//    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
-//    if (locationAge > 5.0) return;
-//    
-//    if (newLocation.horizontalAccuracy < 0) return;
+    //    CLLocation *newLocation = locations.lastObject;
+    //
+    //    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    //    if (locationAge > 5.0) return;
+    //
+    //    if (newLocation.horizontalAccuracy < 0) return;
     
     [APP_DELEGATE setCurrentLocationCoordinate:location.coordinate];
     
-        NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
-        NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
-   
+    NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
+    NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
+    APP_DELEGATE.isLocationEnabled = YES;
     dispatch_once(&predicate, ^{
         //your code here
         
         __weak InitialSplashViewController *weakRef = self;
         [[TTAPIHandler sharedWorker] getMonumentListByRange:lat withLongitude:longitude withrad:@"30"withLanguageLocale:@"en" withRequestType:
          GET_MONUMENT_LIST_BY_RANGE responseHandler:^(BOOL isResultSuccess, NSError *error) {
-            
+             
              if (error!=nil) {
                  [weakRef.navigationController.view makeToast:@"Unable to load Monuments List."
-                                                  duration:1.0
-                                                  position:CSToastPositionCenter];
+                                                     duration:1.0
+                                                     position:CSToastPositionCenter];
                  [self openSplashViewController];
-
+                 
                  
              }else{
-                
                  
-                 if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
-                     [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(BOOL isSuccess, NSError *error) {
-                         [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
-                         if (isSuccess) {
-                             [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
-                                 if (error != nil) {
-                                     NSLog(@"Current Place error %@", [error localizedDescription]);
-                                     return;
-                                 }
-                                 GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
-                                 
-                                 GMSPlace *place = likelihood.place;
-                                 NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
-                                 NSLog(@"Current Place address %@", place.formattedAddress);
-                                 NSLog(@"Current Place attributions %@", place.attributions);
-                                 NSLog(@"Current PlaceID %@", place.placeID);
-                                 
-                                 
-                                 [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
-                                 isCloseAnimation = YES;
-                                 
-                                [self openSplashViewController];
-                             }];
-                         }else{
-                             [self openSplashViewController];
-                         }
-                         
-                     }];
-                 }else{
-                    
-                        [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
-                     [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
-                         if (error != nil) {
-                             NSLog(@"Current Place error %@", [error localizedDescription]);
-                             return;
-                         }
-                         GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
-                         
-                         GMSPlace *place = likelihood.place;
-                         NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
-                         NSLog(@"Current Place address %@", place.formattedAddress);
-                         NSLog(@"Current Place attributions %@", place.attributions);
-                         NSLog(@"Current PlaceID %@", place.placeID);
-                         
-                         
-                         [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
-                         isCloseAnimation = YES;
-
-                         [self openSplashViewController];
-                     }];
-                     
-                     
-                 }
+                 [self setUpLanguageCall];
+                 
                  
              }
              
@@ -191,15 +139,67 @@ static dispatch_once_t predicate;
         
     });
     
-
+    
     
     
 }
-
+-(void)setUpLanguageCall{
+    if(![[LanguageDataManager sharedManager] isLanguageDataExistInCoreData]){
+        [[TTAPIHandler sharedWorker] getLanguageMappingwithRequestType:GET_LANGUAGE_MAPPING withResponseHandler:^(BOOL isSuccess, NSError *error) {
+            [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
+            if (isSuccess) {
+                if (!APP_DELEGATE.isLocationEnabled) {
+                    isCloseAnimation = YES;
+                    [self openSplashViewController];
+                    return ;
+                }
+                [self callGMSPlaceLikelihood];
+            }else{
+                [self openSplashViewController];
+            }
+            
+        }];
+    }else{
+        
+        [[LanguageDataManager sharedManager] setInitialDefaultLanguage];
+        if (!APP_DELEGATE.isLocationEnabled) {
+            isCloseAnimation = YES;
+            [self openSplashViewController];
+            return ;
+        }
+        [self callGMSPlaceLikelihood];
+        
+        
+    }
+}
+-(void)callGMSPlaceLikelihood{
+    [[GMSPlacesClient sharedClient] currentPlaceWithCallback:^(GMSPlaceLikelihoodList *likelihoodList, NSError *error) {
+        if (error != nil) {
+            NSLog(@"Current Place error %@", [error localizedDescription]);
+            return;
+        }
+        GMSPlaceLikelihood *likelihood =   [likelihoodList.likelihoods objectAtIndex:0];
+        
+        GMSPlace *place = likelihood.place;
+        NSLog(@"Current Place name %@ at likelihood %g", place.name, likelihood.likelihood);
+        NSLog(@"Current Place address %@", place.formattedAddress);
+        NSLog(@"Current Place attributions %@", place.attributions);
+        NSLog(@"Current PlaceID %@", place.placeID);
+        
+        
+        [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+        isCloseAnimation = YES;
+        
+        [self openSplashViewController];
+    }];
+    
+}
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error{
     
-    
+    APP_DELEGATE.isLocationEnabled = NO;
+    [self setUpLanguageCall];
+    [APP_DELEGATE checkForNetworkServiceEnabled];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -212,13 +212,13 @@ static dispatch_once_t predicate;
     
     if(loggedInUserDict!=nil){
         [APP_DELEGATE setLoggedInUserData:loggedInUserDict isFacebookData:NO];
-
-//       SWRevealController *revealVC = [[SWRevealViewController alloc] initWithRearViewController:<#(UIViewController *)#> frontViewController:<#(UIViewController *)#>]
-//        UIViewController *Cc = self.revealViewController;
+        
+        //       SWRevealController *revealVC = [[SWRevealViewController alloc] initWithRearViewController:<#(UIViewController *)#> frontViewController:<#(UIViewController *)#>]
+        //        UIViewController *Cc = self.revealViewController;
         
         
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        HomeViewController * homeVC = [sb instantiateViewControllerWithIdentifier:@"HomeViewController"];
+        //        HomeViewController * homeVC = [sb instantiateViewControllerWithIdentifier:@"HomeViewController"];
         
         UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
         MenuTableViewController *menuTableVC = [sb instantiateViewControllerWithIdentifier:@"MenuTableViewController"];
@@ -249,7 +249,7 @@ static dispatch_once_t predicate;
         
         
     } completion:^(BOOL finished) {
-
+        
         weakRef.leadConstraint.constant = -6;
         [weakRef.textImageView updateConstraintsIfNeeded];
         
@@ -257,8 +257,8 @@ static dispatch_once_t predicate;
             
             [weakRef.textImageView layoutIfNeeded];
         } completion:^(BOOL finished) {
-//            weakRef.trailConstraint.constant = -28;
-//            [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
+            //            weakRef.trailConstraint.constant = -28;
+            //            [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
             
             [UIView animateWithDuration:10 delay:5 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 weakRef.trailConstraint.constant = -18;
@@ -266,7 +266,7 @@ static dispatch_once_t predicate;
                 
                 
             } completion:^(BOOL finished) {
-//                [weakRef openSplashViewController];
+                //                [weakRef openSplashViewController];
                 
             }];
         }];
@@ -275,48 +275,48 @@ static dispatch_once_t predicate;
         
         
         //           [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
-      
+        
         
         
         /*
-        if(isCloseAnimation){
-           
+         if(isCloseAnimation){
          
-            [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
-           
-            
-        }
+         
+         [weakRef performSelector:@selector(animate) withObject:nil afterDelay:3.0];
+         
+         
+         }
          */
         /*else{
-            weakRef.imageView.frame = CGRectMake(-200, weakRef.imageView.frame.origin.y,weakRef.imageView.frame.size.width,weakRef.imageView.frame.size.height);
-
-            [weakRef animateSplashScreen];
-
-        }*/
+         weakRef.imageView.frame = CGRectMake(-200, weakRef.imageView.frame.origin.y,weakRef.imageView.frame.size.width,weakRef.imageView.frame.size.height);
+         
+         [weakRef animateSplashScreen];
+         
+         }*/
         
     }];
     
 }
 -(void)animate{
     __weak InitialSplashViewController *weakRef = self;
-
+    
     
     [UIView animateWithDuration:5 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         weakRef.leadConstraint.constant = -6;
         [weakRef.textImageView updateConstraintsIfNeeded];
-
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:4 delay:2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             weakRef.trailConstraint.constant = -28;
             [weakRef.storiesLogoLbl updateConstraintsIfNeeded];
-
+            
             
         } completion:^(BOOL finished) {
             [weakRef openSplashViewController];
-
+            
         }];
     }];
-
+    
     
 }
 - (void)didReceiveMemoryWarning {
@@ -331,13 +331,13 @@ static dispatch_once_t predicate;
     self.textImageView  = nil;
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -216,6 +216,7 @@
         
         [[LanguageDataManager sharedManager] setDefaultLanguage:DEFAULT_LANGUAGE_WITHOUT_NUANCE  withLanguageDict:[NSDictionary dictionaryWithObjectsAndKeys:data.name,@"lg_name", nil]];
     }
+    [APP_DELEGATE setUpLanguageInUSerDefualts:data withSplashTextArr:nil];
     [APP_DELEGATE setUserDefaultLanguageIsCached:YES];
 
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];

@@ -99,9 +99,10 @@
             
             if (translated == nil) {
                 
+                NSLog(@"Service Error %@",error.description);
+                  [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.001];
                 
-                
-                _counter++;
+//                _counter++;
             }else{
                 NSArray *divisonArray = [translated componentsSeparatedByString:@"_"];
                
@@ -110,12 +111,12 @@
                     _counter++;
                 if(_counter != _count){
                     
-                    [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.01];
+                    [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.001];
                     
                 }else{
                     
                     if (_translateRequestVia == TR_TRANSLATE_REQUEST_SETTINGS) {
-                        [manager performSelector:@selector(performDelayTextSpeech) withObject:nil afterDelay:0.01];
+                        [manager performSelector:@selector(performDelayTextSpeech) withObject:nil afterDelay:0.001];
                         
                     }else{
                         [FGTranslator flushCache];

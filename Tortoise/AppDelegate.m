@@ -42,9 +42,9 @@
     
     [GIDSignIn sharedInstance].delegate = self;
 //    [GIDSignIn sharedInstance].clientID = 
-    if ([ self getUserDefaultLanguageIsChached ]) {
-        NSLog(@"aa");
-        NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"languageCache"] description]);
+    if ([ self getUserDefaultLanguageIsChached ] && [[self getLocalCahceLangugeDict] objectForKey:@"splashTextArr"]!= nil) {
+//        NSLog(@"aa");
+//        NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"languageCache"] description]);
         
                              self.splashTextArra = [NSMutableArray arrayWithArray:[[self getLocalCahceLangugeDict] objectForKey:@"splashTextArr"]];
     }else{
@@ -98,19 +98,30 @@
                      options:options];
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
+//- (void)applicationWillResignActive:(UIApplication *)application {
+//    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+//    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+//}
+//
+//- (void)applicationDidEnterBackground:(UIApplication *)application {
+//    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+//    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//}
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
+//- (void)applicationWillEnterForeground:(UIApplication *)application {
+//    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+//    
+//   
+//        if ([CLLocationManager authorizationStatus]!= kCLAuthorizationStatusDenied) {
+//            APP_DELEGATE.isLocationEnabled = YES;
+//            
+//        }else if  ([CLLocationManager authorizationStatus]== kCLAuthorizationStatusDenied){
+//            APP_DELEGATE.isLocationEnabled = NO;
+//            
+//        }
+//    
+//
+//}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -201,6 +212,33 @@ withError:(NSError *)error {
  }
  
  */
+-(void)checkForNetworkServiceEnabled{
+    if(!_isLocationEnabled){
+   
+        UIAlertView* curr2=[[UIAlertView alloc] initWithTitle:@"Trotoise does not have access to Location service" message:@"You can enable access in Settings->Privacy->Location->Location Services" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Settings", nil];
+        curr2.tag=121;
+        [curr2 show];
+
+    }
+}
+
+
+
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%ld",(long)buttonIndex);
+            //code for opening settings app in iOS 8
+    if (buttonIndex == 0) {
+        
+    }else{
+        [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+    
+    
+}
+
 
 -(void)setCurrentLocationAddress:(NSString *)address{
    if( _loggedInUserDS!=nil)
@@ -425,7 +463,10 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
     }
     [dict setObject:languageDS.name forKey:@"lg_name"];
     [dict setObject:languageDS.transCode forKey:@"lg_transCode"];
-    [dict setObject:textArr forKey:@"splashTextArr"];
+    if (textArr !=nil) {
+        [dict setObject:textArr forKey:@"splashTextArr"];
+        
+    }
     
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"languageCache"];
     
