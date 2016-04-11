@@ -29,6 +29,7 @@
 @property (nonatomic)   __block NSInteger translateCounter;
 @property (nonatomic)    NSInteger translateKeyCounter;
 @property (copy) HUDTextChange hudTextHandler;
+@property (nonatomic) __block NSInteger errorCounter;
 @end
 
 @implementation TranslatorManager
@@ -72,6 +73,7 @@
         
         _translateCounter  =0;
         _translateKeyCounter = 0;
+        _errorCounter = 1;
     }
     
     
@@ -97,36 +99,63 @@
         NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@ _ %@ _%@",objMonument.name,[Utilities formattedStringForNewLineForString:objMonument.desc],[Utilities formattedStringForNewLineForString:objMonument.shortDesc]];
     
         __weak TranslatorManager  *manager = self;
-        
+    NSLog(@"Source : %@ Target : %@",source,target);
         [_translator translateText:formattedTranslateLanguage withSource:source target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {
             NSLog(@"Conversion ");
             
             
             if (translated == nil) {
-                
+                _errorCounter ++;
+                if (_errorCounter >9) {
+                    [FGTranslator flushCache];
+                    [FGTranslator flushCredentials];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GA_TRANSLATE_ERROR object:nil];
+                    _translatorArray = nil;
+                    _sourceArra = nil;
+                    NSLog(@"translation Complete");
+                    return ;
+                }
                 NSLog(@"Service Error %@",error.description);
                   [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.001];
                 
 //                _counter++;
             }else{
-                NSArray *divisonArray = [translated componentsSeparatedByString:@"_"];
-               
-                 MonumentList *monumentObj  = [_sourceArra objectAtIndex:_counter];
-                [[MonumentDataManager sharedManager] updateMonumentRecord:divisonArray withMonumentID:monumentObj.id];
+                
+                
+                if (_translatorArray == nil) {
+                    _translatorArray = [NSMutableArray array];
+                }
+                [_translatorArray addObject:translated];
+                
+                
+                
                 self.hudTextHandler([NSString stringWithFormat:@"%@ %ld/%lu.",MSG_MONUMENT_TRANSLATE,(long)_counter,(unsigned long)_sourceArra.count]);
                 _counter++;
-                
-                
                 if(_counter != _count){
                     
                     [manager performSelector:@selector(performInDelay) withObject:nil afterDelay:0.001];
                     
                 }else{
-                    
+                    [_translatorArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        
+                        NSArray *divisonArray = [((NSString *)obj) componentsSeparatedByString:@"_"];
+                        
+                        
+                        MonumentList *monumentObj  = [_sourceArra objectAtIndex:idx];
+                        
+                        
+                        [[MonumentDataManager sharedManager] updateMonumentRecord:divisonArray withMonumentID:monumentObj.id];
+                        
+                        
+                    }];
                     if (_translateRequestVia == TR_TRANSLATE_REQUEST_SETTINGS) {
                         [manager performSelector:@selector(performDelayTextSpeech) withObject:nil afterDelay:0.001];
                         
                     }else{
+                        
+                      
+                        
+                        
                         [FGTranslator flushCache];
                         [FGTranslator flushCredentials];
                         [[NSNotificationCenter defaultCenter] postNotificationName:GA_TRANSLATE_DONE object:_translatorArray];
@@ -244,7 +273,7 @@
 }
 -(void)performDelayTextSpeech{
     [self inititalizeTranslator];
-    [self translateSplashScreenText:[APP_DELEGATE getSplashTextArray] withSource:_sourceResource withTarget:_targetResource];
+    [self translateSplashScreenText:[NSMutableArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_ONE,@"title",SPLASH_TEXT_DESC_ONE,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_TWO,@"title",SPLASH_TEXT_DESC_TWO,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_THREE,@"title",SPLASH_TEXT_DESC_THREEE,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_FOUR,@"title",SPLASH_TEXT_DESC_FOUR,@"desc", nil],[NSDictionary dictionaryWithObjectsAndKeys:SPLASH_TEXT_TITLE_FIVE,@"title",SPLASH_TEXT_DESC_FIVE,@"desc", nil], nil] withSource:_sourceResource withTarget:_targetResource];
 }
 -(void)performInDelay{
     [self inititalizeTranslator];

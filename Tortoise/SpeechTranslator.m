@@ -84,21 +84,7 @@ static dispatch_once_t once_token = 0;
         
         
         [_skSession.audioPlayer dequeue:_audioPlayingCurrently];
-//[_skSession.audioPlayer]
     }
-//    if (_skSession !=nil) {
-//        if (_skTransaction !=nil) {
-//            
-//            [_skTransaction cancel];
-//            if ((_skTransaction !=nil) || (_skTransaction != NULL)) {
-//            
-//                
-////                _skSession = nil;
-//
-//            }
-//            
-//        }
-//    }
     
 }
 #pragma mark - SKTransactionDelegate
@@ -133,7 +119,7 @@ static dispatch_once_t once_token = 0;
     // Something went wrong. Check Configuration.mm to ensure that your settings are correct.
     // The user could also be offline, so be sure to handle this case appropriately.
     
-    [self resetTransaction];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED" object:nil];
 }
 
 #pragma mark - SKAudioPlayerDelegate

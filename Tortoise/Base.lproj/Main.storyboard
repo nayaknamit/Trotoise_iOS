@@ -316,7 +316,8 @@
                                                 <variation key="widthClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="255" y="53" width="114" height="15"/>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact">
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="255" y="53" width="118" height="15"/>
                                                     <mask key="constraints">
                                                         <include reference="Vcl-rY-4nh"/>
                                                     </mask>
@@ -621,6 +622,7 @@
                         <outlet property="mainView" destination="4vQ-LZ-heI" id="S0a-P8-oxJ"/>
                         <outlet property="mapContainerView" destination="79c-uY-3xY" id="vJO-aZ-K2L"/>
                         <outlet property="radiusButton" destination="TdT-N4-w8b" id="Bkt-wg-VHz"/>
+                        <outlet property="scrollUpMoreLbl" destination="gvA-f3-jam" id="yYf-Si-ubs"/>
                         <outlet property="searchBar" destination="Ehw-BZ-VvP" id="NU0-uB-YER"/>
                         <outlet property="searchContainerView" destination="5vj-vV-4XJ" id="jwX-8N-Ein"/>
                         <outlet property="searchView" destination="hD9-Ew-0VH" id="Ltj-7P-L8Z"/>
@@ -2868,6 +2870,9 @@ preferred language of communication</string>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMU-RL-C95">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="249"/>
+                                                    </variation>
                                                     <connections>
                                                         <outlet property="delegate" destination="db9-a4-DkP" id="uXH-IG-m29"/>
                                                     </connections>
@@ -2886,7 +2891,8 @@ preferred language of communication</string>
                                                             <exclude reference="ZkI-zj-6Pb"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="160" y="30" width="61" height="37"/>
                                                         <mask key="constraints">
                                                             <include reference="Fku-Ce-HAv"/>
                                                             <include reference="ZkI-zj-6Pb"/>
@@ -2911,7 +2917,8 @@ preferred language of communication</string>
                                                                     <exclude reference="9Xm-Zz-rmz"/>
                                                                 </mask>
                                                             </variation>
-                                                            <variation key="heightClass=regular-widthClass=compact">
+                                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                                <rect key="frame" x="8" y="-3" width="206" height="30"/>
                                                                 <mask key="constraints">
                                                                     <include reference="9Xm-Zz-rmz"/>
                                                                 </mask>
@@ -2967,7 +2974,8 @@ preferred language of communication</string>
                                                             <exclude reference="7ze-K5-RK3"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="0.0" y="189" width="240" height="55"/>
                                                         <mask key="subviews">
                                                             <include reference="1WH-89-ouR"/>
                                                             <include reference="2Gu-Tc-G7G"/>
@@ -2995,7 +3003,8 @@ preferred language of communication</string>
                                                             <exclude reference="peI-Ec-ilf"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="177" y="202" width="40" height="40"/>
                                                         <mask key="constraints">
                                                             <include reference="dwI-lB-duU"/>
                                                             <include reference="peI-Ec-ilf"/>
@@ -3018,7 +3027,8 @@ preferred language of communication</string>
                                                             <exclude reference="rA8-XE-sS6"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="130" y="203" width="40" height="40"/>
                                                         <mask key="constraints">
                                                             <include reference="prN-Cu-BoH"/>
                                                             <include reference="rA8-XE-sS6"/>
@@ -3137,8 +3147,9 @@ preferred language of communication</string>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                         <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="12"/>
+                                                        <rect key="frame" x="13" y="0.0" width="214" height="350"/>
                                                     </variation>
                                                 </textView>
                                             </subviews>

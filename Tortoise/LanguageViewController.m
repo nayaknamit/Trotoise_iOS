@@ -180,8 +180,9 @@
 }
 
 -(void)onTranslationComplete:(NSNotification *)notification{
-            APP_DELEGATE.isLanguageChange = YES;
-    NSArray *aarr = (NSArray *)[notification object];
+    
+    APP_DELEGATE.isLanguageChange = YES;
+    
 //    [APP_DELEGATE setCityMonumentListArray:aarr];
     [Utilities hideHUDForView:self.view];
 

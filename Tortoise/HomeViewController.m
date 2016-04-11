@@ -70,6 +70,9 @@
 @property (nonatomic,strong) AutoCompleteView *autoCompleteView;
 @property (nonatomic,strong) CLLocation *homeViewLocation;
 @property (nonatomic,weak) IBOutlet UIView *viewForSearchBarDown;
+@property (nonatomic,weak) IBOutlet UILabel *scrollUpMoreLbl;
+
+
 @property (nonatomic,strong)TextToSpeech *textSpeech;
 -(IBAction)micButtonTapped:(id)sender;
 -(IBAction)radiusBtnTapped:(id)sender;
@@ -115,6 +118,7 @@
 -(void)textToSpeechConversionText:(NSString *)string{
     
     _searchBar.text = string;
+    
     [_searchBar becomeFirstResponder];
     [_fetcher sourceTextHasChanged:string];
     
@@ -150,7 +154,24 @@
     [self.viewForSearchBarDown addGestureRecognizer:recg];
     
     
+    UITapGestureRecognizer *recg1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollUpMoreLblTapped:)];
+    
+   
+    recg1.numberOfTapsRequired = 1;
+    
+    [self.scrollUpMoreLbl addGestureRecognizer:recg1];
+    
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(swipeNotifcationFromMenu:) name:@"SWIPE_LEFT_GESTURE" object:nil];
+}
+
+-(void)scrollUpMoreLblTapped:(UITapGestureRecognizer *)recog {
+    
+//    [_mainView OnScrollMoreTapWithCurrentPoint:[recog locationInView: self.view ]];
+    
+    
 }
 -(void)setAutoSearchHiddenViewState:(BOOL)_hidden{
     
@@ -165,9 +186,9 @@
     
 }
 -(void)startTranslationOnMonumentList{
-    [self.navigationController.view makeToast:@"Translating Monuments List...."
-                                     duration:5.0
-                                     position:CSToastPositionCenter];
+//    [self.navigationController.view makeToast:@"Translating Monuments List...."
+//                                     duration:5.0
+//                                     position:CSToastPositionCenter];
     
     
     if (_selectedLanguageFromGlobe ==nil) {
@@ -407,7 +428,9 @@
         NSLog(@"Current Place attributions %@", place.attributions);
         NSLog(@"Current PlaceID %@", place.placeID);
         [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
+        
         weakSelf.searchBar.text = place.formattedAddress;
+        [APP_DELEGATE setCurrentLocationAddress:place.formattedAddress];
         weakSelf.homeViewLocation = [[CLLocation alloc] initWithLatitude:place.coordinate.latitude longitude:place.coordinate.longitude];
         
         //Adding HUD View
@@ -954,6 +977,9 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
             else{
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationComplete:) name:GA_TRANSLATE_DONE object:nil];
+
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onTranslationError:) name:GA_TRANSLATE_ERROR object:nil];
+                
                 
 //                [[TranslatorManager sharedInstance] translateLanguageWithSource:@"en" withTarget:languageObject.transCode withRequestSource:_currentTranslatorRequestType withMonumentObj:nil];
 
@@ -974,6 +1000,38 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
     }
    
 }
+-(void)onTranslationError:(NSNotification *)notification{
+    [Utilities hideHUDForView:self.view];
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Something went wrong, Trotoise at work. Please Retry or Cancel to try after some time." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Retry", nil];
+    [alertView show];
+    
+    [ self setUpMapData];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%ld",(long)buttonIndex);
+    if (alertView.tag == 121) {
+        if (buttonIndex == 0) {
+            
+        }else{
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    } else {
+        if (buttonIndex == 1) {
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+            
+        }
+        
+    }
+    //code for opening settings app in iOS 8
+    
+    
+    
+}
+
 -(void)languagePopUpViewDidCancelButonTappedWithLanguage:(Language *)languageObject{
     
     [_klcPopLanguageView dismiss:YES];
@@ -1041,18 +1099,23 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar                     // called when text starts editing
 {
     [self setAutoSearchHiddenViewState:NO];
+    [_mainView setBOOLMidHeightSet:NO];
+
     [self animateTextField:searchBar up:YES];
     
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar                      // called when text ends editing
 {
     [self setAutoSearchHiddenViewState:YES];
+    [_mainView setBOOLMidHeightSet:NO];
+
     [self animateTextField:searchBar up:NO];
     
     
 }
 - (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar{
-    
+    [_mainView setBOOLMidHeightSet:NO];
+
     [searchBar resignFirstResponder];
     
 }
@@ -1121,6 +1184,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
                 NSLog(@"Place address %@", result.formattedAddress);
                 NSLog(@"Place attributions %@", result.attributions.string);
                 _searchBar.text = result.formattedAddress;
+                [APP_DELEGATE setCurrentLocationAddress:result.formattedAddress];
                 NSLog(@"lat : %f long : %f",result.coordinate.latitude,result.coordinate.longitude);
                 
                 //    CLLocation* location;// = place.coordinate;

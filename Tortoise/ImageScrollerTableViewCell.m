@@ -44,7 +44,7 @@
 }
 -(void)changeStopIcon{
     [self stopLogoSpin];
-    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+//    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -54,7 +54,7 @@
 }
 
 - (void) spinLogoWithOptions: (UIViewAnimationOptions) options {
-    NSTimeInterval fullSpinInterval = 1.0f;
+    NSTimeInterval fullSpinInterval = 2.0f;
     [UIView animateWithDuration: fullSpinInterval / 4.0f
                           delay: 0.0f
                         options: options
@@ -75,6 +75,8 @@
                              [self spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut];
                          } else {
                              animationCompleting = NO;
+                             [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+
                          }
                      }];
 }
@@ -82,6 +84,7 @@
 - (void) stopLogoSpin {
     animate = NO;
     animationCompleting = YES;
+    
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOTIFY_STOP_AUDIO" object:nil];
 }
 

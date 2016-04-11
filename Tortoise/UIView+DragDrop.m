@@ -192,7 +192,7 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
             if (direction == UIPanGestureRecognizerDirectionDown) {
                 NSDictionary *initialFrm = objc_getAssociatedObject(self, &_initialFrame);
                 
-//                self.frame = CGRectMake([initialFrm[@"Originx"] floatValue],([UIScreen mainScreen].bounds.size.height- 80-15),[initialFrm[@"SizeWidth"] floatValue],[initialFrm[@"Sizeheight"] floatValue]);
+
                 [self setBOOLMidHeightSet:NO];
                 [self updateConstraintsIfNeeded];
              [delegate sendUpdatedHeightForTableView:[initialFrm[@"Sizeheight"] floatValue] withPointDirection:INITAL_POINT_DIRECTION];
@@ -211,7 +211,8 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
                     }
                     
                     [self setBOOLMidHeightSet:YES];
-                    //                [recognizer setState:UIGestureRecognizerStateCancelled];
+
+                
                 }else if(self.frame.origin.y == hegith && recognizer.state != UIGestureRecognizerStateChanged && [self getBOOLMidHeight]){
                     self.frame = CGRectMake(oldFrame.origin.x, stageTopPoint.y, oldFrame.size.width, ([UIScreen mainScreen].bounds.size.height));
                     [self setBOOLMidHeightSet:NO];
@@ -248,5 +249,27 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
     }
 }
 
+-(void)OnScrollMoreTapWithCurrentPoint:(CGPoint)currentPoint {
+    id delegate        = objc_getAssociatedObject(self, &_delegate);
+
+    CGFloat hegith = [UIScreen mainScreen].bounds.size.height/2;
+
+//    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+[UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    self.frame = CGRectMake(self.frame.origin.x, hegith, self.frame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
+    if([delegate respondsToSelector:@selector(sendUpdatedHeightForTableView:withPointDirection:)]){
+        
+        [delegate sendUpdatedHeightForTableView:hegith withPointDirection:MIDWAY_POINT_DIRECTION];
+    }
+    
+} completion:^(BOOL finished) {
+    [self setBOOLMidHeightSet:YES];
+
+}];
+    
+  
+    
+
+}
 
 @end

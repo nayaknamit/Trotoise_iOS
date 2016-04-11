@@ -108,7 +108,8 @@
             }
                 
             case ReachableViaWWAN:        {
-                
+                _isNetworkAvailable = YES;
+
                 break;
             }
             case ReachableViaWiFi:        {
@@ -126,7 +127,7 @@
 
 -(BOOL)isNetworkAvailable{
     if  (!_isNetworkAvailable) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Available" message:ERROR_NETWORK_MESSAGE delegate:self cancelButtonTitle:@"Cancel O" otherButtonTitles:@"Settings",nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Available" message:ERROR_NETWORK_MESSAGE delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings",nil];
         [alertView show];
     }else {
         
@@ -492,8 +493,11 @@ SplashViewController *splashVC =  [stoaryBoard instantiateViewControllerWithIden
 
 }
 -(void)setSplashTextWithLanguageChange:(NSArray *)arr{
-    
-    _splashTextArra = [arr copy];
+   
+    if (_splashTextArra !=nil) {
+        [_splashTextArra removeAllObjects];
+    }
+    _splashTextArra =[NSMutableArray arrayWithArray:arr ];
 }
 //-(NSArray *)getMonumentListArray{
 //    
