@@ -9,7 +9,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "LoggedInUserDS.h"
 #import "Reachability.h"
-
 @class LoggedInUserDS, Language, CLLocationManager;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,GIDSignInDelegate>
 
@@ -48,6 +47,7 @@
 -(void)setInitialDefaultLanguage;
 -(void)checkForLocationServiceEnabled;
 -(BOOL)isNetworkAvailable;
+-(void)showNetworkFailuerMessage;
 -(void)showLocationErrorAlert;
 -(void)setUpLanguageInUSerDefualts:(Language *)languageDS withSplashTextArr:(NSArray *)textAr;
 @end

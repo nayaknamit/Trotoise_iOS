@@ -126,13 +126,18 @@
 
 
 -(BOOL)isNetworkAvailable{
+  
+    return _isNetworkAvailable;
+}
+
+-(void)showNetworkFailuerMessage{
     if  (!_isNetworkAvailable) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Available" message:ERROR_NETWORK_MESSAGE delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings",nil];
         [alertView show];
     }else {
         
     }
-    return _isNetworkAvailable;
+    
 }
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
