@@ -31,4 +31,7 @@ typedef void (^HUDTextChange)(NSString *text);
 
 -(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj withLoaderHandler:(HUDTextChange)handler;
 
+
+-(void)translateOfflineMonumentwithTarget:(NSString *)target withCityName:(NSString *)cityName  withLanguageID :(NSNumber *)languageID withLoaderHandler:(HUDTextChange)handler;
+
 @end

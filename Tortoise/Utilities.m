@@ -20,6 +20,13 @@
 //    [mbHID set]
   
 }
++(NSString *)getFileNameFromURL:(NSString *)url{
+    NSString *val=@"";
+    NSArray *gg = [url componentsSeparatedByString:@"/"];
+    val = [gg lastObject];
+    NSLog(@"getFileNameFromURL %@",val);
+    return val;
+}
 +(void)addHUDSearchMonumentForView:(id)view{
     
    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];

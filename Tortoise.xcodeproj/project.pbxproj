@@ -12,6 +12,10 @@
 		B40E402B1C7F72F6009ACD30 /* AboutUsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B40E402A1C7F72F6009ACD30 /* AboutUsTableViewCell.m */; };
 		B40E402F1C7F7C05009ACD30 /* TSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B40E402E1C7F7C05009ACD30 /* TSLabel.m */; };
 		B40E40331C7F917E009ACD30 /* DVSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = B40E40321C7F917E009ACD30 /* DVSwitch.m */; };
+		B40F97C01CC707AD000F0DA6 /* OfflineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40F97BF1CC707AD000F0DA6 /* OfflineListViewController.m */; };
+		B40F97C31CC7109C000F0DA6 /* OfflineMainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B40F97C21CC7109C000F0DA6 /* OfflineMainListViewController.m */; };
+		B4118E9C1CCB435300E509F3 /* MonumentList+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118E991CCB435300E509F3 /* MonumentList+CoreDataProperties.m */; };
+		B4118E9D1CCB435300E509F3 /* MonumentList.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118E9B1CCB435300E509F3 /* MonumentList.m */; };
 		B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDC71C5E02F200BB96C7 /* KLCPopup.m */; };
 		B411FDCC1C5E03B200BB96C7 /* RadiusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B411FDCB1C5E03B200BB96C7 /* RadiusView.xib */; };
 		B411FDD01C5E09E200BB96C7 /* RadiusView.m in Sources */ = {isa = PBXBuildFile; fileRef = B411FDCF1C5E09E200BB96C7 /* RadiusView.m */; };
@@ -30,6 +34,8 @@
 		B41DFF571C8F631D00622754 /* googleSign2.png in Resources */ = {isa = PBXBuildFile; fileRef = B41DFF561C8F631D00622754 /* googleSign2.png */; };
 		B43270501C760AC2007DFCB8 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B432704F1C760AC2007DFCB8 /* SpeechKit.framework */; };
 		B43270531C760AF4007DFCB8 /* SpeechTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = B43270521C760AF4007DFCB8 /* SpeechTranslator.m */; };
+		B437E4441CC8377E00471225 /* OfflineLanguagePopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = B437E4431CC8377E00471225 /* OfflineLanguagePopUp.xib */; };
+		B437E4471CC83C0000471225 /* OfflineLanguagePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B437E4461CC83C0000471225 /* OfflineLanguagePopUpView.m */; };
 		B43818E21C60E83E00B0CCA7 /* LoggedInUserDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */; };
 		B43818EA1C6288BD00B0CCA7 /* MonumentListDS.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */; };
 		B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B43818EC1C628D4500B0CCA7 /* Continent+CoreDataProperties.m */; };
@@ -40,6 +46,14 @@
 		B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B43819A01C68B82800B0CCA7 /* ImageAttribute.m */; };
 		B446418E1C93513600E560E1 /* SplashTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B446418D1C93513600E560E1 /* SplashTextView.xib */; };
 		B44641911C93534E00E560E1 /* SplashTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B44641901C93534E00E560E1 /* SplashTextView.m */; };
+		B44736621CC71240003C3C6C /* OfflineMainListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B44736601CC71240003C3C6C /* OfflineMainListTableViewCell.m */; };
+		B44736631CC71240003C3C6C /* OfflineMainListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B44736611CC71240003C3C6C /* OfflineMainListTableViewCell.xib */; };
+		B44736651CC7166F003C3C6C /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = B44736641CC7166F003C3C6C /* empty.png */; };
+		B44736671CC71789003C3C6C /* edit.png in Resources */ = {isa = PBXBuildFile; fileRef = B44736661CC71789003C3C6C /* edit.png */; };
+		B447366B1CC71D21003C3C6C /* ic_content_add_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = B447366A1CC71D21003C3C6C /* ic_content_add_circle.png */; };
+		B447366E1CC7D8E0003C3C6C /* OfflineImageOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = B447366D1CC7D8E0003C3C6C /* OfflineImageOperations.m */; };
+		B44736731CC7DE79003C3C6C /* Voice+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B44736701CC7DE79003C3C6C /* Voice+CoreDataProperties.m */; };
+		B44736741CC7DE79003C3C6C /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = B44736721CC7DE79003C3C6C /* Voice.m */; };
 		B4505E501BC8EA4200A3FF35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */; };
 		B45A47C41C941B1200D7DE08 /* mapCallout.png in Resources */ = {isa = PBXBuildFile; fileRef = B45A47C31C941B1200D7DE08 /* mapCallout.png */; };
 		B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = B45CA9A41C5F8A0B004DE600 /* SCFacebook.m */; };
@@ -59,6 +73,7 @@
 		B46582F71BC55AE000C57679 /* GoogleMaps.m in Sources */ = {isa = PBXBuildFile; fileRef = B46582F61BC55AE000C57679 /* GoogleMaps.m */; };
 		B46582FC1BC5613900C57679 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FB1BC5613900C57679 /* CoreLocation.framework */; };
 		B46582FE1BC5613F00C57679 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46582FD1BC5613F00C57679 /* MapKit.framework */; };
+		B46A63441CCC936700CEF4F9 /* offlineModeBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = B46A63431CCC936700CEF4F9 /* offlineModeBtn.png */; };
 		B4725A8F1C833E0A00614A61 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B4725A8E1C833E0A00614A61 /* UIView+Toast.m */; };
 		B47C095F1C8722B2001981B2 /* FetcherSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B47C095E1C8722B2001981B2 /* FetcherSampleViewController.m */; };
 		B47C09621C8950E1001981B2 /* SKSConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = B47C09611C8950E1001981B2 /* SKSConfiguration.mm */; };
@@ -103,8 +118,6 @@
 		B4E6837E1C8113F6000C4834 /* FullScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E6837D1C8113F6000C4834 /* FullScreenViewController.m */; };
 		B4EE37E31C4AAC05009E8E3F /* Country+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EE37E01C4AAC05009E8E3F /* Country+CoreDataProperties.m */; };
 		B4EE37E41C4AAC05009E8E3F /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = B4EE37E21C4AAC05009E8E3F /* Country.m */; };
-		B4F006D11C68C25600FB78BE /* MonumentList+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */; };
-		B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F006D01C68C25600FB78BE /* MonumentList.m */; };
 		B4F197591C6E3F3100343762 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F197581C6E3F3100343762 /* MBProgressHUD.m */; };
 		B4F1975E1C6E492300343762 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F1975D1C6E492300343762 /* Utilities.m */; };
 		B4F197611C6F6CF700343762 /* MonumentDetail1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4F197601C6F6CF700343762 /* MonumentDetail1ViewController.m */; };
@@ -116,6 +129,8 @@
 		B4FAEB721BCA1883006E9C78 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB711BCA1883006E9C78 /* SplashViewController.m */; };
 		B4FAEB7C1BCB40C6006E9C78 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB7B1BCB40C6006E9C78 /* MenuTableViewController.m */; };
 		B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FAEB821BCB4F5C006E9C78 /* SWRevealViewController.m */; };
+		B4FCE0601CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FCE05D1CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.m */; };
+		B4FCE0611CD2727400CE82B1 /* MonumentLanguageDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B4FCE05F1CD2727400CE82B1 /* MonumentLanguageDetail.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +161,14 @@
 		B40E402E1C7F7C05009ACD30 /* TSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSLabel.m; path = TSLabel/TSLabel.m; sourceTree = "<group>"; };
 		B40E40311C7F917E009ACD30 /* DVSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVSwitch.h; sourceTree = "<group>"; };
 		B40E40321C7F917E009ACD30 /* DVSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DVSwitch.m; sourceTree = "<group>"; };
+		B40F97BE1CC707AD000F0DA6 /* OfflineListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineListViewController.h; sourceTree = "<group>"; };
+		B40F97BF1CC707AD000F0DA6 /* OfflineListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineListViewController.m; sourceTree = "<group>"; };
+		B40F97C11CC7109C000F0DA6 /* OfflineMainListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineMainListViewController.h; sourceTree = "<group>"; };
+		B40F97C21CC7109C000F0DA6 /* OfflineMainListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineMainListViewController.m; sourceTree = "<group>"; };
+		B4118E981CCB435300E509F3 /* MonumentList+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MonumentList+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B4118E991CCB435300E509F3 /* MonumentList+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MonumentList+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B4118E9A1CCB435300E509F3 /* MonumentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentList.h; sourceTree = "<group>"; };
+		B4118E9B1CCB435300E509F3 /* MonumentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentList.m; sourceTree = "<group>"; };
 		B411FDC61C5E02F200BB96C7 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
 		B411FDC71C5E02F200BB96C7 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
 		B411FDCB1C5E03B200BB96C7 /* RadiusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RadiusView.xib; sourceTree = "<group>"; };
@@ -177,6 +200,9 @@
 		B432704F1C760AC2007DFCB8 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = Framework/SpeechKit.framework; sourceTree = "<group>"; };
 		B43270511C760AF4007DFCB8 /* SpeechTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechTranslator.h; sourceTree = "<group>"; };
 		B43270521C760AF4007DFCB8 /* SpeechTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechTranslator.m; sourceTree = "<group>"; };
+		B437E4431CC8377E00471225 /* OfflineLanguagePopUp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfflineLanguagePopUp.xib; sourceTree = "<group>"; };
+		B437E4451CC83C0000471225 /* OfflineLanguagePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineLanguagePopUpView.h; sourceTree = "<group>"; };
+		B437E4461CC83C0000471225 /* OfflineLanguagePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineLanguagePopUpView.m; sourceTree = "<group>"; };
 		B43818E01C60E83E00B0CCA7 /* LoggedInUserDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInUserDS.h; sourceTree = "<group>"; };
 		B43818E11C60E83E00B0CCA7 /* LoggedInUserDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInUserDS.m; sourceTree = "<group>"; };
 		B43818E31C60FA6E00B0CCA7 /* TortoisePrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TortoisePrefixHeader.pch; sourceTree = "<group>"; };
@@ -197,6 +223,18 @@
 		B446418D1C93513600E560E1 /* SplashTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashTextView.xib; sourceTree = "<group>"; };
 		B446418F1C93534E00E560E1 /* SplashTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashTextView.h; sourceTree = "<group>"; };
 		B44641901C93534E00E560E1 /* SplashTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashTextView.m; sourceTree = "<group>"; };
+		B447365F1CC71240003C3C6C /* OfflineMainListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineMainListTableViewCell.h; sourceTree = "<group>"; };
+		B44736601CC71240003C3C6C /* OfflineMainListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineMainListTableViewCell.m; sourceTree = "<group>"; };
+		B44736611CC71240003C3C6C /* OfflineMainListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfflineMainListTableViewCell.xib; sourceTree = "<group>"; };
+		B44736641CC7166F003C3C6C /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		B44736661CC71789003C3C6C /* edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit.png; sourceTree = "<group>"; };
+		B447366A1CC71D21003C3C6C /* ic_content_add_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_content_add_circle.png; sourceTree = "<group>"; };
+		B447366C1CC7D8E0003C3C6C /* OfflineImageOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineImageOperations.h; sourceTree = "<group>"; };
+		B447366D1CC7D8E0003C3C6C /* OfflineImageOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineImageOperations.m; sourceTree = "<group>"; };
+		B447366F1CC7DE79003C3C6C /* Voice+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Voice+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B44736701CC7DE79003C3C6C /* Voice+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Voice+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B44736711CC7DE79003C3C6C /* Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voice.h; sourceTree = "<group>"; };
+		B44736721CC7DE79003C3C6C /* Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Voice.m; sourceTree = "<group>"; };
 		B4505E4F1BC8EA4200A3FF35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B45A47C31C941B1200D7DE08 /* mapCallout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapCallout.png; sourceTree = "<group>"; };
 		B45CA9A31C5F8A0B004DE600 /* SCFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFacebook.h; sourceTree = "<group>"; };
@@ -227,6 +265,7 @@
 		B46582F61BC55AE000C57679 /* GoogleMaps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMaps.m; sourceTree = "<group>"; };
 		B46582FB1BC5613900C57679 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B46582FD1BC5613F00C57679 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B46A63431CCC936700CEF4F9 /* offlineModeBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = offlineModeBtn.png; sourceTree = "<group>"; };
 		B4725A8D1C833E0A00614A61 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		B4725A8E1C833E0A00614A61 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B47C095D1C8722B2001981B2 /* FetcherSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetcherSampleViewController.h; sourceTree = "<group>"; };
@@ -296,10 +335,6 @@
 		B4EE37E01C4AAC05009E8E3F /* Country+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Country+CoreDataProperties.m"; sourceTree = "<group>"; };
 		B4EE37E11C4AAC05009E8E3F /* Country.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
 		B4EE37E21C4AAC05009E8E3F /* Country.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Country.m; sourceTree = "<group>"; };
-		B4F006CD1C68C25600FB78BE /* MonumentList+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MonumentList+CoreDataProperties.h"; sourceTree = "<group>"; };
-		B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MonumentList+CoreDataProperties.m"; sourceTree = "<group>"; };
-		B4F006CF1C68C25600FB78BE /* MonumentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentList.h; sourceTree = "<group>"; };
-		B4F006D01C68C25600FB78BE /* MonumentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentList.m; sourceTree = "<group>"; };
 		B4F197571C6E3F3100343762 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		B4F197581C6E3F3100343762 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B4F1975C1C6E492300343762 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -320,6 +355,10 @@
 		B4FAEB7B1BCB40C6006E9C78 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
 		B4FAEB811BCB4F5C006E9C78 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		B4FAEB821BCB4F5C006E9C78 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		B4FCE05C1CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MonumentLanguageDetail+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B4FCE05D1CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MonumentLanguageDetail+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B4FCE05E1CD2727400CE82B1 /* MonumentLanguageDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonumentLanguageDetail.h; sourceTree = "<group>"; };
+		B4FCE05F1CD2727400CE82B1 /* MonumentLanguageDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonumentLanguageDetail.m; sourceTree = "<group>"; };
 		CCFEDC6EBE52D3C51CAF5AE9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,6 +421,18 @@
 				B40E40321C7F917E009ACD30 /* DVSwitch.m */,
 			);
 			name = DVSwitch;
+			sourceTree = "<group>";
+		};
+		B40F97BD1CC7077F000F0DA6 /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				B447365E1CC7121A003C3C6C /* OfflineMainListCell */,
+				B40F97BE1CC707AD000F0DA6 /* OfflineListViewController.h */,
+				B40F97BF1CC707AD000F0DA6 /* OfflineListViewController.m */,
+				B40F97C11CC7109C000F0DA6 /* OfflineMainListViewController.h */,
+				B40F97C21CC7109C000F0DA6 /* OfflineMainListViewController.m */,
+			);
+			name = Offline;
 			sourceTree = "<group>";
 		};
 		B411FDC51C5E02F200BB96C7 /* KLCPopup */ = {
@@ -461,6 +512,22 @@
 				B44641901C93534E00E560E1 /* SplashTextView.m */,
 			);
 			name = TextView;
+			sourceTree = "<group>";
+		};
+		B447365E1CC7121A003C3C6C /* OfflineMainListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B437E4431CC8377E00471225 /* OfflineLanguagePopUp.xib */,
+				B447366A1CC71D21003C3C6C /* ic_content_add_circle.png */,
+				B44736661CC71789003C3C6C /* edit.png */,
+				B44736641CC7166F003C3C6C /* empty.png */,
+				B447365F1CC71240003C3C6C /* OfflineMainListTableViewCell.h */,
+				B44736601CC71240003C3C6C /* OfflineMainListTableViewCell.m */,
+				B44736611CC71240003C3C6C /* OfflineMainListTableViewCell.xib */,
+				B437E4451CC83C0000471225 /* OfflineLanguagePopUpView.h */,
+				B437E4461CC83C0000471225 /* OfflineLanguagePopUpView.m */,
+			);
+			name = OfflineMainListCell;
 			sourceTree = "<group>";
 		};
 		B45CA9A21C5F8A0B004DE600 /* SCFacebook */ = {
@@ -558,6 +625,7 @@
 		B46582EC1BC559C600C57679 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B40F97BD1CC7077F000F0DA6 /* Offline */,
 				B4D219711C7CA34D00054094 /* AboutUs */,
 				B48AE2FB1C6A79C900FA5DFD /* GetInspired */,
 				B43818F41C666CC200B0CCA7 /* MonumentDetail */,
@@ -624,10 +692,18 @@
 				B438199E1C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m */,
 				B438199F1C68B82800B0CCA7 /* ImageAttribute.h */,
 				B43819A01C68B82800B0CCA7 /* ImageAttribute.m */,
-				B4F006CD1C68C25600FB78BE /* MonumentList+CoreDataProperties.h */,
-				B4F006CE1C68C25600FB78BE /* MonumentList+CoreDataProperties.m */,
-				B4F006CF1C68C25600FB78BE /* MonumentList.h */,
-				B4F006D01C68C25600FB78BE /* MonumentList.m */,
+				B447366F1CC7DE79003C3C6C /* Voice+CoreDataProperties.h */,
+				B44736701CC7DE79003C3C6C /* Voice+CoreDataProperties.m */,
+				B44736711CC7DE79003C3C6C /* Voice.h */,
+				B44736721CC7DE79003C3C6C /* Voice.m */,
+				B4118E981CCB435300E509F3 /* MonumentList+CoreDataProperties.h */,
+				B4118E991CCB435300E509F3 /* MonumentList+CoreDataProperties.m */,
+				B4118E9A1CCB435300E509F3 /* MonumentList.h */,
+				B4118E9B1CCB435300E509F3 /* MonumentList.m */,
+				B4FCE05C1CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.h */,
+				B4FCE05D1CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.m */,
+				B4FCE05E1CD2727400CE82B1 /* MonumentLanguageDetail.h */,
+				B4FCE05F1CD2727400CE82B1 /* MonumentLanguageDetail.m */,
 			);
 			name = Modals;
 			sourceTree = "<group>";
@@ -643,6 +719,8 @@
 				B43818E91C6288BD00B0CCA7 /* MonumentListDS.m */,
 				B43818F11C6371C800B0CCA7 /* MonumentDataManager.h */,
 				B43818F21C6371C800B0CCA7 /* MonumentDataManager.m */,
+				B447366C1CC7D8E0003C3C6C /* OfflineImageOperations.h */,
+				B447366D1CC7D8E0003C3C6C /* OfflineImageOperations.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -848,6 +926,7 @@
 		B4FAEB6F1BCA1833006E9C78 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				B46A63431CCC936700CEF4F9 /* offlineModeBtn.png */,
 				B446418C1C93511400E560E1 /* TextView */,
 				B4FAEB701BCA1883006E9C78 /* SplashViewController.h */,
 				B4FAEB711BCA1883006E9C78 /* SplashViewController.m */,
@@ -961,7 +1040,7 @@
 				TargetAttributes = {
 					B46582AE1BC4B3A800C57679 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 24WFC5VSY9;
+						DevelopmentTeam = J46BN6K598;
 					};
 					B46582CA1BC4B3A800C57679 = {
 						CreatedOnToolsVersion = 7.1;
@@ -1001,13 +1080,16 @@
 				B4B2D3B31C5C8B80002191EC /* Oswald-Regular.ttf in Resources */,
 				B46442981CBA6F63004F3123 /* ic_speaker_stop.png in Resources */,
 				B4D219701C7C971F00054094 /* GoogleService-Info.plist in Resources */,
+				B44736651CC7166F003C3C6C /* empty.png in Resources */,
 				B49A66EA1C95F65D00FE81D0 /* ic_hardware_keyboard_arrow_right.png in Resources */,
 				B46582C51BC4B3A800C57679 /* LaunchScreen.storyboard in Resources */,
 				B4F2C4711C8C26460002A10C /* EsselWorld1.jpg in Resources */,
+				B437E4441CC8377E00471225 /* OfflineLanguagePopUp.xib in Resources */,
 				B46442961CBA6F63004F3123 /* ic_action_cached.png in Resources */,
 				B4C394CA1C5F286C0007EE33 /* GoogleService-Info_old.plist in Resources */,
 				B4E683781C80CEE0000C4834 /* LanguagePopUp.xib in Resources */,
 				B41DFF571C8F631D00622754 /* googleSign2.png in Resources */,
+				B44736631CC71240003C3C6C /* OfflineMainListTableViewCell.xib in Resources */,
 				B4B2D3B41C5C8B80002191EC /* Roboto-Bold.ttf in Resources */,
 				B4BE72E01C6E0F13006139B4 /* markerBG.png in Resources */,
 				B46582C21BC4B3A800C57679 /* Assets.xcassets in Resources */,
@@ -1017,6 +1099,7 @@
 				B4B2D3B51C5C8B80002191EC /* Roboto-Italic.ttf in Resources */,
 				B46582E91BC4B3CC00C57679 /* Podfile in Resources */,
 				B46442971CBA6F63004F3123 /* ic_speaker_play.png in Resources */,
+				B44736671CC71789003C3C6C /* edit.png in Resources */,
 				B4B2D3B71C5C8B80002191EC /* Roboto-Regular.ttf in Resources */,
 				B40E40281C7F6EF2009ACD30 /* aboutUSCell.xib in Resources */,
 				B411FDE91C5E3A8000BB96C7 /* LanguageTableView.xib in Resources */,
@@ -1027,9 +1110,11 @@
 				B4B2D3BA1C5C9FCA002191EC /* HMVCell.xib in Resources */,
 				B446418E1C93513600E560E1 /* SplashTextView.xib in Resources */,
 				B48AE3151C6BB7EA00FA5DFD /* splash_logo.png in Resources */,
+				B46A63441CCC936700CEF4F9 /* offlineModeBtn.png in Resources */,
 				B4B2D3BC1C5CA813002191EC /* tableViewCellBG.png in Resources */,
 				B46582BD1BC4B3A800C57679 /* Main.storyboard in Resources */,
 				B4F2C4731C8DFFD00002A10C /* Siri_icon.png in Resources */,
+				B447366B1CC71D21003C3C6C /* ic_content_add_circle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,10 +1184,11 @@
 				B43270531C760AF4007DFCB8 /* SpeechTranslator.m in Sources */,
 				B4E6837B1C80D309000C4834 /* LanguagePopUpView.m in Sources */,
 				B4B815381BCB66B800C5E3BF /* ShareTableViewCell.m in Sources */,
+				B44736741CC7DE79003C3C6C /* Voice.m in Sources */,
+				B4FCE0611CD2727400CE82B1 /* MonumentLanguageDetail.m in Sources */,
 				B46582BA1BC4B3A800C57679 /* HomeViewController.m in Sources */,
 				B4E2CA8B1BD00F970050FC3F /* CityMonument+CoreDataProperties.m in Sources */,
 				B4FAEB721BCA1883006E9C78 /* SplashViewController.m in Sources */,
-				B4F006D11C68C25600FB78BE /* MonumentList+CoreDataProperties.m in Sources */,
 				B4E2CA8C1BD00F970050FC3F /* CityMonument.m in Sources */,
 				B4EE37E41C4AAC05009E8E3F /* Country.m in Sources */,
 				B4B815321BCB666000C5E3BF /* ProfileTableViewCell.m in Sources */,
@@ -1111,8 +1197,12 @@
 				B411FDE21C5E270400BB96C7 /* Language.m in Sources */,
 				B40E40331C7F917E009ACD30 /* DVSwitch.m in Sources */,
 				B4E2CA911BD011A00050FC3F /* TTAPIHandler.m in Sources */,
+				B4FCE0601CD2727400CE82B1 /* MonumentLanguageDetail+CoreDataProperties.m in Sources */,
+				B44736621CC71240003C3C6C /* OfflineMainListTableViewCell.m in Sources */,
 				B43818EF1C628D4500B0CCA7 /* Continent+CoreDataProperties.m in Sources */,
+				B437E4471CC83C0000471225 /* OfflineLanguagePopUpView.m in Sources */,
 				B4725A8F1C833E0A00614A61 /* UIView+Toast.m in Sources */,
+				B40F97C31CC7109C000F0DA6 /* OfflineMainListViewController.m in Sources */,
 				B486EC0C1C737E4700A9F0F4 /* TranslatorManager.m in Sources */,
 				B43819A21C68B82800B0CCA7 /* ImageAttribute.m in Sources */,
 				B4F197651C6F6FA000343762 /* ImageScrollerTableViewCell.m in Sources */,
@@ -1122,8 +1212,10 @@
 				B43818F01C628D4500B0CCA7 /* Continent.m in Sources */,
 				B48AE3131C6BB7AB00FA5DFD /* InitialSplashViewController.m in Sources */,
 				B43818F71C666CFB00B0CCA7 /* MonumentDetailViewController.m in Sources */,
+				B447366E1CC7D8E0003C3C6C /* OfflineImageOperations.m in Sources */,
 				B411FDC81C5E02F200BB96C7 /* KLCPopup.m in Sources */,
 				B411FDE61C5E294300BB96C7 /* LanguageViewController.m in Sources */,
+				B4118E9C1CCB435300E509F3 /* MonumentList+CoreDataProperties.m in Sources */,
 				B45CA9A51C5F8A0B004DE600 /* SCFacebook.m in Sources */,
 				B4F2C4761C8E01C70002A10C /* TextToSpeech.m in Sources */,
 				B47C09621C8950E1001981B2 /* SKSConfiguration.mm in Sources */,
@@ -1134,7 +1226,6 @@
 				B46582B71BC4B3A800C57679 /* AppDelegate.m in Sources */,
 				B4BE72D81C6DFE71006139B4 /* CustomMarkerView.m in Sources */,
 				B48AE2FA1C6A538800FA5DFD /* DataAccessManager.m in Sources */,
-				B4F006D21C68C25600FB78BE /* MonumentList.m in Sources */,
 				B4FAEB831BCB4F5C006E9C78 /* SWRevealViewController.m in Sources */,
 				B4B815351BCB666F00C5E3BF /* MenuTableViewCell.m in Sources */,
 				B47C095F1C8722B2001981B2 /* FetcherSampleViewController.m in Sources */,
@@ -1147,12 +1238,15 @@
 				B411FDEC1C5E3DE300BB96C7 /* LanguageTableView.m in Sources */,
 				B46582B41BC4B3A800C57679 /* main.m in Sources */,
 				B46582F71BC55AE000C57679 /* GoogleMaps.m in Sources */,
+				B40F97C01CC707AD000F0DA6 /* OfflineListViewController.m in Sources */,
 				B4EE37E31C4AAC05009E8E3F /* Country+CoreDataProperties.m in Sources */,
 				B411FDDC1C5E26B300BB96C7 /* Provider.m in Sources */,
 				B4F197681C6F6FDC00343762 /* DetailTextViewTableViewCell.m in Sources */,
 				B411FDD91C5E26B300BB96C7 /* Nuance+CoreDataProperties.m in Sources */,
 				B411FDE11C5E270400BB96C7 /* Language+CoreDataProperties.m in Sources */,
+				B4118E9D1CCB435300E509F3 /* MonumentList.m in Sources */,
 				B4C644231CAC301000D73007 /* Reachability.m in Sources */,
+				B44736731CC7DE79003C3C6C /* Voice+CoreDataProperties.m in Sources */,
 				B43819A11C68B82800B0CCA7 /* ImageAttribute+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1225,7 +1319,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1250,7 +1344,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1272,7 +1366,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = YES;
@@ -1295,7 +1389,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1307,7 +1401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1438,10 +1532,11 @@
 					"-force_load",
 					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
 					"-l\"c++\"",
+					"-l\"FCFileManager\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1452,7 +1547,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1583,10 +1678,11 @@
 					"-force_load",
 					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
 					"-l\"c++\"",
+					"-l\"FCFileManager\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 			};
 			name = Release;
 		};
@@ -1659,7 +1755,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = YES;
@@ -1682,7 +1778,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1694,7 +1790,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rahul Mamtani (XDE6A2UHH9)";
+				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1830,10 +1926,11 @@
 					"-force_load",
 					"$(PODS_ROOT)/GoogleUtilities/Libraries/libGTM_NSData+zlib.a",
 					"-l\"c++\"",
+					"-l\"FCFileManager\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.trotoise.trotoise;
 				PRODUCT_NAME = Trotoise;
-				PROVISIONING_PROFILE = "180dda8e-501a-4d50-8410-c0cf5b122611";
+				PROVISIONING_PROFILE = "cf416250-1937-4853-9860-0fea8e97172e";
 			};
 			name = PROD;
 		};

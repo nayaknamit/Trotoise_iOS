@@ -5,7 +5,7 @@
 //  Created by Namit Nayak on 2/13/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import "ImageScrollerTableViewCell.h"
 #import "MonumentList+CoreDataProperties.h"
 #import "LanguageDS.h"
@@ -15,13 +15,21 @@
 #import "Language+CoreDataProperties.h"
 #import "ImageAttribute+CoreDataProperties.h"
 #import "Nuance+CoreDataProperties.h"
+#import <FCFileManager.h>
 #import "Provider+CoreDataProperties.h"
+#import "Voice+CoreDataProperties.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "MonumentLanguageDetail+CoreDataProperties.h"
+#import "CityMonument+CoreDataProperties.h"
+#import "OfflineImageOperations.h"
 @interface ImageScrollerTableViewCell(){
     BOOL animate;
     BOOL animationCompleting;
     BOOL animationPending;
-    SpeechTranslator *translatorSpeech;
+   
 }
+@property (nonatomic,strong) AVAudioPlayer *player;
+@property (nonatomic,strong)  SpeechTranslator *translatorSpeech;
 @end
 @implementation ImageScrollerTableViewCell
 
@@ -31,13 +39,18 @@
 }
 
 -(void)initSpechTranslate {
-    if (translatorSpeech==nil) {
+    if (_translatorSpeech==nil) {
         
         
-        translatorSpeech = [SpeechTranslator sharedInstance];
+        _translatorSpeech = [SpeechTranslator sharedInstance];
+//        _translatorSpeech = [[SpeechTranslator alloc] init];
+        
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopTranslatorSpeech) name:@"NOTIFY_STOP_AUDIO" object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeStopIcon) name:@"TRANSACTION_RECIEVED" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeStopErrorIcon) name:@"TRANSACTION_RECIEVED_ERROR" object:nil];
+        
+        
         
     }
 
@@ -47,35 +60,48 @@
 //    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
     
 }
+-(void)changeStopErrorIcon{
+    //    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+    [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
+    
+    [self makeToast:@"Issue while connecting server. Please try later"
+                                          duration:1.5
+                                          position:CSToastPositionTop];
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
-
 - (void) spinLogoWithOptions: (UIViewAnimationOptions) options {
     NSTimeInterval fullSpinInterval = 2.0f;
+  __weak ImageScrollerTableViewCell *weakSelf = self;
     [UIView animateWithDuration: fullSpinInterval / 4.0f
                           delay: 0.0f
                         options: options
                      animations: ^{
-                         self.speakerBtn.transform = CGAffineTransformRotate(self.speakerBtn.transform, M_PI);
+                         weakSelf.speakerBtn.transform = CGAffineTransformRotate(weakSelf.speakerBtn.transform, M_PI);
                      }
                      completion:^(BOOL finished) {
                          // if flag still set, keep spinning with constant speed
                          if (animate) {
-                             [self spinLogoWithOptions: UIViewAnimationOptionCurveLinear];
+                             NSLog(@"1");
+                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionCurveLinear];
                          } else if (animationPending) {
                              // another spin has been requested, so start it right back up!
                              animationPending = NO;
                              animate = YES;
-                             [self spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState];
+                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState];
+                                                          NSLog(@"2");
                          } else if ((options & UIViewAnimationOptionCurveEaseOut) == 0) {
                              // one last spin, with deceleration
-                             [self spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut];
+                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut];
+                                                          NSLog(@"3");
                          } else {
                              animationCompleting = NO;
-                             [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+                                                          NSLog(@"4");
+                             [weakSelf.speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+                             [_speakerBtn setUserInteractionEnabled:YES];
 
                          }
                      }];
@@ -84,8 +110,7 @@
 - (void) stopLogoSpin {
     animate = NO;
     animationCompleting = YES;
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOTIFY_STOP_AUDIO" object:nil];
+  
 }
 
 - (void) startLogoSpin {
@@ -94,52 +119,202 @@
             animationPending = YES;
         } else {
             animate = YES;
+            
             [self spinLogoWithOptions: UIViewAnimationOptionCurveEaseIn];
         }
     }
 }
 
--(IBAction)speakerBtnTapped:(id)sender{
+//- (void) spinLogoWithOptions: (UIViewAnimationOptions) options {
+//    __weak ImageScrollerTableViewCell *weakSelf = self;
+//
+//    NSTimeInterval fullSpinInterval = 2.0f;
+//    [UIView animateWithDuration: fullSpinInterval / 4.0f
+//                          delay: 0.0f
+//                        options: options
+//                     animations: ^{
+//                         weakSelf.speakerBtn.transform = CGAffineTransformRotate(self.speakerBtn.transform, M_PI);
+//                     }
+//                     completion:^(BOOL finished) {
+//                         // if flag still set, keep spinning with constant speed
+//                         if (animate) {
+//                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionCurveLinear];
+//                         } else if (animationPending) {
+//                             // another spin has been requested, so start it right back up!
+//                             animationPending = NO;
+//                             animate = NO;
+//                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState];
+//                         } else if ((options & UIViewAnimationOptionCurveEaseOut) == 0) {
+//                             // one last spin, with deceleration
+//                             [weakSelf spinLogoWithOptions: UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut];
+//                         } else {
+//                             animationCompleting = NO;
+//                             [weakSelf.speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+//
+//                         }
+//                     }];
+//    
+//    
+//}
+//
+//- (void) stopLogoSpin {
+////    if (!animate) {
+////        animate = YES;
+////         [_speakerBtn setImage:[UIImage imageNamed:@"ic_action_cached.png"] forState:UIControlStateNormal];
+////        [self spinLogoWithOptions: UIViewAnimationOptionCurveEaseIn];
+//////        _speakerBtn.enabled =NO;
+////    }
+//////    _speakerBtn.enabled =YES;
+////    animate = NO;
+////    animationCompleting = YES;
+////    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+//    
+//}
+//
+//- (void) startLogoSpin {
+////    if (!animate) {
+////        if (animationCompleting) {
+////            animationPending = YES;
+////        } else {
+////            animate = YES;
+//////            _speakerBtn.enabled = YES;
+//////             [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+////            [self spinLogoWithOptions: UIViewAnimationOptionCurveEaseIn];
+////        }
+////    
+////    }
+//    
+//    [_speakerBtn setImage:[UIImage imageNamed:@"ic_speaker_stop.png"] forState:UIControlStateNormal];
+//}
+-(void)setSpeakerbtnAttr:(BOOL)isAttr {
+    if (isAttr) {
+        
     
-       [self initSpechTranslate];
+    self.speakerBtn.alpha = 1.0;
+    self.speakerBtn.enabled = true;
+    
+}else {
+    self.speakerBtn.alpha = 0.6;
+    self.speakerBtn.enabled = false;
+}
+
+}
+-(void)checkButtonForMp3 {
+if([_selectedLanguage.nuanceRelationship allObjects].count!=0){
+  
+    if (_isOfflineMode) {
+//        OfflineImageOperations *op = [[OfflineImageOperations alloc] init];
+//        
+//        CityMonument *city = [[op getCityWithCityName:_cityName] lastObject];
+//        if (city!=nil) {
+//            
+//            NSString * filevoicePath  = city.voiceBasePath;
+//            filevoicePath = [NSString stringWithFormat:@""];
+//        }
+        NSArray *nuanceArr = [_selectedLanguage.nuanceRelationship allObjects];
+        
+        Nuance *nuance = [nuanceArr objectAtIndex:0];
+        
+        NSString *filePath = [NSString stringWithFormat:@"/OfflineData/%@_%@.mp3",self.monumentDetailObj.name,nuance.code4];
+        filePath = [filePath stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([FCFileManager existsItemAtPath:filePath]) {
+        [self setSpeakerbtnAttr:YES];
+    }else {
+        [self setSpeakerbtnAttr:NO];
+    }
+    
+}else {
+ 
+    [self setSpeakerbtnAttr:YES];
+  
+}
+    
+}else {
+    [self setSpeakerbtnAttr:NO];
+
+}
+}
+-(void)playAudioOffline{
+    
+    NSArray *aa  =[_monumentDetailObj.voiceAttributes allObjects];
+    
+    Voice *voiceDS = [aa objectAtIndex:0];
+    if ([FCFileManager existsItemAtPath:[NSString stringWithFormat:@"/OfflineData/%@",[Utilities getFileNameFromURL:voiceDS.path]]]) {
+        NSString *testPathTemp = [FCFileManager pathForDocumentsDirectoryWithPath:[NSString stringWithFormat:@"/OfflineData/%@",[Utilities getFileNameFromURL:voiceDS.path]]];
+        
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:testPathTemp]
+                                                         error:nil];
+        [_player play];
+        [self stopLogoSpin];
+    }
+
+    
+}
+-(void)stopOfflineAudio{
+    if (_player) {
+        [_player stop];
+        _player = nil;
+    }
+}
+-(IBAction)speakerBtnTapped:(id)sender{
+  
+    if (!_isOfflineMode) {
+        [self initSpechTranslate];
+    }
+    
     if (!_isSpeakerPlaying) {
-        [_speakerBtn setImage:[UIImage imageNamed:@"ic_action_cached.png"] forState:UIControlStateNormal];
+        [self.speakerBtn setImage:[UIImage imageNamed:@"ic_action_cached.png"] forState:UIControlStateNormal];
         [self startLogoSpin];
         
-        if([_selectedLanguage.nuanceRelationship allObjects].count!=0){
-            Nuance *nuanceDS = [[_selectedLanguage.nuanceRelationship allObjects] objectAtIndex:0];
-            Provider *providerDS = (Provider *)[[nuanceDS.provider allObjects] objectAtIndex:0];
-            [translatorSpeech initiateTransistionForText:self.monumentDetailObj.desc withLanguageCode:nuanceDS.code6 withVoiceName:providerDS.voice];
-            
-        _isSpeakerPlaying = YES;
-        }else{
-              UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Trotoise"
-                                                               message:@"Audio facility is not avaialable for current selected language."
-                                                              delegate:nil cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil, nil];
-            [alertView show];
-            [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
-            
-            _isSpeakerPlaying = NO;
-            [self startLogoSpin];
-            [self stopLogoSpin];
+        if (_isOfflineMode) {
+            _isSpeakerPlaying = YES;
+
+            [self playAudioOffline];
+        }else {
+            if([_selectedLanguage.nuanceRelationship allObjects].count!=0){
+                Nuance *nuanceDS = [[_selectedLanguage.nuanceRelationship allObjects] objectAtIndex:0];
+                Provider *providerDS = (Provider *)[[nuanceDS.provider allObjects] objectAtIndex:0];
+                [_translatorSpeech initiateTransistionForText:self.monumentDetailObj.desc withLanguageCode:nuanceDS.code6 withVoiceName:providerDS.voice];
+                [_speakerBtn setUserInteractionEnabled:NO];
+                _isSpeakerPlaying = YES;
+                _speakerBtn.tag =100;
+            }else{
+                UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Trotoise"
+                                                                   message:@"Audio facility is not avaialable for current selected language."
+                                                                  delegate:nil cancelButtonTitle:@"OK"
+                                                         otherButtonTitles:nil, nil];
+                [alertView show];
+                [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
+                _speakerBtn.tag =101;
+                _isSpeakerPlaying = NO;
+                [_speakerBtn setUserInteractionEnabled:YES];
+                [self startLogoSpin];
+                [self stopLogoSpin];
+            }
         }
+        
         
     }else{
         //[self startLogoSpin];
         //[self stopLogoSpin];
         [_speakerBtn setImage:[UIImage imageNamed:@"playSound.png"] forState:UIControlStateNormal];
 
-        
+        _speakerBtn.tag =100;
         _isSpeakerPlaying = NO;
-        [self stopTranslatorSpeech];
+        if (_isOfflineMode) {
+            [self stopOfflineAudio];
+        }else {
+        [self stopTranslatorSpeech];    
+        }
+        
     }
 }
 -(void)stopTranslatorSpeech{
-    if (translatorSpeech){
-        [translatorSpeech stopAudio];
-        [SpeechTranslator setSharedInstance:nil];
-        translatorSpeech = nil;
+    if (_translatorSpeech){
+        [_translatorSpeech stopAudio];
+//        translatorSpeech = nil;
+//        [SpeechTranslator setSharedInstance:nil];
+//        translatorSpeech = nil;
 
     }
 }
@@ -177,9 +352,36 @@
     
 }
 -(void)setUpScrollViewImages{
+    
+    [self checkButtonForMp3];
+    
     self.imageViews = [NSMutableArray array];
-
-    self.placeLabel.text = self.monumentDetailObj.name;
+    if (_isOfflineMode) {
+        
+        if ([_selectedLanguage.id integerValue]== LANGUAGE_DEFAULT_ID) {
+              self.placeLabel.text = _monumentDetailObj.name;
+            
+            
+        }else {
+            
+            NSArray *monDesArr = [_monumentDetailObj.multiLocaleMonument array];
+            
+            [monDesArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                MonumentLanguageDetail *objM = (MonumentLanguageDetail *)obj;
+                if ([objM.locale isEqualToString:_selectedLanguage.transCode]) {
+                     self.placeLabel.text  = objM.name;
+                    *stop = YES;
+                    
+                }
+                
+            }];
+            
+        }
+    }else{
+        self.placeLabel.text = self.monumentDetailObj.name;
+    }
+    
     
 
     __block CGFloat scrollViewWidth = [UIScreen mainScreen].bounds.size.width+10;
@@ -216,41 +418,54 @@
             imageView.autoresizesSubviews = YES;
             
             [Utilities addHUDForView:imageView];
-           
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            
-            if (![APP_DELEGATE isNetworkAvailable]) {
+            if (_isOfflineMode) {
                 [Utilities hideHUDForView:imageView];
-                UIImage *image =[UIImage imageNamed:@"splash_logo.png"];
-                imageView.image =image;
-                imageView.frame = CGRectMake(self.imageScrollerView.frame.size.width/2, self.imageScrollerView.frame.size.height/2, 100,100 );
-                imageView.alpha = 0.5;
+
+                if ([FCFileManager existsItemAtPath:[NSString stringWithFormat:@"/OfflineData/img_attr_%@",[Utilities getFileNameFromURL:imageDS.imageUrl]]]) {
+                    NSString *testPathTemp = [FCFileManager pathForDocumentsDirectoryWithPath:[NSString stringWithFormat:@"/OfflineData/img_attr_%@",[Utilities getFileNameFromURL:imageDS.imageUrl]]];
+                    UIImage *theImage = [UIImage imageWithContentsOfFile:testPathTemp];
+                    imageView.image = theImage;
+                    
+                    
+                }
+
+            }else{
+                SDWebImageManager *manager = [SDWebImageManager sharedManager];
                 
-                [self.imageScrollerView addSubview:imageView];
-                return ;
+                if (![APP_DELEGATE isNetworkAvailable]) {
+                    [Utilities hideHUDForView:imageView];
+                    UIImage *image =[UIImage imageNamed:@"splash_logo.png"];
+                    imageView.image =image;
+                    imageView.frame = CGRectMake(self.imageScrollerView.frame.size.width/2, self.imageScrollerView.frame.size.height/2, 100,100 );
+                    imageView.alpha = 0.5;
+                    
+                    [self.imageScrollerView addSubview:imageView];
+                    return ;
+                    
+                }
+                [manager downloadImageWithURL: [NSURL URLWithString:imageDS.imageUrl]
+                                      options:0
+                                     progress:^(NSInteger receivedSize, NSInteger expectedSize)
+                 {
+                     // progression tracking code
+                 }
+                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                                        if (image)
+                                        {
+                                            imageView.image = image;
+                                            [Utilities hideHUDForView:imageView];
+                                            
+                                            
+                                            // do something with image
+                                        }else {
+                                            [Utilities hideHUDForView:imageView];
+                                            
+                                            imageView.image = [UIImage imageNamed:@"splash_logo.png"];
+                                            imageView.alpha = 0.5;
+                                        }
+                                    }];
                 
             }
-            [manager downloadImageWithURL: [NSURL URLWithString:imageDS.imageUrl]
-                                  options:0
-                                 progress:^(NSInteger receivedSize, NSInteger expectedSize)
-             {
-                 // progression tracking code
-             }
-            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                 if (image)
-                 {
-                     imageView.image = image;
-                     [Utilities hideHUDForView:imageView];
-                    
-
-                     // do something with image
-                 }else {
-                     [Utilities hideHUDForView:imageView];
-                     
-                     imageView.image = [UIImage imageNamed:@"splash_logo.png"];
-                     imageView.alpha = 0.5;
-                 }
-             }];
             
             [self.imageScrollerView addSubview:imageView];
             //            imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -293,7 +508,7 @@
 //        FullScreenViewController *fullScreenVC = []
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             FullScreenViewController *fullScreenVC = [storyBoard instantiateViewControllerWithIdentifier:@"FullScreenViewController"];
-            
+            fullScreenVC.isOffline = _isOfflineMode;
             fullScreenVC.imageUrl = imageDS.imageUrl;
             if ([self.delegate respondsToSelector:@selector(parentViewControllerForFullScreenManager)]) {
                 [[self.delegate parentViewControllerForFullScreenManager].navigationController presentViewController:fullScreenVC animated:YES completion:nil];

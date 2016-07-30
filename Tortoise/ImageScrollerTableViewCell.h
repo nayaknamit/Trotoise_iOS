@@ -24,6 +24,8 @@
 @property (nonatomic,strong) MonumentListDS * monumentDetailObj;
 @property (nonatomic,assign) id<ImageScrollerTableViewCellDelegate> delegate;
 @property (nonatomic,strong) Language *selectedLanguage;
+@property (nonatomic,strong) NSString *cityName;
+@property (nonatomic)BOOL isOfflineMode;
 -(IBAction)mapDirectionButtonTapped:(id)sender;
 -(IBAction)speakerBtnTapped:(id)sender;
 

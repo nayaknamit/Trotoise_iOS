@@ -2,14 +2,14 @@
 //  MonumentList.h
 //  Tortoise
 //
-//  Created by Namit Nayak on 2/8/16.
+//  Created by Namit Nayak on 4/23/16.
 //  Copyright © 2016 Namit Nayak. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class ImageAttribute;
+@class ImageAttribute, Voice, MonumentLanguageDetail;
 
 NS_ASSUME_NONNULL_BEGIN
 

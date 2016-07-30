@@ -249,26 +249,42 @@ typedef NS_ENUM(NSUInteger, UIPanGestureRecognizerDirection) {
     }
 }
 
--(void)OnScrollMoreTapWithCurrentPoint:(CGPoint)currentPoint {
+-(void)OnScrollMoreTapWithCurrentPoint:(CGPoint)currentPoint withRecongnizer:(UITapGestureRecognizer *)recog withIsScrollUp:(BOOL)isScrollUp {
     id delegate        = objc_getAssociatedObject(self, &_delegate);
 
     CGFloat hegith = [UIScreen mainScreen].bounds.size.height/2;
-
-//    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-[UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-    self.frame = CGRectMake(self.frame.origin.x, hegith, self.frame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
-    if([delegate respondsToSelector:@selector(sendUpdatedHeightForTableView:withPointDirection:)]){
-        
-        [delegate sendUpdatedHeightForTableView:hegith withPointDirection:MIDWAY_POINT_DIRECTION];
+    if (!isScrollUp) {
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.frame = CGRectMake(self.frame.origin.x, hegith, self.frame.size.width, ([UIScreen mainScreen].bounds.size.height - currentPoint.y));
+            if([delegate respondsToSelector:@selector(sendUpdatedHeightForTableView:withPointDirection:)]){
+                
+                [delegate sendUpdatedHeightForTableView:hegith withPointDirection:MIDWAY_POINT_DIRECTION];
+            }
+            
+        } completion:^(BOOL finished) {
+            [self setBOOLMidHeightSet:YES];
+            
+        }];
     }
-    
-} completion:^(BOOL finished) {
-    [self setBOOLMidHeightSet:YES];
+//    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
 
-}];
     
-  
-    
+    else {
+        NSDictionary *initialFrm = objc_getAssociatedObject(self, &_initialFrame);
+        
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+
+        [self setBOOLMidHeightSet:NO];
+        [self updateConstraintsIfNeeded];
+        [delegate sendUpdatedHeightForTableView:[initialFrm[@"Sizeheight"] floatValue] withPointDirection:INITAL_POINT_DIRECTION];
+        } completion:^(BOOL finished) {
+            [self setBOOLMidHeightSet:NO];
+            
+        }];
+
+    }
+//    [recog setTranslation:CGPoint];
+
 
 }
 

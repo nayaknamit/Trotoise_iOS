@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F1605" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
     <entity name="CityMonument" representedClassName=".CityMonument" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="langIDString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localeStrings" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="offline" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="voiceBasePath" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="citymonumentrelationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MonumentList" spotlightIndexingEnabled="YES" storedInTruthFile="YES" syncable="YES"/>
     </entity>
     <entity name="Continent" representedClassName="Continent" syncable="YES">
@@ -25,25 +29,39 @@
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Language" representedClassName="Language" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="isDefaultLanguage" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="localeCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="transCode" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="nuanceRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nuance" syncable="YES"/>
     </entity>
+    <entity name="MonumentLanguageDetail" representedClassName="MonumentLanguageDetail" syncable="YES">
+        <attribute name="code4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="langID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="locale" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="monumentID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortDesc" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="MonumentList" representedClassName="MonumentList" syncable="YES">
-        <attribute name="addInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="addInfo" optional="YES" attributeType="String" defaultValueString=" " syncable="YES"/>
         <attribute name="conv_desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conv_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conv_shortDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="offline" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="shortDesc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="imageAttributes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ImageAttribute" syncable="YES"/>
+        <relationship name="multiLocaleMonument" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MonumentLanguageDetail" syncable="YES"/>
+        <relationship name="voiceAttributes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Voice" syncable="YES"/>
     </entity>
     <entity name="Nuance" representedClassName="Nuance" syncable="YES">
         <attribute name="code4" optional="YES" attributeType="String" syncable="YES"/>
@@ -55,14 +73,23 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="voice" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Voice" representedClassName="Voice" syncable="YES">
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nuCode4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="voice" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="CityMonument" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="CityMonument" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Continent" positionX="-54" positionY="72" width="128" height="105"/>
         <element name="Country" positionX="-63" positionY="72" width="128" height="135"/>
         <element name="ImageAttribute" positionX="-45" positionY="81" width="128" height="60"/>
-        <element name="Language" positionX="-63" positionY="72" width="128" height="120"/>
-        <element name="MonumentList" positionX="-54" positionY="18" width="128" height="225"/>
+        <element name="Language" positionX="-63" positionY="72" width="128" height="135"/>
+        <element name="MonumentLanguageDetail" positionX="-54" positionY="117" width="128" height="150"/>
+        <element name="MonumentList" positionX="-54" positionY="18" width="128" height="285"/>
         <element name="Nuance" positionX="-54" positionY="81" width="128" height="105"/>
         <element name="Provider" positionX="-45" positionY="90" width="128" height="75"/>
+        <element name="Voice" positionX="-54" positionY="108" width="128" height="120"/>
     </elements>
 </model>

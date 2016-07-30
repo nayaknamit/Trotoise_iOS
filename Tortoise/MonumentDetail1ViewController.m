@@ -24,6 +24,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "LanguageDataManager.h"
 #import "MonumentDataManager.h"
+#import "MonumentLanguageDetail+CoreDataProperties.h"
+#import "Voice+CoreDataProperties.h"
 static NSString* const CellIdentifier = @"DetailTextView";
 
 @interface MonumentDetail1ViewController ()<SKTransactionDelegate, SKAudioPlayerDelegate,LanguagePopUpViewDelegate, UIScrollViewDelegate ,ImageScrollerTableViewCellDelegate>
@@ -123,6 +125,7 @@ static NSString* const CellIdentifier = @"DetailTextView";
     if (indexPath.row == 0) {
         NSString *CellIdentifier1 = @"ImageScroller";
          ImageScrollerTableViewCell *  imageSceollrCell = (ImageScrollerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier1 forIndexPath:indexPath];
+        imageSceollrCell.isOfflineMode = _isOfflineModeOn;
         imageSceollrCell.monumentDetailObj =  self.monumentDetailDsObj;
         imageSceollrCell.selectedLanguage = _selectedLanguageFromGlobe;
         [imageSceollrCell setUpScrollViewImages];
@@ -141,15 +144,56 @@ static NSString* const CellIdentifier = @"DetailTextView";
     return cell;
 }
 - (void)setUpCell:(DetailTextViewTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    __block NSString *desc;
+
+    if (_isOfflineModeOn) {
+        if ([_selectedLanguageFromGlobe.id integerValue]== LANGUAGE_DEFAULT_ID) {
+            desc = _monumentDetailObj.desc;
+            
+            
+        }else {
+            
+            NSArray *monDesArr = [_monumentDetailObj.multiLocaleMonument array];
+            
+            [monDesArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                
+                MonumentLanguageDetail *objM = (MonumentLanguageDetail *)obj;
+                if ([objM.locale isEqualToString:_selectedLanguageFromGlobe.transCode]) {
+                    desc = objM.desc;
+                    *stop = YES;
+                    
+                }
+                
+            }];
+            
+        }
+    }else {
+        desc = self.monumentDetailDsObj.desc;
+    }
+    
+
+    
+    
+    
+    
 //    cell.descriptionLabel.text = self.monumentDetailObj.desc;
-    cell.desTextView.text = self.monumentDetailDsObj.desc;
-    NSArray *ss = [self.monumentDetailDsObj.desc componentsSeparatedByString:@"\\n"];
+//    cell.desTextView.text = desc;
+    NSArray *ss = [desc componentsSeparatedByString:@"\\n"];
     NSMutableString *string = [NSMutableString stringWithFormat:@""];
     for (NSString *a in ss){
         [string appendString:[NSString stringWithFormat:@"%@ \n",a]];
         
         
     }
+    if (_isOfflineModeOn) {
+        NSLog(@"NAMIT NAYAK %@",self.monumentDetailObj.addInfo);
+        [string appendString:[NSString stringWithFormat:@" \n \n %@",self.monumentDetailObj.addInfo]];
+    }else{
+         [string appendString:[NSString stringWithFormat:@" \n \n %@",self.monumentDetailDsObj.addInfo]];
+    }
+   
     [cell.desTextView setFont:[UIFont TrotoiseFontCondensedRegular:14]];
     [cell. desTextView layoutIfNeeded];
     cell.desTextView.text = (NSString *)string;
@@ -177,10 +221,16 @@ static NSString* const CellIdentifier = @"DetailTextView";
     NSShadow* shadow = [NSShadow new];
     shadow.shadowOffset = CGSizeMake(0.0f, 1.0f);
     self.title = @"TROTOISE";
-    if (_selectedLanguageFromGlobe ==nil) {
-        _selectedLanguageFromGlobe = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
-
+    if (!_isOfflineModeOn) {
+        if (_selectedLanguageFromGlobe ==nil) {
+            _selectedLanguageFromGlobe = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
+            
+        }
+    }else {
+        _selectedLanguageFromGlobe = _selectedOfflineLanguageFromGlobe;
+        
     }
+    
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                      [UIColor whiteColor], NSForegroundColorAttributeName,
@@ -191,6 +241,9 @@ static NSString* const CellIdentifier = @"DetailTextView";
     [customButton setImage:[UIImage imageNamed:@"ic_language"] forState:UIControlStateNormal];
 //    [customButton setTitle:@"En" forState:UIControlStateNormal];
     NSString *languageLocale = [_selectedLanguageFromGlobe.localeCode capitalizedString];
+//    if (_isOfflineModeOn) {
+//    languageLocale= @"En";
+//    }
     [customButton setTitle:[NSString stringWithFormat:@" %@",languageLocale] forState:UIControlStateNormal];
     
 //    [customButton setTitle:[NSString stringWithFormat:@"  %@",languageLocale] forState:UIControlStateHighlighted];
@@ -203,9 +256,10 @@ static NSString* const CellIdentifier = @"DetailTextView";
     
 }
 -(void)customLanguageButtonTapped:(id)sender{
-    // LanguageViewController *languageVC =   [self.storyboard instantiateViewControllerWithIdentifier:@"LanguageViewController"];
-    //
-    //    [self.navigationController presentViewController:languageVC animated:YES completion:nil];
+
+    if (_isOfflineModeOn) {
+        [self.languagePopView initOfflineScreen:_selectedOfflineLanguageFromGlobe];
+    }
     [_klcPopLanguageView show];
 }
 
@@ -217,7 +271,13 @@ static NSString* const CellIdentifier = @"DetailTextView";
     self.languagePopView = (LanguagePopUpView *)[arr objectAtIndex:0];
     self.languagePopView.frame = CGRectMake(self.languagePopView.frame.origin.x, self.languagePopView.frame.origin.y, 303.0f, 340.0f);
     self.languagePopView.delegate = self;
+    if (!_isOfflineModeOn) {
     [self.languagePopView setUpLanguagePopUpView];
+    }else {
+        [self.languagePopView setUpLanguageOfflinePopUpViewCity:_cityName];
+
+    }
+    
     _klcPopLanguageView = [KLCPopup popupWithContentView:self.languagePopView];
     
     
@@ -235,6 +295,21 @@ static NSString* const CellIdentifier = @"DetailTextView";
     [_klcPopLanguageView dismiss:YES];
 //    [Utilities addHUDForView:self.view];
 
+    
+    if (_isOfflineModeOn) {
+    
+        _selectedOfflineLanguageFromGlobe = languageObject;
+        _selectedLanguageFromGlobe = languageObject;
+        [self.tableView reloadData];
+        [self setGlobeLanguage:languageObject];
+        return;
+    }
+    
+    
+    
+    
+    
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _selectedLanguageFromGlobe = languageObject;
     [hud.label setFont:[UIFont TrotoiseFontLightRegular:12.0]];
@@ -306,7 +381,8 @@ static NSString* const CellIdentifier = @"DetailTextView";
     self.monumentDetailDsObj.monumentID = monumentList.id;
     self.monumentDetailDsObj.thumbnail = monumentList.thumbnail;
     self.monumentDetailDsObj.imageAttributes = (NSSet *)monumentList.imageAttributes;
-    
+    self.monumentDetailDsObj.multiLocaleMonument = monumentList.multiLocaleMonument;
+    self.monumentDetailDsObj.voiceAttributes = (NSSet *)monumentList.voiceAttributes;
     
 }
 

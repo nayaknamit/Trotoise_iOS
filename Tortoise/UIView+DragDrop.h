@@ -46,7 +46,8 @@ typedef NS_ENUM(NSUInteger,POINTMOVEDIRECTION) {
 //-(CGPoint)getStageTopPoint;
 -(void)setBOOLMidHeightSet:(BOOL)isVal;
 -(BOOL)getBOOLMidHeight;
--(void)OnScrollMoreTapWithCurrentPoint:(CGPoint)currentPoint;
+-(void)OnScrollMoreTapWithCurrentPoint:(CGPoint)currentPoint withRecongnizer:(UITapGestureRecognizer *)recog withIsScrollUp:(BOOL)isScrollUp;
+
 @end
 
 /**

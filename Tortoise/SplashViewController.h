@@ -12,8 +12,8 @@
 
 @property(nonatomic,weak) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,weak) IBOutlet UIPageControl *pageControl;
-@property (nonatomic,weak) IBOutlet UIButton *nextBtn;
+@property (nonatomic,weak) IBOutlet UIButton *facebookBtn;
 @property(weak, nonatomic) IBOutlet GIDSignInButton *signInButton;
 - (IBAction)changePage;
-
+@property (nonatomic,weak) IBOutlet UIButton *offlineBtn;
 @end

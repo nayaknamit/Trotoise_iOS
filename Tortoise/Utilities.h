@@ -20,4 +20,5 @@
 +(void)addHUDSearchMonumentForView:(id)view;
 +(NSString *)formattedStringForNewLineForString:(NSString *)_string;
 + (void)downloadImageWithURL:(NSURL *)url completionBlock:(void (^)(BOOL succeeded, UIImage *image))completionBlock;
++(NSString *)getFileNameFromURL:(NSString *)url;
 @end

@@ -30,7 +30,7 @@
 @property (nonatomic,weak)   IBOutlet UIImageView *imageView;
 @property (nonatomic,weak) IBOutlet UIImageView *textImageView;
 @property (nonatomic,weak) IBOutlet UILabel *storiesLogoLbl;
-
+@property (nonatomic) BOOL isOfflineChange;
 @end
 @implementation InitialSplashViewController
 static dispatch_once_t predicate;
@@ -110,6 +110,18 @@ static dispatch_once_t predicate;
     NSString *lat = [NSString stringWithFormat:@"%f",location.coordinate.latitude ];
     NSString *longitude = [NSString stringWithFormat:@"%f",location.coordinate.longitude ];
     APP_DELEGATE.isLocationEnabled = YES;
+    if (!_isOfflineChange && !isOpenOnce) {
+        if (![APP_DELEGATE isNetworkAvailable]) {
+//            [APP_DELEGATE showNetworkFailuerMessage];
+            SplashViewController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"SplashViewController"];
+            _isOfflineChange = YES;
+            isOpenOnce = YES;
+            [self.navigationController pushViewController:nav animated:YES];
+            return;
+        }
+    }
+    
+    
     dispatch_once(&predicate, ^{
         //your code here
         

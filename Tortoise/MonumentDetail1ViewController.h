@@ -15,4 +15,8 @@
 @property (nonatomic,strong) Language *selectedLanguageFromGlobe;
 @property (nonatomic,strong) CLLocation *homeViewLocation;
 @property (nonatomic,strong) MonumentListDS *monumentDetailDsObj;
+@property (nonatomic) BOOL isOfflineModeOn;
+@property (nonatomic,strong) Language *selectedOfflineLanguageFromGlobe;
+@property (nonatomic,strong) NSString *cityName;
+
 @end

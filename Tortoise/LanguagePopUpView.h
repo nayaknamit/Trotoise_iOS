@@ -19,6 +19,9 @@
 @interface LanguagePopUpView : UIView
 @property(nonatomic,assign)id<LanguagePopUpViewDelegate>delegate;
 -(void)setUpLanguagePopUpView;
+-(void)setUpLanguageOfflinePopUpViewCity:(NSString *)cityName;
+-(void)initOfflineScreen :(Language *)language;
+
 @end
 
 @interface LanguagePopupViewCell : UITableViewCell  

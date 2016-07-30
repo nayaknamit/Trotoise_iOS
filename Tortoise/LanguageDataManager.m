@@ -87,6 +87,35 @@
     
 }
 
+
+-(Language *)getDefaultOfflineLanguageObject{
+    NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Language" inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id == %d",LANGUAGE_DEFAULT_ID];
+    
+    /* Tell the request that we want to read the
+     contents of the Person entity */
+    
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    NSError *requestError = nil;
+    /* And execute the fetch request on the context */
+    NSArray *languageLists =[context executeFetchRequest:fetchRequest error:&requestError];
+    
+    if (languageLists.count> 0 ) {
+        Language *lang = [languageLists lastObject];
+        return lang;
+    }
+    
+    
+    return nil;
+    
+}
+
+
 -(void)resetDefaultLanugageIfAny{
     NSManagedObjectContext *context =   [[DataAccessManager sharedInstance]managedObjectContext];
     NSError *error1 = nil;
@@ -199,7 +228,7 @@
             
             
               Language *language = [NSEntityDescription insertNewObjectForEntityForName:@"Language" inManagedObjectContext:context];
-            
+            [language setValue:[NSNumber numberWithInteger:[[mainObj objectForKey:@"id"] integerValue]] forKey:@"id"];
             [language setValue:[mainObj objectForKey:@"name"] forKey:@"name"];
             [language setValue:[mainObj objectForKey:@"transCode"] forKey:@"transCode"];
             [language setValue:[mainObj objectForKey:@"localeCode"] forKey:@"localeCode"];

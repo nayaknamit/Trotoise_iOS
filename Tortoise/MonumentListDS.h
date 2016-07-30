@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString *addInfo;
 @property (nonatomic, retain) NSString *thumbnail;
 @property (nonatomic, retain) NSMutableSet *imageAttributes;
+@property (nonatomic,retain) NSMutableSet *voiceAttributes;
+@property (nonatomic, retain) NSOrderedSet *multiLocaleMonument;
 
 @end
 

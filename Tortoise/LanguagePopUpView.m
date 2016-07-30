@@ -12,6 +12,7 @@
 #import "Provider+CoreDataProperties.h"
 #import "LoggedInUserDS.h"
 #import "LanguageDataManager.h"
+#import "OfflineImageOperations.h"
 @interface LanguagePopUpView ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,weak) IBOutlet UITableView *tableView;
@@ -23,7 +24,7 @@
 @property (nonatomic,weak) IBOutlet UIImageView *textImageView;
 @property (nonatomic,weak) IBOutlet UIImageView *audioImageView;
 @property (nonatomic,weak) IBOutlet UITableView *languageTableView;
-
+@property (nonatomic) BOOL isOffline;
 @property (nonatomic,strong) NSArray *dataArra;
 
 @property (nonatomic,strong) Language *selectedLanguageDS;
@@ -54,7 +55,11 @@
         [self.delegate languagePopUpViewDidOkButonTappedWithLanguage:_selectedLanguageDS];
     }
 }
-
+-(void)initOfflineScreen :(Language *)language {
+    _tableView.hidden = YES;
+    [self updateLanguageDetailsOnScreen:language];
+    
+}
 -(IBAction)cancelButtonTapped:(id)sender{
     if ([self.delegate respondsToSelector:@selector(languagePopUpViewDidCancelButonTappedWithLanguage:)]) {
         [self.delegate languagePopUpViewDidCancelButonTappedWithLanguage:_selectedLanguageDS];
@@ -76,11 +81,28 @@
     [self setUpLanguageView];
     
 }
+-(void)setUpLanguageOfflinePopUpViewCity:(NSString *)cityName{
+    
+    OfflineImageOperations *opf = [[OfflineImageOperations alloc] init];
+    _isOffline = YES;
+    
+    self.dataArra = [opf getOfflineLanguageSupportListForCityName:cityName];
+    [self.tableView  reloadData];
+    self.tableView.hidden = YES;
+    
+    [self setUpLanguageView];
+    
+}
 
 -(void)setUpLanguageView{
     
+    if (_isOffline) {
+        [self updateLanguageDetailsOnScreen:[self.dataArra objectAtIndex:0]];
+  
+    }else{
+    [self updateLanguageDetailsOnScreen:[[LanguageDataManager sharedManager] getDefaultLanguageObject]];    
+    }
     
-    [self updateLanguageDetailsOnScreen:[[LanguageDataManager sharedManager] getDefaultLanguageObject]];
 //    LoggedInUserDS *loggedInUser = [APP_DELEGATE getLoggedInUserData];
 //    
 //    if(loggedInUser.selectedLanguageDS){
@@ -135,6 +157,18 @@
 #pragma mark -
 #pragma TableView
 #pragma mark - UITableViewDataSource protocol methods
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // This will create a "invisible" footer
+    return 0.01f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    // To "clear" the footer view
+    return [UIView new];
+    
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 return _dataArra.count;
 }

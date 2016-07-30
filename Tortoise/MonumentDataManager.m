@@ -42,7 +42,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity =[NSEntityDescription entityForName:@"MonumentList" inManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id=%d",monumentID.integerValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id=%d AND offline == 0",monumentID.integerValue];
     
     /* Tell the request that we want to read the
      contents of the Person entity */
@@ -84,16 +84,34 @@
      contents of the Person entity */
     
     [fetchRequest setEntity:entity];
+    if ([entityName isEqualToString:@"MonumentList"] || [entityName isEqualToString:@"CityMonument"]){
+         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"offline == 0"];
+         [fetchRequest setPredicate:predicate];
+    }
 //    [fetchRequest setPredicate:predicate];
     NSError *requestError = nil;
     /* And execute the fetch request on the context */
     NSArray *continentLists =[context executeFetchRequest:fetchRequest error:&requestError];
     
     if (continentLists.count> 0 ) {
+        if ([entityName isEqualToString:@"MonumentList"]) {
+            for (MonumentList *contient in continentLists) {
+                [context deleteObject:contient];
+            }
+        } else if([entityName isEqualToString:@"Continent"])
         for (Continent *contient in continentLists) {
             [context deleteObject:contient];
         }
-        
+        else if([entityName isEqualToString:@"CityMonument"])
+        {
+            for (CityMonument *contient in continentLists) {
+                [context deleteObject:contient];
+            }
+        }else if([entityName isEqualToString:@"Country"]){
+            for (Country *contient in continentLists) {
+                [context deleteObject:contient];
+            }
+            }
     }
     NSError *error = nil;
     if ([context save:&error]) {
@@ -112,7 +130,7 @@
 
     
     NSEntityDescription *entity =[NSEntityDescription entityForName:@"MonumentList" inManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id=%d",monumentID.integerValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id=%d AND offline ==0",monumentID.integerValue];
     
     /* Tell the request that we want to read the
      contents of the Person entity */
@@ -136,13 +154,13 @@
     
     
     NSEntityDescription *entity =[NSEntityDescription entityForName:@"MonumentList" inManagedObjectContext:context];
-    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@",[dict objectForKey:@"lg_name"]];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"offline ==0"];
     
     /* Tell the request that we want to read the
      contents of the Person entity */
     
     [fetchRequest setEntity:entity];
-    //    [fetchRequest setPredicate:predicate];
+        [fetchRequest setPredicate:predicate];
     NSError *requestError = nil;
     /* And execute the fetch request on the context */
     NSArray *monumentLists =[context executeFetchRequest:fetchRequest error:&requestError];
@@ -213,12 +231,8 @@
                                 NSDictionary *monumentDict = (NSDictionary *)obj3;
                                 
                                 MonumentList *monumentListDS =[NSEntityDescription insertNewObjectForEntityForName:@"MonumentList" inManagedObjectContext:context];
-/*
- latitude;
- @property (nullable, nonatomic, retain) NSString *longitude;
- @property (nullable, nonatomic, retain) NSString *name;
- @property (nullable, nonatomic, retain) NSString *shortDesc;
- @property (nullable, nonatomic, retain) NSString *thumbnail;*/
+
+                                
                                 [monumentListDS setValue:[monumentDict objectForKey:@"name"] forKey:@"name"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"lat"] forKey:@"latitude"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"lng"] forKey:@"longitude"];
@@ -226,7 +240,10 @@
                                  [monumentListDS setValue:[self checkForNULL:[monumentDict objectForKey:@"desc"]] forKey:@"desc"];
                                  [monumentListDS setValue:[monumentDict objectForKey:@"thumbnail"] forKey:@"thumbnail"];
                                  [monumentListDS setValue:[NSNumber numberWithInteger:[[monumentDict objectForKey:@"id"] integerValue]] forKey:@"id"];
-                                
+                                [monumentListDS setValue:[NSNumber numberWithBool:NO] forKey:@"offline"];
+
+                                [monumentListDS setValue:[self checkForNULL:[monumentDict objectForKey:@"addInfo"] ]forKey:@"addInfo"];
+
                                 NSArray *imageAttributeArra = [monumentDict objectForKey:@"arrImages"];
                                 if (imageAttributeArra.count>0) {
                                     [imageAttributeArra enumerateObjectsUsingBlock:^(id  _Nonnull obj4, NSUInteger idx4, BOOL * _Nonnull stop4) {

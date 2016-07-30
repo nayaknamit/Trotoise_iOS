@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -63,22 +63,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_speaker" translatesAutoresizingMaskIntoConstraints="NO" id="t2e-St-DBn">
-                        <rect key="frame" x="272" y="6" width="32" height="32"/>
+                        <rect key="frame" x="283" y="12" width="22" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="32" id="Uvg-hp-J4C"/>
-                            <constraint firstAttribute="height" constant="32" id="j6K-qE-Etw"/>
+                            <constraint firstAttribute="height" constant="22" id="209-0b-FCb"/>
+                            <constraint firstAttribute="width" constant="22" id="8ND-oA-6RC"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="t2e-St-DBn" firstAttribute="top" secondItem="GsM-0L-6Qz" secondAttribute="topMargin" constant="4" id="2TV-FF-vol"/>
                     <constraint firstItem="Pzh-bN-JqD" firstAttribute="leading" secondItem="GsM-0L-6Qz" secondAttribute="leadingMargin" constant="7" id="7lt-ac-uCI"/>
-                    <constraint firstItem="t2e-St-DBn" firstAttribute="top" secondItem="GsM-0L-6Qz" secondAttribute="topMargin" constant="-2" id="9AM-HW-5U1"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Pzh-bN-JqD" secondAttribute="bottom" constant="3.5" id="I2k-Sr-gRc"/>
-                    <constraint firstItem="t2e-St-DBn" firstAttribute="leading" secondItem="Pzh-bN-JqD" secondAttribute="trailing" constant="8" id="Kwy-Cr-Tvw"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="t2e-St-DBn" secondAttribute="bottom" constant="-2.5" id="h3b-G0-KM3"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="t2e-St-DBn" secondAttribute="trailing" constant="8" id="jAd-2u-RDQ"/>
                     <constraint firstItem="t2e-St-DBn" firstAttribute="leading" secondItem="GsM-0L-6Qz" secondAttribute="leadingMargin" constant="264" id="nyQ-LD-Nfo"/>
                     <constraint firstItem="Pzh-bN-JqD" firstAttribute="top" secondItem="GsM-0L-6Qz" secondAttribute="topMargin" constant="3" id="pdX-dL-VKw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="t2e-St-DBn" secondAttribute="trailing" constant="7" id="qDH-h4-ljh"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

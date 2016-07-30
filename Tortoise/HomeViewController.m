@@ -71,13 +71,13 @@
 @property (nonatomic,strong) CLLocation *homeViewLocation;
 @property (nonatomic,weak) IBOutlet UIView *viewForSearchBarDown;
 @property (nonatomic,weak) IBOutlet UILabel *scrollUpMoreLbl;
-
+@property (nonatomic) BOOL isScrollUplabel;
 
 @property (nonatomic,strong)TextToSpeech *textSpeech;
 -(IBAction)micButtonTapped:(id)sender;
 -(IBAction)radiusBtnTapped:(id)sender;
 -(IBAction)currentLocationBtnTapped:(id)sender;
-
+-(IBAction)scrollUpMoreLblTapped:(id)sender ;
 ///Dragging
 
 
@@ -144,6 +144,7 @@
     [self setUpViewTableView];
     zoomScale = 5.0;
     isUseExtra = NO;
+    _isScrollUplabel = NO;
     [self setAutoSearchHiddenViewState:YES];
     
     UITapGestureRecognizer *recg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoSearchTapBg:)];
@@ -154,23 +155,61 @@
     [self.viewForSearchBarDown addGestureRecognizer:recg];
     
     
-    UITapGestureRecognizer *recg1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollUpMoreLblTapped:)];
-    
-   
-    recg1.numberOfTapsRequired = 1;
-    
-    [self.scrollUpMoreLbl addGestureRecognizer:recg1];
-    
-    
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(swipeNotifcationFromMenu:) name:@"SWIPE_LEFT_GESTURE" object:nil];
 }
 
--(void)scrollUpMoreLblTapped:(UITapGestureRecognizer *)recog {
+//-(void)scrollUpMoreLblTapped:(UITapGestureRecognizer *)recog {
+//    
+////    [_mainView OnScrollMoreTapWithCurrentPoint:[recog locationInView: self.view ]];
+//    
+//    
+//}
+-(IBAction)scrollUpMoreLblTapped:(id)sender {
+
+    if (!_isScrollUplabel) {
+
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            
+            _mainView.frame = CGRectMake(initialFrameRect.origin.x,[UIScreen mainScreen].bounds.size.height/2, initialFrameRect.size.width, initialFrameRect.size.height);
+            
+            self.dynamicTVHeight.constant = [UIScreen mainScreen].bounds.size.height/2-self.searchContainerView.frame.size.height-12;
+            _isScrollUplabel = true;
+ 
+        } completion:^(BOOL finished) {
+            
+        }];
+    }else {
+        
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            _isScrollUplabel = false;
+            
+            self.dynamicTVHeight.constant = 0;
+            _mainView.frame = CGRectMake(initialFrameRect.origin.x,[UIScreen mainScreen].bounds.size.height-self.searchContainerView.frame.size.height-12, initialFrameRect.size.width, initialFrameRect.size.height);
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
     
-//    [_mainView OnScrollMoreTapWithCurrentPoint:[recog locationInView: self.view ]];
     
+    
+
+//    self.dynamicTVHeight.multiplier = [NSNumber num]0.5;
+[self.tableView updateConstraintsIfNeeded];
+
+
+//    [self.view bringSubviewToFront:_mainView];
+//    _mainView.layer.zPosition = 100;
+//    
+//    if(!_isScrollUplabel){
+//        _isScrollUplabel = true;
+//        _searchBar.text = @"Search your place here...";
+//        
+//    }else {
+//        [self.mainView setBOOLMidHeightSet:NO];
+//        _isScrollUplabel = false;
+//        _searchBar.text = [APP_DELEGATE getCurrentLocationAddress];
+//    }
     
 }
 -(void)setAutoSearchHiddenViewState:(BOOL)_hidden{
@@ -1039,7 +1078,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 -(void)setGlobeLanguage{
     
     if(_selectedLanguageFromGlobe ==nil){
-        _selectedLanguageFromGlobe = [APP_DELEGATE getLanguage];
+        _selectedLanguageFromGlobe = [[LanguageDataManager sharedManager] getDefaultLanguageObject];
     }
     NSString *languageLocale = [_selectedLanguageFromGlobe.localeCode capitalizedString];
     [customButton setTitle:[NSString stringWithFormat:@" %@",languageLocale] forState:UIControlStateNormal];
@@ -1099,18 +1138,24 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar                     // called when text starts editing
 {
     [self setAutoSearchHiddenViewState:NO];
-    [_mainView setBOOLMidHeightSet:NO];
+//    if (!_isScrollUplabel) {
+        [_mainView setBOOLMidHeightSet:NO];
+    
+        [self animateTextField:searchBar up:YES];
 
-    [self animateTextField:searchBar up:YES];
+//    }
     
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar                      // called when text ends editing
 {
     [self setAutoSearchHiddenViewState:YES];
     [_mainView setBOOLMidHeightSet:NO];
-
+//    if (!_isScrollUplabel) {
     [self animateTextField:searchBar up:NO];
+    _isScrollUplabel = false;
+//    }
     
+//
     
 }
 - (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar{
@@ -1125,7 +1170,8 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 }
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
-    
+    [_fetcher sourceTextHasChanged:searchBar.text];
+
     
 }
 
@@ -1136,7 +1182,7 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker{
 -(void)animateTextField:(UISearchBar*)textField up:(BOOL)up
 {
     const int movementDistance = -190; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
+    const float movementDuration = 0.0f; // tweak as needed
     
     int movement = (up ? movementDistance : -movementDistance);
     

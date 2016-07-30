@@ -11,6 +11,7 @@
 #import "FGTranslator.h"
 #import "MonumentListDS.h"
 #import "LanguageDataManager.h"
+#import "OfflineImageOperations.h"
 #import "MonumentDataManager.h"
 @interface TranslatorManager ()
 @property (nonatomic,strong) NSMutableArray *translatorArray;
@@ -22,6 +23,9 @@
 @property (nonatomic)   __block NSInteger count;
 @property (nonatomic,strong)NSString *sourceResource;
 @property (nonatomic,strong)NSString *targetResource;
+@property (nonatomic,strong)NSString *cityNameOffline ;
+@property (nonatomic,strong) NSNumber *languageID;
+
 @property (nonatomic) TRANSLATEREQUESTER translateRequestVia;
 @property (nonatomic,strong) NSMutableArray *translatorSplashTextArra;
 @property (nonatomic,strong) NSMutableArray *reTranslatorSplashTextArra;
@@ -282,6 +286,8 @@
 
 
 
+
+
 -(void)translateLanguageWithSource:(NSString *)source withTarget:(NSString *)target withRequestSource:(TRANSLATEREQUESTER)requestType withMonumentObj:(MonumentListDS *)monumentObj withLoaderHandler:(HUDTextChange)handler{
     
     _translateRequestVia = requestType;
@@ -397,5 +403,149 @@
     return getKey;
     
 }
+
+
+
+#pragma offline Flow 
+
+
+-(void)translateOfflineMonumentwithTarget:(NSString *)target withCityName:(NSString *)cityName  withLanguageID :(NSNumber *)languageID withLoaderHandler:(HUDTextChange)handler{
+    _cityNameOffline = cityName;
+
+    self.hudTextHandler = handler;
+    
+    _languageID = languageID;
+    
+    
+    OfflineImageOperations *op  = [[OfflineImageOperations alloc] init];
+    
+    
+    _sourceArra = [op getMonumentListArraWithCityName:cityName];
+    _translatorArray = [NSMutableArray array];
+    _count = [_sourceArra count];
+    
+    
+    _counter = 0;
+    _errorCounter = 0;
+    _targetResource = target;
+    
+    [self inititalizeTranslator];
+    
+    
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    queue.maxConcurrentOperationCount = 4;
+//    
+//    
+//    //  documentsPath =   [FCFileManager pathForDocumentsDirectoryWithPath:@"/OfflineData];
+//    NSBlockOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+//        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//
+//        
+//        }];
+//    }];
+    
+//    for (MonumentList *monumentList in _sourceArra) {
+//        
+//        NSBlockOperation * operation = [NSBlockOperation blockOperationWithBlock:^{
+//            
+//            [FGTranslator flushCache];
+//            [FGTranslator flushCredentials];
+//            
+//            FGTranslator *translatorOffline =[[FGTranslator alloc] initWithGoogleAPIKey:[self getTranslateKey]];
+//             NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@ _ %@ _%@",monumentList.name,[Utilities formattedStringForNewLineForString:monumentList.desc],[Utilities formattedStringForNewLineForString:monumentList.shortDesc]];
+//            [translatorOffline translateText:formattedTranslateLanguage withSource:@"en" target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {
+//                [resultDataArray addObject:translated];
+//            }];
+//            
+//        }];
+//        [operation setCompletionBlock:^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                // code here
+//                NSLog(@"Count %lu",(unsigned long)resultDataArray.count);
+//            });
+//            
+//        }];
+//        [completionOperation addDependency:operation];
+//       
+//        
+//    }
+//    [queue addOperations:completionOperation.dependencies waitUntilFinished:NO];
+//    [queue addOperation:completionOperation];
+
+    
+//    [self translateLanguage1:[_sourceArra objectAtIndex:_counter] withSource:source withTarget:target];
+    [self translateOfflineMonument:[_sourceArra objectAtIndex:_counter] withTarget:target];
+    
+    
+}
+
+
+-(void)performInDelayOffline{
+    [self inititalizeTranslator];
+    [self translateOfflineMonument:[_sourceArra objectAtIndex:_counter]  withTarget:_targetResource];
+}
+
+-(void)translateOfflineMonument:(MonumentList *)objMonument   withTarget:(NSString *)target {
+    
+    //    @try {
+    
+    
+    
+//    NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@ _ %@ _%@",objMonument.name,[Utilities formattedStringForNewLineForString:objMonument.desc],[Utilities formattedStringForNewLineForString:objMonument.shortDesc]];
+        NSString *formattedTranslateLanguage = [NSString stringWithFormat:@"%@ _ %@ ",objMonument.name,[Utilities formattedStringForNewLineForString:objMonument.desc]];
+    __weak TranslatorManager  *manager = self;
+    NSLog(@"Source : English Target : %@",target);
+    [_translator translateText:formattedTranslateLanguage withSource:@"en" target:target completion:^(NSError *error, NSString *translated, NSString *sourceLanguage) {
+        NSLog(@"Conversion %@",translated);
+        
+        
+        if (translated == nil) {
+            _errorCounter ++;
+            if (_errorCounter >9) {
+                [FGTranslator flushCache];
+                [FGTranslator flushCredentials];
+                [[NSNotificationCenter defaultCenter] postNotificationName:GA_TRANSLATE_ERROR object:nil];
+                _translatorArray = nil;
+                _sourceArra = nil;
+                NSLog(@"translation Complete");
+                return ;
+            }
+            NSLog(@"Service Error %@",error.description);
+            [manager performSelector:@selector(performInDelayOffline) withObject:nil afterDelay:0];
+            
+            //                _counter++;
+        }else{
+            
+            
+            if (_translatorArray == nil) {
+                _translatorArray = [NSMutableArray array];
+            }
+            translated = [NSString stringWithFormat:@"%@",translated];
+          
+            [_translatorArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:translated,@"translated",objMonument.id, @"monumentID",nil]];
+            
+            _counter++;
+            self.hudTextHandler([NSString stringWithFormat:@"%@ %ld/%lu.",MSG_MONUMENT_TRANSLATE,(long)_counter,(unsigned long)_sourceArra.count]);
+            
+            if(_counter != _count){
+                
+                [manager performSelector:@selector(performInDelayOffline) withObject:nil afterDelay:0];
+                
+            }else {
+                
+              OfflineImageOperations *op =  [[OfflineImageOperations alloc] init];
+                [op addMultiLingualData:_translatorArray withLocale:target withCity:_cityNameOffline withLanguageID:_languageID];
+                
+            }
+            
+        }
+        
+        
+    }];
+ }
+
+
+
 
 @end

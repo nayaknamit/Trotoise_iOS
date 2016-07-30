@@ -23,7 +23,9 @@
 #import "Utilities.h"
 #import "Constants.h"
 #import "UIView+Toast.h"
-
+//#ifndef DEBUG
+//#define NSLog(...);
+//#endif
 #define APP_DELEGATE ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 
@@ -50,7 +52,7 @@
  Travelling is the best form of education. We simply make it easy and enjoyable.
  */
 
-
+#define isNull(value) value == nil || [value isKindOfClass:[NSNull class]]
 #define SPLASH_TEXT_TITLE_ONE @"We never run out of stories to tell. You never run out of places to see."
 #define SPLASH_TEXT_DESC_ONE @"Discover the world in a way you never have."
 #define SPLASH_TEXT_TITLE_TWO @" We make sure that time is not an impediment. And neither is language."
@@ -64,6 +66,9 @@
 
 
 #define ERROR_NETWORK_MESSAGE @"You are seems to be offline. Please enable your Data services or connect to a WIFI network."
+
+#define ERROR_NETWORK_MESSAGE_1 @"You are seems to be offline and you don't have any offline data downloaded. Please enable your Data services or connect to a WIFI network."
+
 
 #define TRANSLATION_FAIL_MESSAGE @"Something went wrong, Trotoise at work. Please Retry or Cancel to try after some time."
 
@@ -91,8 +96,11 @@
 
 #define SPECH_TRANSLATION_KEY_NINE @"AIzaSyANAG4m9alStWvRG2CVgTg3DW2e3vJR5hg"
 
-
+#define MP3_BASE_PATH @"http://ec2-52-30-47-95.eu-west-1.compute.amazonaws.com/FTPData/"
 #define MSG_MONUMENT_TRANSLATE @"Please wait, \n Loading Monuments....."
+
+#define LANGUAGE_DEFAULT_ID 24
+#define OFFLINE_DOWNLOAD_MP3_NOTIFY @"OFFLINE_NUANCE_MP3_DOWNLOAD"
 
 #define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

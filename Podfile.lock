@@ -32,6 +32,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.9.1):
     - FBSDKCoreKit
+  - FCFileManager (1.0.17)
   - FGTranslator (1.1.3):
     - AFNetworking (~> 2.0)
     - PINCache (~> 2.1)
@@ -65,17 +66,18 @@ PODS:
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
-  - SpeechKit (2.1.3)
+  - SpeechKit (2.1.6)
 
 DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - FCFileManager
   - FGTranslator
   - Google/SignIn
   - GoogleMaps
   - SDWebImage (~> 3.7)
-  - SpeechKit
+  - SpeechKit (= 2.1.6)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -83,6 +85,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
   FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
   FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
+  FCFileManager: 8bfc931ce2a6223676147e9baf0e8a65c691eca6
   FGTranslator: 5a18bd1419e883a2aae6d56fb41c82bab484298a
   Google: 97618e118111b998cce1d8dd1bd98b82301d72db
   GoogleAppUtilities: c01c6a5671e9da8b9d690fdaec5959d6c2aac699
@@ -95,6 +98,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   PINCache: ed1f07a85cc6fbf488f8ecc1980b07b49b7b85b5
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
-  SpeechKit: e20858f4457261f274ffca8bf81b288aedf48767
+  SpeechKit: 0ce5adada9a690a65295e0f5f1a4705dae2f2350
 
 COCOAPODS: 0.38.2

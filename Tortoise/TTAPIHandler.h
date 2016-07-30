@@ -24,6 +24,7 @@ typedef enum {
 typedef void (^TTCityMonumentListResponse)( BOOL isResultSuccess, NSError *error);
 typedef void (^TTLanguageMappingResponse)( BOOL isLanguageSetup, NSError *error);
 typedef void (^TTMonumentDetailResponse)( id obj , NSError *error);
+typedef void (^TTOfflineCityMonumentListResponse)( BOOL isResultSuccess,NSInteger monumentCount,NSArray *imageURls, NSError *error);
 
 @interface TTAPIHandler : NSObject
 
@@ -33,7 +34,9 @@ typedef void (^TTMonumentDetailResponse)( id obj , NSError *error);
 - (void)getMonumentListByCityID:(NSString*)cityID withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler;
 //- (void)getMonumentListByRange:(NSString*)latitude withLongitude:(NSString*)longitude withrad:(NSString *)rad withRequestType:(REQUEST_TYPE)requestType responseHandler:(TTCityMonumentListResponse)responseHandler;
 
--(void)getMonumentListByCityName:(NSString *)cityName withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler;
+
+
+-(void)getMonumentListByCityName:(NSString *)cityName withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType withLanguageID:(NSNumber *)languageID withResponseHandler:(TTOfflineCityMonumentListResponse)responseHandler;
 
 -(void)getMonumentListByCountryID:(NSString *)countryID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler;
 

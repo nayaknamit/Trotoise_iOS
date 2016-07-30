@@ -11,6 +11,7 @@
 #import "LanguageDataManager.h"
 #import "MonumentListDS.h"
 #import "MonumentDataManager.h"
+#import "OfflineImageOperations.h"
 static NSString *const TTAPIHandlerBaseDomain = @"http://52.16.49.213";
 static NSString *const TTAPIHandlerBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
 static NSString *const TTAPIHandlerExtendBaseURL = @"/Trotoise.Services_new/Monument.asmx/";
@@ -27,8 +28,9 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
 @interface TTAPIHandler()
 
 @property (nonatomic, strong) NSString *httpClient;
-
-
+@property (nonatomic,strong) NSString *localeForOffline;
+@property (nonnull,strong) NSNumber *languageOfflineID;
+@property (nonatomic) NSInteger countForMonument;
 @end
 
 @implementation TTAPIHandler
@@ -161,24 +163,48 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
     [operation start];
     
 }
--(void)getMonumentListByCityName:(NSString *)cityName withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler{
-//    NSString *aPath = @"GetMonumentListOnCityName";
-//    
-//    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"name" , nil];
-//    
-//    NSMutableURLRequest *aURLRequest = [self.httpClient requestWithMethod:TTAPIHandlerMethodGET path:aPath parameters:aParametersDictionary];
-//    
-//    AFJSONRequestOperation *anOperation = [AFJSONRequestOperation JSONRequestOperationWithRequest:aURLRequest
-//                                                                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//                                                                                              
-//                                                                                              
-//                                                                                              //                                                                                              responseHandler(anArray, nil);
-//                                                                                          }
-//                                                                                          failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//                                                                                              responseHandler(nil, error);
-//                                                                                          }];
-//    // execute the operation
-//    [anOperation start];
+-(void)getMonumentListByCityName:(NSString *)cityName withLanguageLocale:(NSString *)locale withRequestType:(REQUEST_TYPE)requestType withLanguageID:(NSNumber *)languageID withResponseHandler:(TTOfflineCityMonumentListResponse)responseHandler{
+    NSString *aPath = @"GetMonumentListOnCityName";
+    
+    _languageOfflineID = languageID;
+    
+    NSString *baseURL = [NSString stringWithFormat:@"%@%@%@",TTAPIHandlerBaseDomain,TTAPIHandlerExtendBaseURL,aPath];
+    
+    
+    self.httpClient = baseURL;
+    _localeForOffline = locale;
+    NSDictionary *aParametersDictionary = [NSDictionary dictionaryWithObjectsAndKeys:cityName,@"name",locale,@"lang" , nil];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSMutableURLRequest *aURLRequest = [manager.requestSerializer  requestWithMethod:TTAPIHandlerMethodGET URLString:self.httpClient parameters:aParametersDictionary error:nil];
+    
+    [aURLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:aURLRequest];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSArray *ss = [self processJSONResponse:responseObject forRequest:requestType];
+        BOOL isResultSuccess = NO;
+        if (ss.count>0) {
+            isResultSuccess = YES;
+        }
+        responseHandler(isResultSuccess,_countForMonument,ss,nil);
+        
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        responseHandler(NO,0,nil, error);
+    }];
+    
+    
+    
+    
+    // execute the operation
+    [operation start];
+
+
 }
 
 -(void)getMonumentListByCountryID:(NSString *)countryID withRequestType:(REQUEST_TYPE)requestType withResponseHandler:(TTCityMonumentListResponse)responseHandler{
@@ -312,6 +338,34 @@ static NSString *const TTAPIHandlerMethodPOST = @"POST";
             NSDictionary *resultDict = [JSON objectForKey:@"data"];
             MonumentListDS *mm = [[MonumentDataManager sharedManager] createMonumentDSObjectForMonumentDetailRequest:resultDict];
             return mm;
+        }
+    }else if(request == GET_MONUMENT_LIST_BY_CITY_NAME) {
+        if ([JSON isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *resultDict = [JSON objectForKey:@"data"];
+            if (isNull([JSON objectForKey:@"data"])) {
+                return nil;
+            }
+            
+            NSArray *checkMonumentArr = [resultDict objectForKey:@"monumentList"];
+            if ([checkMonumentArr count] == 0)  {
+                _countForMonument = 0;
+                return nil;
+            
+            }
+            _countForMonument = [checkMonumentArr count];
+            OfflineImageOperations *op =     [[OfflineImageOperations alloc] init];
+            
+            if([_languageOfflineID integerValue] == 45 && [_localeForOffline isEqualToString:@"hi"]){
+                [op addHindiLanguageData:resultDict forLocaleLang:_localeForOffline withLanguageCode:_languageOfflineID];
+                return nil;
+            }else{
+                NSArray *imageURls = [op  getImagUrlByParseCityDataFromJson:resultDict forLocaleLang:_localeForOffline];
+            return imageURls;
+            }
+            
+            //[op parseCityDataFromJson:resultDict forLocaleLang:_localeForOffline];
+            
+            
         }
     }
     return nil;

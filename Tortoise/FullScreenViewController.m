@@ -8,7 +8,7 @@
 //
 
 #import "FullScreenViewController.h"
-
+#import <FCFileManager.h>
 @interface FullScreenViewController ()<UIScrollViewDelegate>
 {
     BOOL isPortrait;
@@ -33,21 +33,37 @@
 //    [self.scrollView setMinimumZoomScale:1.0];
 //    UIImage* image = [[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.imageUrl]]];
     
-    NSString *imageURLModified =[ self.imageUrl stringByReplacingOccurrencesOfString:@"h_720" withString:[NSString stringWithFormat:@"h_%0.f",[UIScreen mainScreen].bounds.size.height+40]];
+    
+   
     
     
-//    self.fullScreenImageView = [[UIImageView alloc]initWithImage:[FullScreenViewController imageWithImage:image scaledToMaxWidth:1024 maxHeight:[UIScreen mainScreen].bounds.size.height]];
-// self.fullScreenImageView.center = self.scrollView.center;[UIImage imageNamed:@"EsselWorld1.jpg"]
+
     self.fullScreenImageView = [[UIImageView alloc]init];
 
     self.fullScreenImageView.frame = CGRectMake(self.fullScreenImageView.frame.origin.x,self.fullScreenImageView.frame.origin.y, 1080, [UIScreen mainScreen].bounds.size.height);
+  
     
-[Utilities downloadImageWithURL:[NSURL URLWithString:imageURLModified] completionBlock:^(BOOL succeeded, UIImage *image) {
-    self.fullScreenImageView.image = image;
-
-//    [self.scrollView ]
-    
-}];
+    if (_isOffline) {
+        if ([FCFileManager existsItemAtPath:[NSString stringWithFormat:@"/OfflineData/img_attr_%@",[Utilities getFileNameFromURL:self.imageUrl]]]) {
+            NSString *testPathTemp = [FCFileManager pathForDocumentsDirectoryWithPath:[NSString stringWithFormat:@"/OfflineData/img_attr_%@",[Utilities getFileNameFromURL:self.imageUrl]]];
+            UIImage *theImage = [UIImage imageWithContentsOfFile:testPathTemp];
+            self.fullScreenImageView.image = theImage;
+            
+            
+        }
+        
+        
+    }else{
+        
+        NSString *imageURLModified =[ self.imageUrl stringByReplacingOccurrencesOfString:@"h_720" withString:[NSString stringWithFormat:@"h_%0.f",[UIScreen mainScreen].bounds.size.height+40]];
+        
+        [Utilities downloadImageWithURL:[NSURL URLWithString:imageURLModified] completionBlock:^(BOOL succeeded, UIImage *image) {
+            self.fullScreenImageView.image = image;
+            
+            //    [self.scrollView ]
+            
+        }];
+    }
     self.fullScreenImageView.translatesAutoresizingMaskIntoConstraints = YES;
     self.fullScreenImageView.autoresizesSubviews = YES;
     //    self.fullScreenImageView.contentMode = (UIViewContentModeCenter);

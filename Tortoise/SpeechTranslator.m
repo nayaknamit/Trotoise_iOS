@@ -64,7 +64,8 @@ static dispatch_once_t once_token = 0;
                                     withLanguage:languageCode
                                         delegate:self];
 
-    } else {
+    }
+     else {
         // Cancel the TTS transaction
         [_skTransaction cancel];
         
@@ -75,15 +76,26 @@ static dispatch_once_t once_token = 0;
 
 
 -(void)stopAudio{
+    @try {
+        if (_skTransaction !=nil) {
+            [_skTransaction cancel];
+            [_skSession.audioPlayer stop];
+            [self resetTransaction];
+            //    [_skSession.audioPlayer ]
+            if (_audioPlayingCurrently) {
+                
+                
+                [_skSession.audioPlayer dequeue:_audioPlayingCurrently];
+            }
 
-    [_skTransaction cancel];
-    [_skSession.audioPlayer stop];
-    [self resetTransaction];
-    //    [_skSession.audioPlayer ]
-        if (_audioPlayingCurrently) {
+        }
+       
+    }
+    @catch (NSException *exception) {
         
+    }
+    @finally {
         
-        [_skSession.audioPlayer dequeue:_audioPlayingCurrently];
     }
     
 }
@@ -101,8 +113,7 @@ static dispatch_once_t once_token = 0;
 {
     _audioPlayingCurrently = audio;
 //    [_skSession.audioPlayer playAudio:audio];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED" object:nil];
+       [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED" object:nil];
 
 }
 - (void)transaction:(SKTransaction *)transaction didFinishWithSuggestion:(NSString *)suggestion
@@ -119,7 +130,8 @@ static dispatch_once_t once_token = 0;
     // Something went wrong. Check Configuration.mm to ensure that your settings are correct.
     // The user could also be offline, so be sure to handle this case appropriately.
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TRANSACTION_RECIEVED_ERROR" object:nil];
+    
 }
 
 #pragma mark - SKAudioPlayerDelegate

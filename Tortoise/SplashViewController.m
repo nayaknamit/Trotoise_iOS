@@ -11,6 +11,8 @@
 #import "SplashViewController.h"
 #import "LanguageViewController.h"
 #import "SplashTextView.h"
+#import "OfflineImageOperations.h"
+#import "OfflineMainListViewController.h"
 @interface SplashViewController()
 {
     
@@ -39,10 +41,50 @@
     
     
     [self setSplashScreen];
+   
+    
+    if (![APP_DELEGATE isNetworkAvailable] ) {
+        OfflineImageOperations *op = [[OfflineImageOperations alloc] init];
+        NSArray * arra = [op getCityListArra];
+        if (arra == nil) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No Internet Available" message:ERROR_NETWORK_MESSAGE_1 delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Settings",nil];
+            [alertView show];
+            return;
+        }
+        
+        self.facebookBtn.hidden = YES;
+        self.offlineBtn.hidden = NO;
+        self.signInButton.hidden = YES;
+        
+        
+    }else{
+        self.facebookBtn.hidden = NO;
+        self.signInButton.hidden = NO;
+        self.offlineBtn.hidden = YES;
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex:%ld",(long)buttonIndex);
+    if (alertView.tag == 121) {
+        if (buttonIndex == 0) {
+            
+        }else{
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    } else {
+        if (buttonIndex == 1) {
+            [[UIApplication sharedApplication] openURL:[NSURL  URLWithString:UIApplicationOpenSettingsURLString]];
+            
+        }
+        
+    }
+    //code for opening settings app in iOS 8
+    
     
     
 }
-
 
 #pragma mark - 
 #pragma mark GOOGLE SIGNIN METHODS
@@ -242,8 +284,20 @@ dismissViewController:(UIViewController *)viewController {
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    self.scrollView = nil;
-    self.splashImageArra = nil;
+//    self.scrollView = nil;
+//    self.splashImageArra = nil;
  
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(nullable id)sender NS_AVAILABLE_IOS(5_0){
+    NSLog(@"sa");
+    UINavigationController *navigationC = (UINavigationController *)segue.destinationViewController;
+    
+    OfflineMainListViewController * offlineMLVC = (OfflineMainListViewController *)navigationC.topViewController;
+    offlineMLVC.checkScreenFrom = @"SplashScreen";
+}
+
+- (void)performSegueWithIdentifier:(NSString *)identifier sender:(nullable id)sender {
+    NSLog(@"sa");
+
 }
 @end

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -169,11 +169,11 @@
                     </connections>
                 </button>
                 <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="26" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aP5-DN-R63">
-                    <rect key="frame" x="0.0" y="0.0" width="303" height="340"/>
+                    <rect key="frame" x="85" y="121" width="198" height="139"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="340" id="O6k-lf-rpz"/>
-                        <constraint firstAttribute="width" constant="303" id="gKp-s4-HiS"/>
+                        <constraint firstAttribute="height" constant="139" id="O6k-lf-rpz"/>
+                        <constraint firstAttribute="width" constant="198" id="gKp-s4-HiS"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="D2E-if-3cG" id="nDD-NA-X8Y"/>
@@ -185,12 +185,12 @@
             <constraints>
                 <constraint firstItem="5jM-Wp-USq" firstAttribute="top" secondItem="D2E-if-3cG" secondAttribute="top" constant="13" id="0Rq-2x-grQ"/>
                 <constraint firstItem="xIA-h3-ZIz" firstAttribute="top" secondItem="7Qj-KB-i75" secondAttribute="bottom" constant="46" id="6My-Ii-F04"/>
-                <constraint firstItem="aP5-DN-R63" firstAttribute="leading" secondItem="D2E-if-3cG" secondAttribute="leading" id="9M6-ml-VDo"/>
+                <constraint firstItem="aP5-DN-R63" firstAttribute="leading" secondItem="D2E-if-3cG" secondAttribute="leading" constant="85" id="9M6-ml-VDo"/>
                 <constraint firstItem="D5F-Ee-zoP" firstAttribute="top" secondItem="uwU-US-Jmv" secondAttribute="bottom" constant="14" id="Bhs-KW-Im6"/>
                 <constraint firstItem="ouI-3h-Txm" firstAttribute="top" secondItem="7Qj-KB-i75" secondAttribute="bottom" constant="43" id="Hx3-PH-7E9"/>
                 <constraint firstItem="Qru-Xk-9EU" firstAttribute="top" secondItem="46t-uZ-B0K" secondAttribute="bottom" constant="42" id="IwE-q4-hvK"/>
                 <constraint firstItem="uwU-US-Jmv" firstAttribute="top" secondItem="7Qj-KB-i75" secondAttribute="bottom" constant="45" id="LuI-O8-Guz"/>
-                <constraint firstItem="aP5-DN-R63" firstAttribute="top" secondItem="D2E-if-3cG" secondAttribute="top" id="Pej-U8-gw9"/>
+                <constraint firstItem="aP5-DN-R63" firstAttribute="top" secondItem="D2E-if-3cG" secondAttribute="top" constant="121" id="Pej-U8-gw9"/>
                 <constraint firstItem="cEY-6a-zgM" firstAttribute="top" secondItem="7Qj-KB-i75" secondAttribute="bottom" constant="45" id="PtX-sN-T2X"/>
                 <constraint firstItem="uwU-US-Jmv" firstAttribute="leading" secondItem="xIA-h3-ZIz" secondAttribute="trailing" constant="8" id="R9Y-Ub-duM"/>
                 <constraint firstItem="Qru-Xk-9EU" firstAttribute="leading" secondItem="D2E-if-3cG" secondAttribute="leading" constant="8" id="Sh4-uC-tdf"/>
@@ -240,19 +240,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_speaker" translatesAutoresizingMaskIntoConstraints="NO" id="kwL-em-FVU">
-                        <rect key="frame" x="263" y="10" width="25" height="25"/>
+                        <rect key="frame" x="268" y="10" width="19" height="19"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="IXa-Fp-YxT"/>
-                            <constraint firstAttribute="height" constant="25" id="VIN-HU-hZe"/>
+                            <constraint firstAttribute="width" constant="19" id="6IA-tq-XRQ"/>
+                            <constraint firstAttribute="height" constant="19" id="mHu-Rf-Ifq"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="kwL-em-FVU" secondAttribute="trailing" constant="7" id="1vX-Td-ch9"/>
                     <constraint firstItem="ohj-WU-Kvg" firstAttribute="top" secondItem="AxY-Nk-ihn" secondAttribute="topMargin" constant="3" id="AW8-r8-m6E"/>
-                    <constraint firstItem="kwL-em-FVU" firstAttribute="leading" secondItem="ohj-WU-Kvg" secondAttribute="trailing" constant="45" id="JWI-gX-WfW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kwL-em-FVU" secondAttribute="trailing" constant="8" id="C2M-A4-O3S"/>
                     <constraint firstAttribute="leadingMargin" secondItem="ohj-WU-Kvg" secondAttribute="leading" id="cht-iE-ZAN"/>
-                    <constraint firstItem="kwL-em-FVU" firstAttribute="top" secondItem="AxY-Nk-ihn" secondAttribute="topMargin" constant="2" id="euq-XL-iIp"/>
+                    <constraint firstItem="kwL-em-FVU" firstAttribute="top" secondItem="AxY-Nk-ihn" secondAttribute="topMargin" constant="2" id="k8y-qE-r4m"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

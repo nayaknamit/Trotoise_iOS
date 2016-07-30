@@ -12,5 +12,6 @@
 @property (nonatomic,strong) UIImageView *fullScreenImageView;
 @property (nonatomic,strong) NSString *imageUrl;
 @property (nonatomic,weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic) BOOL isOffline;
 -(IBAction)orientationChange:(id)sender;
 @end
